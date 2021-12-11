@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.packName</groupId>
-  <artifactId>com.packName.java</artifactId>
+  <groupId>com.server</groupId>
+  <artifactId>com.server.java</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>com.packName.java</name>
+  <name>com.client.java</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -81,7 +81,7 @@
               </execution>
           </executions>
           <configuration>
-              <mainClass>com.packName.App</mainClass>
+              <mainClass>com.server.App</mainClass>
           </configuration>
         </plugin>
         <plugin>
