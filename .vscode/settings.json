@@ -1,0 +1,7 @@
+{
+    "java.checkstyle.configuration": "${workspaceFolder}\\checkstyle.xml",
+    "apexPMD.rulesets": [
+        "apex_ruleset.xml"
+    ],
+    "apexPMD.pmdBinPath": "C:\\Program Files\\pmd-bin-6.39.0",
+}
