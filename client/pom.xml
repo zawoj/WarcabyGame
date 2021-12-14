@@ -20,6 +20,13 @@
     <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url> <!-- Mixite uses Jitpack repository -->
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -32,11 +39,15 @@
       <artifactId>javafx-controls</artifactId>
       <version>17</version>
     </dependency>
-  
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>17.0.2-ea+2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Hexworks.mixite</groupId>
+      <artifactId>mixite.core-jvm</artifactId>
+      <version>2018.2.0-RELEASE</version>
     </dependency>
   </dependencies>
 
