@@ -26,7 +26,7 @@ public class App extends Application {
         Routes route = new Routes();
 
         // FXML loader
-        Parent sceneRoot = FXMLLoader.load(route.viewsRoute("mainframe.fxml"));
+        Parent sceneRoot = FXMLLoader.load(route.viewsRoute("firstView.fxml"));
 
         // Create Group node which will be the root
         Group root = new Group();
