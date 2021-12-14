@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import com.gluonhq.charm.glisten.control.BottomNavigation?>
+<?import com.gluonhq.charm.glisten.control.BottomNavigationButton?>
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane layoutX="446.0" prefHeight="400.0" prefWidth="9.0" />
+      <Button layoutX="241.0" layoutY="188.0" mnemonicParsing="false" text="Button" />
+      <ChoiceBox layoutX="300.0" layoutY="14.0" prefWidth="150.0" />
+      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="232.0" layoutY="100.0" />
+      <Avatar layoutX="196.0" layoutY="130.0" />
+      <BottomNavigation layoutX="122.0" layoutY="322.0">
+          <actionItems>
+              <BottomNavigationButton selected="true" text="Recent">
+                  <graphic>
+                      <Icon content="RECENT_ACTORS" />
+                  </graphic>
+              </BottomNavigationButton>
+              <BottomNavigationButton text="Favourite">
+                  <graphic>
+                      <Icon content="FAVORITE" />
+                  </graphic>
+              </BottomNavigationButton>
+              <BottomNavigationButton text="Nearby">
+                  <graphic>
+                      <Icon content="NEAR_ME" />
+                  </graphic>
+              </BottomNavigationButton>
+          </actionItems>
+      </BottomNavigation>
+   </children>
+</AnchorPane>
