@@ -10,25 +10,23 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    public static void main(final String[] args) {
-        launch(args);
+
+    public void createWindow(){
+        launch();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Stage stage = new Stage();
 
-        // Routes
-        Routes route = new Routes();
-
         // FXML loader
-        Parent sceneRoot = FXMLLoader.load(route.viewsRoute("testView.fxml"));
+        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("testView.fxml"));
 
         // Basic scene
         Scene scene = new Scene(sceneRoot, 500, 500);
 
         // Icone
-        Image icon = new Image(route.imageRoute("pawn.png"));
+        Image icon = new Image(Routes.imageRoute("pawn.png"));
         // imageRoute();
 
         // Stage settings
