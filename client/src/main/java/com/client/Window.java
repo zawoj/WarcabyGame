@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.hexworks.mixite.core.api.*;
@@ -25,37 +26,30 @@ public class Window extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Stage stage = new Stage();
 
+        // Custom Fonr load
+        Font.loadFont(getClass().getResourceAsStream(Routes.styleRoute("LatoRegular.ttf")), 14);
         // FXML loader
-        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("testView.fxml"));
+        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("welcomeView.fxml"));
 
         // Basic scene
-        Scene scene = new Scene(sceneRoot, 500, 500);
+        Scene scene = new Scene(sceneRoot, 600, 400);
+
+        // Add css
+        // System.out.println(getClass()
+        // .getResource(
+        // "styles/app.css"));
+        // System.out.println(Routes.styleRoute("app.css"));
+        scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         // Icone
         Image icon = new Image(Routes.imageRoute("pawn.png"));
-        // imageRoute();
 
-
-        HexagonalGridBuilder<DefaultSatelliteData> builder = new HexagonalGridBuilder<DefaultSatelliteData>()
-                .setGridHeight(11)
-                .setGridWidth(11)
-                .setGridLayout(HexagonalGridLayout.HEXAGONAL)
-                .setOrientation(HexagonOrientation.FLAT_TOP)
-                .setRadius(30);
-        Group group = new Group();
-        Scene scene1 = new Scene(group);
-        HexagonalGrid<DefaultSatelliteData> grid = builder.build();
-        for (Hexagon<DefaultSatelliteData> hex: grid.getHexagons()) {
-            group.getChildren().add(new Circle(hex.getCenterX(),hex.getCenterY(), 20, Color.VIOLET));
-            group.getChildren().add(new Text(hex.getCenterX(),hex.getCenterY(),hex.getGridX() + "," + hex.getGridY() + "," + hex.getGridZ()));
-        }
         // Stage settings
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("WarcabyGame");
-        primaryStage.setScene(scene1);
+        primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setWidth(1200);
-        primaryStage.setHeight(800);
+        primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
 
     }
