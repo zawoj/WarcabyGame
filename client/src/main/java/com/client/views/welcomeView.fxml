@@ -34,7 +34,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -56,14 +57,14 @@
             <Image url="@../img/mainViewImage.png" />
          </image>
       </ImageView>
-      <Text layoutX="423.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
-      <Text layoutX="426.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="424.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
+      <Text layoutX="423.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
       <Text layoutX="29.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WarcabyGame" />
       <Text layoutX="224.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Created by Zawoj and Vipo" />
       <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="423.0" layoutY="238.0" onAction="#handleButtonAction" text="Register" />
       <JFXButton fx:id="btn1" layoutX="508.0" layoutY="237.0" onAction="#handleButtonAction" text="Log In" />
       <JFXDialog layoutX="469.0" layoutY="56.0" prefHeight="25.0" prefWidth="39.0" />
-      <JFXTextArea layoutX="422.0" layoutY="113.0" prefHeight="25.0" prefWidth="149.0" />
-      <JFXTextArea layoutX="422.0" layoutY="175.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField layoutX="423.0" layoutY="122.0" />
+      <PasswordField layoutX="423.0" layoutY="189.0" />
    </children>
 </Pane>
