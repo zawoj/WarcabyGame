@@ -16,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Stage stage = new Stage();
+        /*// Stage stage = new Stage();
 
         // Routes
         Routes route = new Routes();
@@ -38,7 +38,7 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setWidth(1200);
         primaryStage.setHeight(800);
-        primaryStage.centerOnScreen();
+        primaryStage.centerOnScreen();*/
 
     }
 
