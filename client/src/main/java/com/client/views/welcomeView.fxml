@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.views.SceneController">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="16.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/pawn.png" />
+         </image>
+      </ImageView>
+      <Line endX="490.0" layoutX="110.0" layoutY="28.0" startX="-110.0" />
+      <Line endX="490.0" layoutX="109.0" layoutY="376.0" startX="-110.0" />
+      <Line endX="423.5" endY="-10.5" layoutX="-28.0" layoutY="386.0" startX="423.5" startY="-358.5" />
+      <ImageView fitHeight="258.0" fitWidth="265.0" layoutX="78.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/mainViewImage.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="424.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
+      <Text layoutX="423.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="29.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WarcabyGame" />
+      <Text layoutX="224.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Created by Zawoj and Vipo" />
+      <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="423.0" layoutY="238.0" onAction="#handleButtonAction" text="Register" />
+      <JFXButton fx:id="btn1" layoutX="508.0" layoutY="237.0" onAction="#handleButtonAction" text="Log In" />
+      <JFXDialog layoutX="469.0" layoutY="56.0" prefHeight="25.0" prefWidth="39.0" />
+      <TextField layoutX="423.0" layoutY="122.0" />
+      <PasswordField layoutX="423.0" layoutY="189.0" />
+   </children>
+</Pane>
