@@ -16,9 +16,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
-    <javafx.version>17.0.1</javafx.version>
-    <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url> <!-- Mixite uses Jitpack repository -->
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -32,11 +37,20 @@
       <artifactId>javafx-controls</artifactId>
       <version>17</version>
     </dependency>
-  
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>17.0.2-ea+2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Hexworks.mixite</groupId>
+      <artifactId>mixite.core-jvm</artifactId>
+      <version>2018.2.0-RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupId>com.jfoenix</groupId>
+        <artifactId>jfoenix</artifactId>
+        <version>9.0.10</version>
     </dependency>
   </dependencies>
 
@@ -81,14 +95,6 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.openjfx</groupId>
-          <artifactId>javafx-maven-plugin</artifactId>
-          <version>0.0.8</version>
-          <configuration>
-              <mainClass>com.client.App</mainClass>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>

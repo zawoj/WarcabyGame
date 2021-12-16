@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
-public class MainFrame {
+public class MainFrameController {
 
     @FXML
     private ResourceBundle resources;
