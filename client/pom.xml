@@ -18,12 +18,39 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url> <!-- Mixite uses Jitpack repository -->
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>17</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>17.0.2-ea+2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Hexworks.mixite</groupId>
+      <artifactId>mixite.core-jvm</artifactId>
+      <version>2018.2.0-RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupId>com.jfoenix</groupId>
+        <artifactId>jfoenix</artifactId>
+        <version>9.0.10</version>
     </dependency>
   </dependencies>
 
