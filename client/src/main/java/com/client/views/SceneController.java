@@ -22,18 +22,18 @@ public class SceneController {
         Parent root;
 
         if (event.getSource() == btn1) {
-            stage = (Stage) btn1.getScene().getWindow();
-            root = FXMLLoader.load(Routes.viewsRoute("loggedIn.fxml"));
+            // stage = (Stage) btn1.getScene().getWindow();
+            // root = FXMLLoader.load(Routes.viewsRoute("loggedIn.fxml"));
             System.out.println("Logged In !");
         } else {
-            stage = (Stage) btn2.getScene().getWindow();
-            root = FXMLLoader.load(Routes.viewsRoute("registeryView.fxml"));
+            // stage = (Stage) btn2.getScene().getWindow();
+            // root = FXMLLoader.load(Routes.viewsRoute("registeryView.fxml"));
             System.out.println("Registery !");
 
         }
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Scene scene = new Scene(root);
+        // stage.setScene(scene);
+        // stage.show();
     }
 
 }
