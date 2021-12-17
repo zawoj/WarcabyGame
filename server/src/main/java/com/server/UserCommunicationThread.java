@@ -34,6 +34,7 @@ public class UserCommunicationThread extends Thread{
         do{
             try{
                 message = (MessageHolder) in.readObject();
+                InputObjectHandling(message);
             } catch (IOException | ClassNotFoundException exception) {
                 ServerCore.getInstance().getController().append("Error reading input:" + exception.getLocalizedMessage());
                 break;
