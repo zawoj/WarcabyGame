@@ -9,6 +9,10 @@ import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
 
+/**
+ * class being the core of the server.
+ * this class is a singleton
+ */
 public class ServerCore {
     private static volatile ServerCore instance;
     private TerminalController terminalController;
@@ -21,6 +25,10 @@ public class ServerCore {
         isRunning = false;
     }
 
+    /**
+     * returns the instance of this class
+     * @return instance
+     */
     public static ServerCore getInstance() {
         if(instance == null){
             synchronized (ServerCore.class){
@@ -32,14 +40,26 @@ public class ServerCore {
         return instance;
     }
 
+    /**
+     * sets the window controller for class to use
+     * @param controller terminal controller
+     */
     public void setController(TerminalController controller){
         this.terminalController=controller;
     }
 
+    /**
+     * returns the window controller used by the class
+     * @return terminal controller
+     */
     public TerminalController getController(){
         return terminalController;
     }
 
+    /**
+     * function responsible for handling commands typed in terminal
+     * @param command typed command
+     */
     public void command(String command){
         String[] splitCommand = command.split(" ");
         if(splitCommand.length == 0) return;
@@ -60,6 +80,11 @@ public class ServerCore {
             default -> terminalController.append("unknown command: "+splitCommand[0]);
         }
     }
+
+    /**
+     * function starting server
+     * @param portNumber port on witch the server starts
+     */
     private void startServer(int portNumber){
         try{
             if(isRunning) return;
@@ -72,6 +97,10 @@ public class ServerCore {
             terminalController.append(portNumber + " isn't a valid port number");
         }
     }
+
+    /**
+     * function closing the server
+     */
     private void close() {
         try {
             serverSocket.close();
@@ -83,6 +112,11 @@ public class ServerCore {
             terminalController.append("failed to close server");
         }
     }
+
+    /**
+     * returns the list of connections with users
+     * @return list of user connections
+     */
     public LinkedList<UserCommunicationThread> getUsers(){
         return userConnections;
     }

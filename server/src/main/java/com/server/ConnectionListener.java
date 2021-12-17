@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * class that listens for new connections
+ */
 public class ConnectionListener extends Thread{
     ServerSocket server;
 

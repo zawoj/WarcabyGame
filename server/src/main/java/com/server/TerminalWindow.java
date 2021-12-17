@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.File;
 
+/**
+ * server terminal window class
+ */
 public class TerminalWindow extends Application {
 
     @Override
@@ -16,6 +19,10 @@ public class TerminalWindow extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * launches the window
+     */
     public void launchWindow(){
         launch();
     }
