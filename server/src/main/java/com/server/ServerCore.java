@@ -75,6 +75,9 @@ public class ServerCore {
     private void close() {
         try {
             serverSocket.close();
+            for(UserCommunicationThread UCT: userConnections){
+                UCT.close();
+            }
             terminalController.append("server closed");
         }catch (Exception e){
             terminalController.append("failed to close server");

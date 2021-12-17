@@ -42,6 +42,12 @@ public class UserCommunicationThread extends Thread{
         }while(message != null);
     }
 
+    public void close() throws IOException {
+        in.close();
+        out.close();
+        clientSocket.close();
+    }
+
     /**
      * Function Processing input from client
      * @param message input received from client
