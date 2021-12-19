@@ -15,9 +15,9 @@
          </image>
       </ImageView>
       <Text layoutX="255.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a server" />
-      <TextField fx:id="serverIpButton" layoutX="115.0" layoutY="301.0" promptText="XXX.X.XX.XX" />
+      <TextField fx:id="IP" layoutX="115.0" layoutY="301.0" onAction="#StartViewControllerButtons" promptText="XXX.X.XX.XX" />
       <Text layoutX="123.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
-      <TextField layoutX="315.0" layoutY="301.0" promptText="1280-9000" />
+      <TextField fx:id="PORT" layoutX="315.0" layoutY="301.0" onAction="#StartViewControllerButtons" promptText="1280-9000" />
       <Text layoutX="323.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" />
       <Button fx:id="connectServerButton" contentDisplay="RIGHT" layoutX="270.0" layoutY="377.0" mnemonicParsing="false" onAction="#StartViewControllerButtons" text="Connect">
          <graphic>

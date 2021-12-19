@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.DashboardController">
    <children>
       <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -24,10 +23,10 @@
             <Image url="@../img/Person1.png" />
          </image>
       </ImageView>
-      <Text layoutX="1069.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" />
-      <Button layoutX="574.0" layoutY="202.0" mnemonicParsing="false" text="Create Game">
+      <Text fx:id="NickName" layoutX="1011.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" textOrigin="CENTER" wrappingWidth="175.0" />
+      <Button layoutX="574.0" layoutY="202.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="129.0" text="Create Game">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Plus.png" />
                </image>
