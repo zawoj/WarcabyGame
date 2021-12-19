@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.client.ClientCore;
 import com.client.helpers.Routes;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,17 +17,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class StartViewController implements Initializable {
 
     @FXML
-    private Button connectServerButton = new Button("Connect",
-            new ImageView(new Image(Routes.imageRoute("Arrow.png"))));
+    private Button connectServerButton;
     @FXML
     private TextField IP, PORT;
+
+    @FXML
+    private Pane ErrorPane;
 
     private static String ipString, portString;
 
@@ -34,12 +36,17 @@ public class StartViewController implements Initializable {
     private void StartViewControllerButtons(ActionEvent event) throws Exception {
         ipString = IP.getText();
         portString = PORT.getText();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
 
         if (event.getSource() == connectServerButton) {
+
             if (ClientCore.reqServerConnection()) {
                 LoadNewScene();
             } else {
-                System.out.println("Oh i cant connect");
+                System.out.println(ErrorPane);
+                transition.setByX(-285);
+                transition.play();
             }
         }
 

@@ -10,9 +10,6 @@
   -fx-font-family: "Lato";
   -fx-font-size: 14;
 }
-.text {
-  -fx-text-fill: rgba(72, 91, 115, 1);
-}
 
 .text-field {
   -fx-background-color: #ffffff;
@@ -57,3 +54,18 @@
   -fx-background-color: #ffffff;
   -fx-background-radius: 10;
 }
+
+/* Error Pane */
+
+#ErrorPane {
+  -fx-background-color: #d65745;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+}
+#errorButton {
+  -fx-background-color: #d65745;
+  -fx-min-width: 30;
+  -fx-min-height: 30;
+}
+
+/* -END- Error Pane */

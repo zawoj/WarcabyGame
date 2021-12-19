@@ -26,7 +26,7 @@ public class Window extends Application {
         Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("StartView.fxml"));
 
         // Basic scene
-        Scene scene = new Scene(sceneRoot, 600, 450);
+        Scene scene = new Scene(sceneRoot, 800, 600);
 
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
