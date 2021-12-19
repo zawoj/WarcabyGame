@@ -1,6 +1,6 @@
 package com.server;
 
-import com.server.messages.MessageHolder;
+import com.messages.MessageHolder;
 
 import java.io.*;
 import java.net.Socket;
@@ -25,18 +25,18 @@ public class UserCommunicationThread extends Thread{
     @Override
     public void run() {
         try{
-            in = new ObjectInputStream(clientSocket.getInputStream());
             out = new ObjectOutputStream(clientSocket.getOutputStream());
+            in = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException exception) {
-            ServerCore.getInstance().getController().append("failed to connect client" + clientSocket.getInetAddress().getHostAddress()
-            );
+            ServerCore.getInstance().getController().append("failed to connect client" + clientSocket.getInetAddress().getHostAddress());
+            return;
         }
         do{
             try{
                 message = (MessageHolder) in.readObject();
                 InputObjectHandling(message);
             } catch (IOException | ClassNotFoundException exception) {
-                ServerCore.getInstance().getController().append("Error reading input:" + exception.getLocalizedMessage());
+                ServerCore.getInstance().getController().append("Error reading input:" + exception);
                 break;
             }
         }while(message != null);
