@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class StartViewController implements Initializable {
 
     @FXML
-    private Button connectServerButton;
+    private Button connectServerButton, errorButton;
     @FXML
     private TextField IP, PORT;
 
@@ -34,14 +34,21 @@ public class StartViewController implements Initializable {
     private void StartViewControllerButtons(ActionEvent event) throws Exception {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
-        try{
+        try {
             ClientCore.getInstance().reqServerConnection(IP.getText(), PORT.getText());
             LoadNewScene();
-        }catch(Exception e){
-            System.out.println(ErrorPane);
+        } catch (Exception e) {
             transition.setToX(-285);
             transition.play();
         }
+    }
+
+    @FXML
+    private void errorButton(ActionEvent e) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
+        transition.setToX(0);
+        transition.play();
     }
 
     @Override
