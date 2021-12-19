@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.LoginIntoLauncherController">
+   <children>
+      <Line endX="423.5" endY="14.0" layoutX="-64.0" layoutY="386.0" startX="423.5" startY="-386.0" />
+      <ImageView fitHeight="258.0" fitWidth="265.0" layoutX="45.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/mainViewImage.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="403.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
+      <Text layoutX="402.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <JFXButton fx:id="RegisteryButton" buttonType="RAISED" layoutX="394.0" layoutY="352.0" onAction="#LoginLauncherControllerButtons" text="Register" />
+      <JFXButton fx:id="LoginButton" layoutX="497.0" layoutY="351.0" onAction="#LoginLauncherControllerButtons" text="Log In" />
+      <JFXDialog layoutX="469.0" layoutY="56.0" prefHeight="25.0" prefWidth="39.0" />
+      <TextField layoutX="396.0" layoutY="216.0" />
+      <PasswordField layoutX="396.0" layoutY="291.0" />
+      <ImageView fitHeight="163.0" fitWidth="163.0" layoutX="399.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/LOGO.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

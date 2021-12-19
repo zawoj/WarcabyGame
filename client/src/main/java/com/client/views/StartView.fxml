@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.views.SceneController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.StartViewController">
    <children>
       <ImageView fx:id="Logo" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -16,18 +16,17 @@
       </ImageView>
       <Text layoutX="255.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a server" />
       <TextField fx:id="serverIpButton" layoutX="115.0" layoutY="301.0" promptText="XXX.X.XX.XX" />
-      <Text layoutX="115.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
+      <Text layoutX="123.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />
       <TextField layoutX="315.0" layoutY="301.0" promptText="1280-9000" />
-      <Text layoutX="315.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" />
-      <Pane fx:id="connectBtn" layoutX="240.0" layoutY="375.0" prefHeight="26.0" prefWidth="134.0">
-         <children>
-            <Button layoutX="19.0" layoutY="1.0" mnemonicParsing="false" text="Connect" />
-            <ImageView fitHeight="12.0" fitWidth="11.0" layoutX="95.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+      <Text layoutX="323.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" />
+      <Button fx:id="connectServerButton" contentDisplay="RIGHT" layoutX="270.0" layoutY="377.0" mnemonicParsing="false" onAction="#StartViewControllerButtons" text="Connect">
+         <graphic>
+            <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Arrow.png" />
                </image>
             </ImageView>
-         </children>
-      </Pane>
+         </graphic>
+      </Button>
    </children>
 </Pane>
