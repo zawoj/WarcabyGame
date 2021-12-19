@@ -24,6 +24,7 @@ public class ConnectionListener extends Thread{
                 UCF.start();
             } catch (IOException exception) {
                 ServerCore.getInstance().getController().append("Server accept failed");
+                break;
             }
         }
     }
