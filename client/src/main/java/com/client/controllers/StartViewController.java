@@ -63,7 +63,7 @@ public class StartViewController implements Initializable {
         stage = (Stage) connectServerButton.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("loginIntoLauncher.fxml"));
         System.out.println("Connect Server");
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         stage.setScene(scene);
