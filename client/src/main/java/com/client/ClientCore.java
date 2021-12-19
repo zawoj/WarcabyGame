@@ -8,20 +8,26 @@ import com.client.controllers.StartViewController;
  */
 
 public class ClientCore {
-    static String IPconnection, PORTconnection;
+    private static volatile ClientCore instance;
 
-    public static boolean reqServerConnection() {
-        IPconnection = StartViewController.getIP();
-        PORTconnection = StartViewController.getPORT();
-        System.out.println(IPconnection);
-        System.out.println(PORTconnection);
+    public static ClientCore getInstance(){
+        if(instance == null){
+            synchronized (ClientCore.class){
+                if(instance == null){
+                    instance = new ClientCore();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public void reqServerConnection(String ip, String port) throws Exception{
 
         // TODO send really req to server now is just for testing client
-        if (IPconnection.equals("100.00") && PORTconnection.equals("8080")) {
-            return true;
+        if (ip.equals("100.00") && port.equals("8080")) {
+            System.out.println("connection established");;
         } else {
-            return false;
+            throw new Exception("cannot connect");
         }
-
     }
 }

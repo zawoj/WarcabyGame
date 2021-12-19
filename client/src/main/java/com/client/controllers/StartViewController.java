@@ -30,39 +30,23 @@ public class StartViewController implements Initializable {
     @FXML
     private Pane ErrorPane;
 
-    private static String ipString, portString;
-
     @FXML
     private void StartViewControllerButtons(ActionEvent event) throws Exception {
-        ipString = IP.getText();
-        portString = PORT.getText();
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
-
-        if (event.getSource() == connectServerButton) {
-
-            if (ClientCore.reqServerConnection()) {
-                LoadNewScene();
-            } else {
-                System.out.println(ErrorPane);
-                transition.setByX(-285);
-                transition.play();
-            }
+        try{
+            ClientCore.getInstance().reqServerConnection(IP.getText(), PORT.getText());
+            LoadNewScene();
+        }catch(Exception e){
+            System.out.println(ErrorPane);
+            transition.setToX(-285);
+            transition.play();
         }
-
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-    }
-
-    public static String getIP() {
-        return ipString;
-    }
-
-    public static String getPORT() {
-        return portString;
     }
 
     public void LoadNewScene() throws MalformedURLException, IOException {
