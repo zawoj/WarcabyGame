@@ -28,11 +28,6 @@ public class Window extends Application {
         // Basic scene
         Scene scene = new Scene(sceneRoot, 600, 450);
 
-        // Add css
-        // System.out.println(getClass()
-        // .getResource(
-        // "styles/app.css"));
-        // System.out.println(Routes.styleRoute("app.css"));
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         // Icone
