@@ -1,7 +1,5 @@
 package com.client;
 
-import com.client.controllers.StartViewController;
-
 /**
  * class being the core of the client.
  * this class is a singleton
@@ -10,10 +8,10 @@ import com.client.controllers.StartViewController;
 public class ClientCore {
     private static volatile ClientCore instance;
 
-    public static ClientCore getInstance(){
-        if(instance == null){
-            synchronized (ClientCore.class){
-                if(instance == null){
+    public static ClientCore getInstance() {
+        if (instance == null) {
+            synchronized (ClientCore.class) {
+                if (instance == null) {
                     instance = new ClientCore();
                 }
             }
@@ -21,11 +19,12 @@ public class ClientCore {
         return instance;
     }
 
-    public void reqServerConnection(String ip, String port) throws Exception{
+    public void reqServerConnection(String ip, String port) throws Exception {
 
         // TODO send really req to server now is just for testing client
         if (ip.equals("100.00") && port.equals("8080")) {
-            System.out.println("connection established");;
+            System.out.println("connection established");
+            ;
         } else {
             throw new Exception("cannot connect");
         }
