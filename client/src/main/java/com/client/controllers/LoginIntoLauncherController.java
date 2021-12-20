@@ -3,14 +3,17 @@ package com.client.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class LoginIntoLauncherController {
+public class LoginIntoLauncherController implements Initializable {
 
     @FXML
     private Button LoginButton, RegisteryButton;
@@ -34,22 +37,23 @@ public class LoginIntoLauncherController {
 
     @FXML
     private void LoginLauncherControllerButtons(ActionEvent event) throws Exception {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(ErrorPane);
-
         try {
             if (event.getSource() == LoginButton) {
                 ClientCore.getInstance().reqLogin(LoginField.getText(), PasswordField.getText());
-                LoadDashboardScene();
             } else if (event.getSource() == RegisteryButton) {
                 LoadRegisteryScene();
             }
         } catch (Exception e) {
-            System.out.println(e);
-            transition.setToX(-285);
-            transition.play();
+            System.out.println(e.getMessage());
         }
 
+    }
+
+    public void ErrorNotification(){
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
+        transition.setToX(-285);
+        transition.play();
     }
 
     @FXML
@@ -60,21 +64,23 @@ public class LoginIntoLauncherController {
         transition.play();
     }
 
-    @FXML
-    void initialize() {
-        ClientCore.getInstance().setLoginIntoLauncherController(this);
-    }
-
-    private void LoadDashboardScene() throws MalformedURLException, IOException {
-        stage = (Stage) LoginButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("DashboardView.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root, 1200, 800);
-        DashboardController dashboardController = loader.getController();
-        dashboardController.displayNickName(LoginField.getText());
-        scene.getStylesheets().add(Routes.styleRoute("app.css"));
-        stage.setScene(scene);
-        stage.show();
+    public void LoadDashboardScene() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    stage = (Stage) LoginButton.getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("DashboardView.fxml"));
+                    root = loader.load();
+                    Scene scene = new Scene(root, 1200, 800);
+                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                    stage.setScene(scene);
+                    stage.show();
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
     }
 
     private void LoadRegisteryScene() throws MalformedURLException, IOException {
@@ -86,4 +92,8 @@ public class LoginIntoLauncherController {
         stage.show();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ClientCore.getInstance().setLoginIntoLauncherController(this);
+    }
 }

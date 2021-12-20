@@ -3,6 +3,7 @@ package com.client;
 import com.client.controllers.LoginIntoLauncherController;
 import com.client.controllers.RegisteryController;
 import com.client.controllers.StartViewController;
+import com.messages.LoginMessage;
 import com.messages.RegisterMessage;
 
 import java.net.Socket;
@@ -18,6 +19,8 @@ public class ClientCore {
     LoginIntoLauncherController loginIntoLauncherController;
     RegisteryController registeryController;
     ConnectionListener conlis;
+    String Login;
+    int avatar;
 
     // Singletion
     public static ClientCore getInstance() {
@@ -55,6 +58,22 @@ public class ClientCore {
         return registeryController;
     }
 
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        Login = login;
+    }
+
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
     public void reqServerConnection(String ip, String port) throws Exception {
         Socket client = new Socket(ip, Integer.parseInt(port));
         conlis = new ConnectionListener(client);
@@ -62,12 +81,11 @@ public class ClientCore {
     }
 
     public void reqLogin(String login, String password) throws Exception {
-        // TODO send really req to server now is just for testing client
-        if (login.equals("Zawoj") && password.equals("12345")) {
-            System.out.println("Loged successfully");
-        } else {
-            throw new Exception("Can't Log in");
-        }
+        LoginMessage lm = new LoginMessage();
+        lm.setMessageType("login");
+        lm.setLogin(login);
+        lm.setPassword(password);
+        conlis.getOut().writeObject(lm);
     }
 
     public void reqCreateNewAccount(String newLogin, String newPassword, int chosenAvatar) throws Exception {

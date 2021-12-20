@@ -1,5 +1,6 @@
 package com.client;
 import com.messages.MessageHolder;
+import com.messages.RegisterMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,6 +41,15 @@ public class ConnectionListener extends Thread{
             case "Registered" : ClientCore.getInstance().getRegisteryController().accountCreatedSuccesfullyNotification();
             break;
             case "Register failed" : ClientCore.getInstance().getRegisteryController().errorNotification();
+            break;
+            case "Logged in":
+                RegisterMessage rm = (RegisterMessage) message;
+                ClientCore.getInstance().setLogin(rm.getLogin());
+                ClientCore.getInstance().setAvatar(rm.getAvatar());
+                ClientCore.getInstance().getLoginIntoLauncherController().LoadDashboardScene();
+                break;
+            case "Login fail": ClientCore.getInstance().getLoginIntoLauncherController().ErrorNotification();
+            break;
         }
     }
 

@@ -1,5 +1,7 @@
 package com.server;
 
+import com.Database.UserInformationPackage;
+import com.messages.LoginMessage;
 import com.messages.MessageHolder;
 import com.messages.RegisterMessage;
 
@@ -15,6 +17,7 @@ public class UserCommunicationThread extends Thread{
     ObjectOutputStream out;
     Socket clientSocket;
     MessageHolder message;
+    UserInformationPackage userData;
 
     UserCommunicationThread(Socket clientSocket){
         this.clientSocket=clientSocket;
@@ -67,6 +70,26 @@ public class UserCommunicationThread extends Thread{
                 }
                 out.writeObject(ms);
                 ServerCore.getInstance().getController().appendOutput(ms.getMessageType());
+            }
+            case "login" ->{
+                LoginMessage lm = (LoginMessage) message;
+                RegisterMessage rm = new RegisterMessage();
+                if(ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(lm.getLogin())){
+                    UserInformationPackage uip = ServerCore.getInstance().getDataBaseManager().getUserByLogin(lm.getLogin());
+                    if(uip.getPassword().equals(lm.getPassword())){
+                        userData = uip;
+                        rm.setMessageType("Logged in");
+                        rm.setPassword(lm.getPassword());
+                        rm.setLogin(lm.getLogin());
+                        rm.setAvatar(uip.getAvatarNbr());
+                    }else{
+                        rm.setMessageType("Login fail");
+                    }
+                }else{
+                    rm.setMessageType("Login fail");
+                }
+                out.writeObject(rm);
+                ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
             }
         }
     }
