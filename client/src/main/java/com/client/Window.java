@@ -3,12 +3,14 @@ package com.client;
 import com.client.helpers.Routes;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Window extends Application {
 
@@ -23,25 +25,26 @@ public class Window extends Application {
         // Custom Fonr load
         Font.loadFont(getClass().getResourceAsStream(Routes.styleRoute("LatoRegular.ttf")), 14);
         // FXML loader
-        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("welcomeView.fxml"));
+        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("StartView.fxml"));
 
         // Basic scene
-        Scene scene = new Scene(sceneRoot, 600, 400);
+        Scene scene = new Scene(sceneRoot, 800, 600);
 
-        // Add css
-        // System.out.println(getClass()
-        // .getResource(
-        // "styles/app.css"));
-        // System.out.println(Routes.styleRoute("app.css"));
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         // Icone
-        Image icon = new Image(Routes.imageRoute("pawn.png"));
+        Image icon = new Image(Routes.imageRoute("LogoIcon.png"));
 
         // Stage settings
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("WarcabyGame");
         primaryStage.setScene(scene);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                ClientCore.getInstance().close();
+            }
+        });
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();

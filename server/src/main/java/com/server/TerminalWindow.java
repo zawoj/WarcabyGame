@@ -17,6 +17,7 @@ public class TerminalWindow extends Application {
         Parent root = FXMLLoader.load(new File("src/main/java/com/server/Terminal.fxml").toURI().toURL());
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setOnCloseRequest(windowEvent -> ServerCore.getInstance().close());
         stage.show();
     }
 

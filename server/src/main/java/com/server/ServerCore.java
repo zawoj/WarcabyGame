@@ -19,11 +19,17 @@ public class ServerCore {
     private ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     boolean isRunning;
-    ConnectionListener conLis;
+
+    DataBaseManager dataBaseManager;
+
 
     private ServerCore(){
         userConnections = new LinkedList<>();
         isRunning = false;
+    }
+
+    public void ServerCoreSetup(){
+        dataBaseManager = new DataBaseManager();
     }
 
     /**
@@ -55,6 +61,10 @@ public class ServerCore {
      */
     public TerminalController getController(){
         return terminalController;
+    }
+
+    public DataBaseManager getDataBaseManager() {
+        return dataBaseManager;
     }
 
     /**
@@ -102,8 +112,11 @@ public class ServerCore {
     /**
      * function closing the server
      */
-    private void close() {
+    public void close() {
         try {
+            dataBaseManager.saveDB();
+            serverSocket.close();
+
             for(UserCommunicationThread UCT: userConnections){
                 UCT.close();
             }

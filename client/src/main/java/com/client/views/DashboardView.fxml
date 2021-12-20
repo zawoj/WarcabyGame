@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.DashboardController">
+   <children>
+      <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/LOGO.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="175.0" fitWidth="175.0" layoutX="1011.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Rectangle.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="125.0" fitWidth="51.0" layoutX="1073.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/avatars/Avatar1.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="NickName" layoutX="1011.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" textOrigin="CENTER" wrappingWidth="175.0" />
+      <Button layoutX="574.0" layoutY="202.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="129.0" text="Create Game">
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Plus.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="27.0" fitWidth="36.0" layoutX="587.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Dashboard.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="626.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game List" />
+      <Text layoutX="486.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name" />
+      <Text layoutX="617.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" />
+      <Pane fx:id="GameCard" layoutX="462.0" layoutY="413.0" prefHeight="61.0" prefWidth="408.0">
+         <children>
+            <Text layoutX="34.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game #1" />
+            <Text layoutX="167.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3/6" />
+            <Text layoutX="257.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" />
+            <ImageView fitHeight="27.0" fitWidth="37.0" layoutX="359.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Play.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Text layoutX="715.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Name" />
+   </children>
+</Pane>
