@@ -7,17 +7,17 @@ import java.net.Socket;
 /**
  * class that listens for new connections
  */
-public class ConnectionListener extends Thread{
+public class ConnectionListener extends Thread {
     ServerSocket server;
 
-    ConnectionListener(ServerSocket serverSocket){
+    ConnectionListener(ServerSocket serverSocket) {
         server = serverSocket;
     }
 
     @Override
     public void run() {
-        while(true){
-            try{
+        while (true) {
+            try {
                 Socket client = server.accept();
                 UserCommunicationThread UCF = new UserCommunicationThread(client);
                 ServerCore.getInstance().getUsers().add(UCF);

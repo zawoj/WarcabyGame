@@ -1,11 +1,6 @@
 package com.server;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
 
@@ -21,23 +16,24 @@ public class ServerCore {
     boolean isRunning;
     DataBaseManager dataBaseManager;
 
-    private ServerCore(){
+    private ServerCore() {
         userConnections = new LinkedList<>();
         isRunning = false;
     }
 
-    public void ServerCoreSetup(){
+    public void ServerCoreSetup() {
         dataBaseManager = new DataBaseManager();
     }
 
     /**
      * returns the instance of this class
+     * 
      * @return instance
      */
     public static ServerCore getInstance() {
-        if(instance == null){
-            synchronized (ServerCore.class){
-                if(instance == null){
+        if (instance == null) {
+            synchronized (ServerCore.class) {
+                if (instance == null) {
                     instance = new ServerCore();
                 }
             }
@@ -47,17 +43,19 @@ public class ServerCore {
 
     /**
      * sets the window controller for class to use
+     * 
      * @param controller terminal controller
      */
-    public void setController(TerminalController controller){
-        this.terminalController=controller;
+    public void setController(TerminalController controller) {
+        this.terminalController = controller;
     }
 
     /**
      * returns the window controller used by the class
+     * 
      * @return terminal controller
      */
-    public TerminalController getController(){
+    public TerminalController getController() {
         return terminalController;
     }
 
@@ -67,39 +65,43 @@ public class ServerCore {
 
     /**
      * function responsible for handling commands typed in terminal
+     * 
      * @param command typed command
      */
-    public void command(String command){
+    public void command(String command) {
         String[] splitCommand = command.split(" ");
-        if(splitCommand.length == 0) return;
-        switch (splitCommand[0]){
+        if (splitCommand.length == 0)
+            return;
+        switch (splitCommand[0]) {
             case "echo" -> terminalController.append(command.substring(4));
-            case "start" ->{
-                if(splitCommand.length<2){
+            case "start" -> {
+                if (splitCommand.length < 2) {
                     terminalController.append("wrong number of arguments");
-                }else{
+                } else {
                     try {
                         startServer(Integer.parseInt(splitCommand[1]));
-                    }catch(NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         terminalController.append("wrong port number");
                     }
                 }
             }
             case "close" -> close();
-            default -> terminalController.append("unknown command: "+splitCommand[0]);
+            default -> terminalController.append("unknown command: " + splitCommand[0]);
         }
     }
 
     /**
      * function starting server
+     * 
      * @param portNumber port on witch the server starts
      */
-    private void startServer(int portNumber){
-        try{
-            if(isRunning) return;
+    private void startServer(int portNumber) {
+        try {
+            if (isRunning)
+                return;
             isRunning = true;
             serverSocket = new ServerSocket(portNumber);
-            terminalController.append("started server at port "+portNumber);
+            terminalController.append("started server at port " + portNumber);
             ConnectionListener conLis = new ConnectionListener(serverSocket);
             conLis.start();
         } catch (IOException exception) {
@@ -114,21 +116,21 @@ public class ServerCore {
         try {
             dataBaseManager.saveDB();
             serverSocket.close();
-            for(UserCommunicationThread UCT: userConnections){
+            for (UserCommunicationThread UCT : userConnections) {
                 UCT.close();
             }
             terminalController.append("server closed");
-        }catch (Exception e){
+        } catch (Exception e) {
             terminalController.append("failed to close server");
         }
     }
 
     /**
      * returns the list of connections with users
+     * 
      * @return list of user connections
      */
-    public LinkedList<UserCommunicationThread> getUsers(){
+    public LinkedList<UserCommunicationThread> getUsers() {
         return userConnections;
     }
 }
-

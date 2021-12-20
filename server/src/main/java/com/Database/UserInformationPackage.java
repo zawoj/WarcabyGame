@@ -6,11 +6,13 @@ public class UserInformationPackage implements Serializable {
     private String login;
     private String password;
     private int avatarNbr;
-    public UserInformationPackage(String login, String password, int avatar){
-        this.login=login;
-        this.password=password;
-        this.avatarNbr=avatar;
+
+    public UserInformationPackage(String login, String password, int avatar) {
+        this.login = login;
+        this.password = password;
+        this.avatarNbr = avatar;
     }
+
     public String getLogin() {
         return login;
     }
@@ -34,6 +36,5 @@ public class UserInformationPackage implements Serializable {
     public void setAvatarNbr(int avatarNbr) {
         this.avatarNbr = avatarNbr;
     }
-
 
 }
