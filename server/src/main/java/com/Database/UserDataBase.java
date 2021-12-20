@@ -43,6 +43,13 @@ public class UserDataBase implements Serializable {
         ObjectInputStream ois = new ObjectInputStream(fis);
         users = (LinkedList<UserInformationPackage>) ois.readObject();
     }
+    public void changeAvatar(String login, int newAvatar){
+        for(UserInformationPackage uip : users){
+            if(uip.getLogin().equals(login)){
+                uip.setAvatarNbr(newAvatar);
+            }
+        }
+    }
     public void dumpDatabase(){
         users = new LinkedList<>();
     }

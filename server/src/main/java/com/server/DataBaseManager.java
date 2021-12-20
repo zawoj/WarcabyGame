@@ -38,4 +38,7 @@ public class DataBaseManager {
     public void updatePassword(String login, String newPassword){
         dataBase.updatePassword(login,newPassword);
     }
+    public void changeAvatar(String login, int newAvatar){
+        dataBase.changeAvatar(login, newAvatar);
+    }
 }
