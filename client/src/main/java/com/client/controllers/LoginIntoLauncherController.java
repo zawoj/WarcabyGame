@@ -40,7 +40,6 @@ public class LoginIntoLauncherController {
 
         try {
             if (event.getSource() == LoginButton) {
-                System.out.println(LoginField.getText() + PasswordField.getText());
                 ClientCore.getInstance().reqLogin(LoginField.getText(), PasswordField.getText());
                 LoadDashboardScene();
             } else if (event.getSource() == RegisteryButton) {
@@ -82,7 +81,7 @@ public class LoginIntoLauncherController {
     private void LoadRegisteryScene() throws MalformedURLException, IOException {
         stage = (Stage) RegisteryButton.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("RegisterView.fxml"));
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
         stage.show();

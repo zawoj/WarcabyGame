@@ -55,17 +55,31 @@
   -fx-background-radius: 10;
 }
 
-/* Error Pane */
+/*  Pane */
 
-#ErrorPane {
+#ErrorPane,
+#errorRegisteryNewAccount,
+#errorPanePassword,
+#errorPanePasswordValidation {
   -fx-background-color: #d65745;
   -fx-background-radius: 10;
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
 }
-#errorButton {
+#errorButton,
+#errorPasswordValidtionButton {
   -fx-background-color: #d65745;
   -fx-min-width: 30;
   -fx-min-height: 30;
 }
 
-/* -END- Error Pane */
+#accountCreatedSuccesfully {
+  -fx-background-color: #55b938;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+}
+#succesButton {
+  -fx-background-color: #55b938;
+  -fx-min-width: 30;
+  -fx-min-height: 30;
+}
+/* -END-  Pane */
