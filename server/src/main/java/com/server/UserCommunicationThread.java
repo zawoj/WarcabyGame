@@ -19,6 +19,7 @@ public class UserCommunicationThread extends Thread{
     MessageHolder message;
     UserInformationPackage userData;
 
+
     UserCommunicationThread(Socket clientSocket){
         this.clientSocket=clientSocket;
     }
