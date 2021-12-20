@@ -12,6 +12,8 @@
 
 .text-field {
   -fx-prompt-text-fill: gray;
+  -fx-font-weight: bold;
+  -fx-font-size: 13px;
 }
 
 .titulo {
