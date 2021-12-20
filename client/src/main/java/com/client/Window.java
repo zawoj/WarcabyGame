@@ -31,7 +31,7 @@ public class Window extends Application {
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         // Icone
-        Image icon = new Image(Routes.imageRoute("pawn.png"));
+        Image icon = new Image(Routes.imageRoute("LogoIcon.png"));
 
         // Stage settings
         primaryStage.getIcons().add(icon);
