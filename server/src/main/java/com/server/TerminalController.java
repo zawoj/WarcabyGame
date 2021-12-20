@@ -2,27 +2,27 @@ package com.server;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * class controlling the terminal window
  */
-public class TerminalController {
+public class TerminalController implements Initializable {
     @FXML
     TextArea TerminalText;
     @FXML
     TextField TerminalField;
 
-    /**
-     * constructor which passes this controller to ServerCore
-     */
-    public TerminalController(){
-        ServerCore.getInstance().setController(this);
-    }
+
+
 
     /**
      * function that checks if the typed key is ENTER, if it is it passes the typed function to ServerCore
@@ -42,6 +42,14 @@ public class TerminalController {
      */
     public void append(String text){
         TerminalText.setText(TerminalText.getText()+"\n"+text);
+    }
+    /**
+     * initializer which passes this controller to ServerCore and setups ServerCore
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ServerCore.getInstance().setController(this);
+        ServerCore.getInstance().ServerCoreSetup();
     }
 }
 
