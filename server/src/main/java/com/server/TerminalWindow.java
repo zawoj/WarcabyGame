@@ -17,6 +17,7 @@ public class TerminalWindow extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Routes.viewsRoute("Terminal.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
         stage.setOnCloseRequest(windowEvent -> ServerCore.getInstance().close());
         stage.show();

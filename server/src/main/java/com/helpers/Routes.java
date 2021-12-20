@@ -10,4 +10,11 @@ public class Routes {
         File file = new File("src\\main\\java\\com\\views\\" + viewName);
         return file.toURI().toURL();
     }
+
+    public static String styleRoute(String styleFileName) throws MalformedURLException {
+        File file = new File("src\\main\\java\\com\\styles\\" + styleFileName);
+
+        return file.toURI().toString();
+
+    }
 }
