@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.server.TerminalController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.TerminalController">
     <children>
         <TextField fx:id="TerminalField" layoutY="374.0" onKeyPressed="#keypressed" prefHeight="25.0" prefWidth="460.0" />
         <TextArea fx:id="TerminalText" prefHeight="370.0" prefWidth="460.0" wrapText="true">
