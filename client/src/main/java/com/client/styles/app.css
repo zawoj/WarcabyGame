@@ -105,3 +105,34 @@
   -fx-min-height: 30;
 }
 /* -END-  Pane */
+
+/* Scrollbar */
+.scroll-bar:vertical *.increment-button,
+.scroll-bar:vertical *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 6;
+  -fx-background-color: white;
+}
+
+.scroll-bar:vertical *.increment-arrow,
+.scroll-bar:vertical *.decrement-arrow {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-background-color: white;
+}
+.scroll-bar:vertical {
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.404), 5, 0, 0, 0);
+}
+.scroll-bar:vertical .thumb {
+  -fx-background-color: #6dd1e0;
+}
+.scroll-bar:vertical .track {
+  -fx-background-color: white;
+  -fx-border-color: white;
+  -fx-min-height: 100%;
+}
+/* -END- Scrollbar*/

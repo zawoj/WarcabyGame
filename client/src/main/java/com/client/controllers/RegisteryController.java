@@ -16,7 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +32,7 @@ public class RegisteryController {
     @FXML
     Pane errorRegisteryNewAccount, errorPanePassword, accountCreatedSuccesfully, errorPanePasswordValidation;
     @FXML
-    private ChoiceBox avatarChoiceBox;
+    private ComboBox avatarChoiceBox;
     @FXML
     private ImageView avatarImage;
 
@@ -132,6 +132,7 @@ public class RegisteryController {
     private void initialize() {
         avatarChoiceBox.setItems(avatarId);
         avatarChoiceBox.setValue("Choice avatar");
+        // avatarChoiceBox.setVisible(5);
     }
 
     @FXML

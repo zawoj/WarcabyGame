@@ -23,7 +23,7 @@ public class Window extends Application {
         // Custom Fonr load
         Font.loadFont(getClass().getResourceAsStream(Routes.styleRoute("LatoRegular.ttf")), 14);
         // FXML loader
-        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("StartView.fxml"));
+        Parent sceneRoot = FXMLLoader.load(Routes.viewsRoute("RegisterView.fxml"));
 
         // Basic scene
         Scene scene = new Scene(sceneRoot, 800, 600);
