@@ -14,9 +14,10 @@ public class ServerCore {
     private ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     boolean isRunning;
-    DataBaseManager dataBaseManager;
 
-    private ServerCore() {
+    DataBaseManager dataBaseManager;
+    private ServerCore(){
+
         userConnections = new LinkedList<>();
         isRunning = false;
     }
@@ -103,6 +104,7 @@ public class ServerCore {
             serverSocket = new ServerSocket(portNumber);
             terminalController.append("started server at port " + portNumber);
             ConnectionListener conLis = new ConnectionListener(serverSocket);
+
             conLis.start();
         } catch (IOException exception) {
             terminalController.append(portNumber + " isn't a valid port number");
@@ -116,9 +118,12 @@ public class ServerCore {
         try {
             dataBaseManager.saveDB();
             serverSocket.close();
+
             for (UserCommunicationThread UCT : userConnections) {
+
                 UCT.close();
             }
+            serverSocket.close();
             terminalController.append("server closed");
         } catch (Exception e) {
             terminalController.append("failed to close server");

@@ -21,6 +21,7 @@ public class UserCommunicationThread extends Thread {
 
     UserCommunicationThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
+
     }
 
     /**
