@@ -61,6 +61,10 @@ public class ServerCore {
         return terminalController;
     }
 
+    public DataBaseManager getDataBaseManager() {
+        return dataBaseManager;
+    }
+
     /**
      * function responsible for handling commands typed in terminal
      * @param command typed command
@@ -106,7 +110,7 @@ public class ServerCore {
     /**
      * function closing the server
      */
-    private void close() {
+    public void close() {
         try {
             dataBaseManager.saveDB();
             serverSocket.close();

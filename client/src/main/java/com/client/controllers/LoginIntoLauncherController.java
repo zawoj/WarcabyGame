@@ -62,7 +62,7 @@ public class LoginIntoLauncherController {
 
     @FXML
     void initialize() {
-
+        ClientCore.getInstance().setLoginIntoLauncherController(this);
     }
 
     private void LoadDashboardScene() throws MalformedURLException, IOException {

@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  */
 public class TerminalController implements Initializable {
     @FXML
-    TextArea TerminalText;
+    TextArea TerminalText, InOutTextArea;
     @FXML
     TextField TerminalField;
 
@@ -50,6 +50,12 @@ public class TerminalController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ServerCore.getInstance().setController(this);
         ServerCore.getInstance().ServerCoreSetup();
+    }
+    public void appendInput(String text){
+        InOutTextArea.setText(InOutTextArea.getText()+"\n<- "+text);
+    }
+    public void appendOutput(String text){
+        InOutTextArea.setText(InOutTextArea.getText()+"\n-> "+text);
     }
 }
 

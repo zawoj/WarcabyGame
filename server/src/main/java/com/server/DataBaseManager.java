@@ -28,7 +28,9 @@ public class DataBaseManager {
             ServerCore.getInstance().getController().append("couldnt save user database");
         }
     }
-
+    public void addUser(String login, String password, int avatar){
+        dataBase.addUser(new UserInformationPackage(login,password,avatar));
+    }
     public UserInformationPackage getUserByLogin(String login){
         return dataBase.getUserByLogin(login);
     }

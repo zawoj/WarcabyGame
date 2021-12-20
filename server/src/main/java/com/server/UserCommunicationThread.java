@@ -1,6 +1,7 @@
 package com.server;
 
 import com.messages.MessageHolder;
+import com.messages.RegisterMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -52,7 +53,21 @@ public class UserCommunicationThread extends Thread{
      * Function Processing input from client
      * @param message input received from client
      */
-    public void InputObjectHandling(MessageHolder message){
-        ServerCore.getInstance().getController().append(message.getMessageType());
+    public void InputObjectHandling(MessageHolder message) throws IOException {
+        ServerCore.getInstance().getController().appendInput(message.getMessageType());
+        switch (message.getMessageType()){
+            case "register" -> {
+                RegisterMessage rm = (RegisterMessage) message;
+                MessageHolder ms = new MessageHolder();
+                if(ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(rm.getLogin())){
+                    ms.setMessageType("Register failed");
+                }else {
+                    ServerCore.getInstance().getDataBaseManager().addUser(rm.getLogin(), rm.getPassword(), rm.getAvatar());
+                    ms.setMessageType("Registered");
+                }
+                out.writeObject(ms);
+                ServerCore.getInstance().getController().appendOutput(ms.getMessageType());
+            }
+        }
     }
 }

@@ -31,16 +31,20 @@ public class StartViewController implements Initializable {
     private Pane ErrorPane;
 
     @FXML
-    private void StartViewControllerButtons(ActionEvent event) throws Exception {
+    private void StartViewControllerButtons(ActionEvent event){
+        try{
+            ClientCore.getInstance().reqServerConnection(IP.getText(),PORT.getText());
+            LoadNewScene();
+        }catch(Exception e){
+            showError();
+        }
+    }
+
+    public void showError(){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
-        try {
-            ClientCore.getInstance().reqServerConnection(IP.getText(), PORT.getText());
-            LoadNewScene();
-        } catch (Exception e) {
-            transition.setToX(-285);
-            transition.play();
-        }
+        transition.setToX(-285);
+        transition.play();
     }
 
     @FXML
@@ -53,7 +57,7 @@ public class StartViewController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
+        ClientCore.getInstance().setStartViewController(this);
     }
 
     public void LoadNewScene() throws MalformedURLException, IOException {

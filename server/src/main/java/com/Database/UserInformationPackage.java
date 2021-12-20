@@ -6,7 +6,7 @@ public class UserInformationPackage implements Serializable {
     private String login;
     private String password;
     private int avatarNbr;
-    UserInformationPackage(String login, String password, int avatar){
+    public UserInformationPackage(String login, String password, int avatar){
         this.login=login;
         this.password=password;
         this.avatarNbr=avatar;

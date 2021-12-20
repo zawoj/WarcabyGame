@@ -20,10 +20,30 @@ public class ConnectionListener extends Thread{
         while(true) {
             try {
                 currentMessage = (MessageHolder) in.readObject();
-            } catch (IOException | ClassNotFoundException exception) {
-                exception.printStackTrace();
+                messageHandler(currentMessage);
+            } catch (Exception exception) {
                 break;
             }
         }
+    }
+    public void close(){
+        try {
+            out.close();
+            in.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void messageHandler(MessageHolder message){
+        switch(message.getMessageType()){
+            case "Registered" : ClientCore.getInstance().getRegisteryController().accountCreatedSuccesfullyNotification();
+            break;
+            case "Register failed" : ClientCore.getInstance().getRegisteryController().errorNotification();
+        }
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
     }
 }
