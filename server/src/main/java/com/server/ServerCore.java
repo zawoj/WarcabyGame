@@ -19,10 +19,15 @@ public class ServerCore {
     private ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     boolean isRunning;
+    DataBaseManager dataBaseManager;
 
     private ServerCore(){
         userConnections = new LinkedList<>();
         isRunning = false;
+    }
+
+    public void ServerCoreSetup(){
+        dataBaseManager = new DataBaseManager();
     }
 
     /**
@@ -103,6 +108,7 @@ public class ServerCore {
      */
     private void close() {
         try {
+            dataBaseManager.saveDB();
             serverSocket.close();
             for(UserCommunicationThread UCT: userConnections){
                 UCT.close();
