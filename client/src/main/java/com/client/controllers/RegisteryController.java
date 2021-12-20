@@ -32,7 +32,7 @@ public class RegisteryController {
     @FXML
     Pane errorRegisteryNewAccount, errorPanePassword, accountCreatedSuccesfully, errorPanePasswordValidation;
     @FXML
-    private ComboBox avatarChoiceBox;
+    private ComboBox<String> avatarChoiceBox;
     @FXML
     private ImageView avatarImage;
 
@@ -64,7 +64,6 @@ public class RegisteryController {
 
                         avatarChoiceBox.setValue("Choice avatar");
                     } else {
-                        System.out.println(newPassword.getText() + checkNewPassword.getText());
                         TranslateTransition transition = new TranslateTransition();
                         transition.setNode(errorPanePassword);
                         transition.setToX(-300);
@@ -132,7 +131,6 @@ public class RegisteryController {
     private void initialize() {
         avatarChoiceBox.setItems(avatarId);
         avatarChoiceBox.setValue("Choice avatar");
-        // avatarChoiceBox.setVisible(5);
     }
 
     @FXML
