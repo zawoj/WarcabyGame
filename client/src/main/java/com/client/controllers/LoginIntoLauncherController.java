@@ -14,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -46,6 +45,7 @@ public class LoginIntoLauncherController {
                 LoadRegisteryScene();
             }
         } catch (Exception e) {
+            System.out.println(e);
             transition.setToX(-285);
             transition.play();
         }
@@ -70,7 +70,6 @@ public class LoginIntoLauncherController {
         FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("DashboardView.fxml"));
         root = loader.load();
         Scene scene = new Scene(root, 1200, 800);
-
         DashboardController dashboardController = loader.getController();
         dashboardController.displayNickName(LoginField.getText());
         scene.getStylesheets().add(Routes.styleRoute("app.css"));

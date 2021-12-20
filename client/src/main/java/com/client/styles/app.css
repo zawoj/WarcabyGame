@@ -33,6 +33,28 @@
   -fx-min-height: 40;
 }
 
+#avatarChoiceBox {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #f5f7fa;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0.409), 10, 0, 0, 0);
+  -fx-background-radius: 30;
+  -fx-min-width: 140;
+  -fx-min-height: 40;
+}
+
+#avatarChoiceBox {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #f5f7fa;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0.409), 10, 0, 0, 0);
+  -fx-background-radius: 30;
+  -fx-min-width: 140;
+  -fx-min-height: 40;
+}
+
 .button:hover {
   -fx-cursor: hand;
   -fx-effect: dropshadow(three-pass-box, rgba(56, 56, 56, 0.653), 12, 0, 0, 0);

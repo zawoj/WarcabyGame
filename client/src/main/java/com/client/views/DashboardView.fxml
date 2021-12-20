@@ -20,7 +20,7 @@
       </ImageView>
       <ImageView fitHeight="125.0" fitWidth="51.0" layoutX="1073.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Person1.png" />
+            <Image url="@../img/avatars/Avatar1.png" />
          </image>
       </ImageView>
       <Text fx:id="NickName" layoutX="1011.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" textOrigin="CENTER" wrappingWidth="175.0" />
