@@ -1,5 +1,7 @@
 package com.client;
 
+import javax.print.DocFlavor.STRING;
+
 /**
  * class being the core of the client.
  * this class is a singleton
@@ -31,12 +33,20 @@ public class ClientCore {
     }
 
     public void reqLogin(String login, String password) throws Exception {
-        System.out.println(login + password);
         // TODO send really req to server now is just for testing client
         if (login.equals("Zawoj") && password.equals("1234")) {
             System.out.println("Loged successfully");
         } else {
             throw new Exception("Can't Log in");
+        }
+    }
+
+    public void reqCreateNewAccount(String newLogin, String newPassword) throws Exception {
+        // TODO send really req to server now is just for testing client
+        if (newLogin.equals("Zawoj")) {
+            throw new Exception("This login already exist");
+        } else {
+            System.out.println("Create Account Sucessfully");
         }
     }
 }
