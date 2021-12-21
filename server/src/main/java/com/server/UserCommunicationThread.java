@@ -35,6 +35,7 @@ public class UserCommunicationThread extends Thread {
         } catch (IOException exception) {
             ServerCore.getInstance().getController()
                     .append("failed to connect client" + clientSocket.getInetAddress().getHostAddress());
+            ServerCore.getInstance().getUsers().remove(this);
             return;
         }
         do {
@@ -43,6 +44,7 @@ public class UserCommunicationThread extends Thread {
                 InputObjectHandling(message);
             } catch (IOException | ClassNotFoundException exception) {
                 ServerCore.getInstance().getController().append("Error reading input:" + exception);
+                ServerCore.getInstance().getUsers().remove(this);
                 break;
             }
         } while (message != null);
