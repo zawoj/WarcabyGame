@@ -1,7 +1,15 @@
 package com.Database;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.LinkedList;
+
+import com.helpers.Routes;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class UserDataBase implements Serializable {
     private LinkedList<UserInformationPackage> users = new LinkedList<>();
@@ -37,17 +45,41 @@ public class UserDataBase implements Serializable {
     }
 
     public void save() throws IOException {
-        File save = new File("save.txt");
-        FileOutputStream fos = new FileOutputStream(save);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(users);
+        JSONObject mainObject = new JSONObject();
+
+        for (UserInformationPackage uip : users) {
+            JSONObject userInfo = new JSONObject();
+            userInfo.put("Login", uip.getLogin());
+            userInfo.put("Password", uip.getPassword());
+            userInfo.put("Avatar", uip.getAvatarNbr());
+            JSONArray userLogin = new JSONArray();
+            userLogin.put(userInfo);
+
+            mainObject.append("Users", userInfo);
+        }
+        try (FileWriter Data = new FileWriter(Routes.databaseRoute("Users.json"))) {
+            Data.write(mainObject.toString());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
-    public void load() throws IOException, ClassNotFoundException {
-        File save = new File("save.txt");
-        FileInputStream fis = new FileInputStream(save);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        users = (LinkedList<UserInformationPackage>) ois.readObject();
+    public void load() {
+        try {
+            String contents = new String((Files.readAllBytes(Path.of(Routes.databaseRoute("Users.json").toURI()))));
+            JSONObject JSONfilObject = new JSONObject(contents);
+            JSONArray usersJsonArray = JSONfilObject.getJSONArray("Users");
+
+            for (int i = 0; i < usersJsonArray.length(); i++) {
+                JSONObject user = usersJsonArray.getJSONObject(i);
+                users.add(new UserInformationPackage((String) user.get("Login"), (String) user.get("Password"),
+                        (Integer) user.get("Avatar")));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void changeAvatar(String login, int newAvatar) {

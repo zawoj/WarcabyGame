@@ -13,12 +13,13 @@ public class DataBaseManager {
 
     DataBaseManager() {
         dataBase = new UserDataBase();
-        try {
-            dataBase.load();
-        } catch (IOException | ClassNotFoundException e) {
-            ServerCore.getInstance().getController().append("couldn't load user database, creating new one");
-            dataBase.dumpDatabase();
-        }
+        dataBase.load();
+        // try {
+        // } catch (IOException | ClassNotFoundException e) {
+        // ServerCore.getInstance().getController().append("couldn't load user database,
+        // creating new one");
+        // dataBase.dumpDatabase();
+        // }
     }
 
     public void saveDB() {

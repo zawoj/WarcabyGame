@@ -14,8 +14,6 @@ public class Routes {
     }
 
     public static String styleRoute(String styleFileName) throws MalformedURLException {
-        // Documentation css
-        // https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
         File file = new File("src\\main\\java\\com\\client\\styles\\" + styleFileName);
 
         return file.toURI().toString();

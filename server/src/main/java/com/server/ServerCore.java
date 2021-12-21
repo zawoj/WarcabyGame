@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
 
+import com.controllers.TerminalController;
+
 /**
  * class being the core of the server.
  * this class is a singleton

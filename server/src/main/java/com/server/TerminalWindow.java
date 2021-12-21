@@ -5,7 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.File;
+
+import com.helpers.Routes;
 
 /**
  * server terminal window class
@@ -14,9 +15,9 @@ public class TerminalWindow extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // TODO add routs
-        Parent root = FXMLLoader.load(new File("src/main/java/com/server/Terminal.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(Routes.viewsRoute("Terminal.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
         stage.setOnCloseRequest(windowEvent -> ServerCore.getInstance().close());
         stage.show();
