@@ -18,7 +18,8 @@ public class ServerCore {
     boolean isRunning;
 
     DataBaseManager dataBaseManager;
-    private ServerCore(){
+
+    private ServerCore() {
 
         userConnections = new LinkedList<>();
         isRunning = false;
@@ -54,7 +55,7 @@ public class ServerCore {
     }
 
     /**
-     * returns the window controller used by the class
+     * -returns the window controller used by the class
      * 
      * @return terminal controller
      */

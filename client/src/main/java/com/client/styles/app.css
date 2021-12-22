@@ -136,3 +136,22 @@
   -fx-min-height: 100%;
 }
 /* -END- Scrollbar*/
+
+/* LOBBY */
+#Host {
+  -fx-background-color: #6dd1e0;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+  -fx-text-fill: white;
+}
+#Player1,
+#Player2,
+#Player3,
+#Player4,
+#Player5 {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+  -fx-text-fill: #7a8599;
+}
+/* -END- LOBBY */
