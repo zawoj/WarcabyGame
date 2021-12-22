@@ -49,7 +49,7 @@ public class LoginIntoLauncherController implements Initializable {
 
     }
 
-    public void ErrorNotification(){
+    public void ErrorNotification() {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
         transition.setToX(-285);
@@ -76,7 +76,7 @@ public class LoginIntoLauncherController implements Initializable {
                     scene.getStylesheets().add(Routes.styleRoute("app.css"));
                     stage.setScene(scene);
                     stage.show();
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }

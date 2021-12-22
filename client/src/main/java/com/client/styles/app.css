@@ -154,4 +154,9 @@
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
   -fx-text-fill: #7a8599;
 }
+#lobbyNamePane {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+}
 /* -END- LOBBY */

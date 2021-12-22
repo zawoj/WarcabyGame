@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 import com.client.ClientCore;
-import com.client.Lobby;
 import com.client.helpers.Routes;
+import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -25,6 +28,10 @@ public class DashboardController {
     private ImageView avatarImage;
     @FXML
     Button createGameButton, logoutButtin;
+    @FXML
+    Pane lobbyNamePane;
+    @FXML
+    TextField createNameLobby;
 
     @FXML
     public void initialize() {
@@ -52,20 +59,27 @@ public class DashboardController {
         stage.show();
     }
 
+    @FXML
+    public void setLobbyName() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(lobbyNamePane);
+        transition.setToY(-650);
+        transition.play();
+
+    }
+
     public void displayNickName(String nickName) {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
     }
 
     public void displayAvatar(Integer avatarNumber) {
-        System.out.println(avatarNumber);
-        System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
-        System.out.println(avatarImagePreview);
         avatarImage.setImage(avatarImagePreview);
     }
 
     public void LoadLobby() throws MalformedURLException, IOException {
+
         Stage stage = (Stage) createGameButton.getScene().getWindow();
         Parent root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
         Scene scene = new Scene(root, 1200, 800);
