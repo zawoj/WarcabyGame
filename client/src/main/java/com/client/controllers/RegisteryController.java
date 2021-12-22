@@ -61,7 +61,7 @@ public class RegisteryController implements Initializable {
     }
 
     @FXML
-    private void CreateAccountButtonController(ActionEvent e) throws Exception {
+    private void CreateAccountButtonController(ActionEvent e){
         try {
             if (e.getSource() == buttonCreateAccount) {
 
@@ -74,7 +74,7 @@ public class RegisteryController implements Initializable {
                         newPassword.setText("");
                         checkNewPassword.setText("");
 
-                        avatarChoiceBox.setValue("Choice avatar");
+                        avatarChoiceBox.setValue("Choose avatar");
                     } else {
                         TranslateTransition transition = new TranslateTransition();
                         transition.setNode(errorPanePassword);

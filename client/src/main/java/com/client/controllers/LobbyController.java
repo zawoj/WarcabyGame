@@ -18,7 +18,13 @@ public class LobbyController {
     public void initialize() {
         displayNickName(ClientCore.getInstance().getLogin());
         Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
+        ClientCore.getInstance().setLobbyController(this);
+    }
 
+    public void refreshData(){
+        for(String s :ClientCore.getInstance().getLobbyInfo().getPlayerinfo()){
+            System.out.println(s);
+        }
     }
 
     public void displayNickName(String nickName) {
