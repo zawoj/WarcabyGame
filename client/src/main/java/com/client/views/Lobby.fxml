@@ -84,15 +84,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="refreshButton" layoutX="695.0" layoutY="706.0" mnemonicParsing="false" onAction="#refreshAction">
-         <graphic>
-            <ImageView fx:id="refreshIcon" fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/refresh.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <Label fx:id="gameName" layoutX="587.0" layoutY="84.0" text="GameName" />
    </children>
 </Pane>

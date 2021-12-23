@@ -9,23 +9,23 @@ import com.client.helpers.Routes;
 // import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import kotlin.collections.IntIterator;
-import kotlin.jvm.internal.Intrinsics;
 
 public class DashboardController {
     @FXML
@@ -36,6 +36,10 @@ public class DashboardController {
     Button createGameButton, logoutButtin, paginationButtonNext, paginationButtonPrev;
     @FXML
     VBox GamesCardsPane;
+    @FXML
+    Button refreshButton;
+    @FXML
+    ImageView refreshIcon;
     // Dummy list
     public LinkedList lobbyLinkedList = new LinkedList<dummyLobbyClass>();
 
@@ -61,6 +65,12 @@ public class DashboardController {
         } catch (Exception ignored) {
 
         }
+    }
+
+    @FXML
+    public void refreshAction() {
+        // TODO nice animation
+        System.out.println("Refresh !");
     }
 
     @FXML
@@ -136,22 +146,29 @@ public class DashboardController {
     }
 
     // Create new card gamer
+    // Lepsze style będą. Wszystko będzie lepiej wyrównane
     public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName, String somethnikToGame) {
-        Pane gameCardPane = new Pane();
-        gameCardPane.setId("GameCard");
 
-        HBox gameCardVBox = new HBox();
-        gameCardPane.getChildren().addAll(gameCardVBox);
+        HBox gameCardHBox = new HBox();
+        gameCardHBox.setId("gameCardHBox");
 
         Button playButton = new Button();
         playButton.setGraphic(new ImageView(new Image(Routes.imageRoute("Play.png"))));
+        // This will be propably better but for now i dont have any idea
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("clicked");
+            }
+        });
 
-        gameCardVBox.getChildren().addAll(new Text(gameName), new Text(playersInLobby + "/6"), new Text(hostName),
+        gameCardHBox.getChildren().addAll(new Text(gameName), new Text(playersInLobby + "/6"), new Text(hostName),
                 playButton);
 
-        gameCardVBox.setSpacing(70.0);
+        gameCardHBox.setSpacing(40.0);
+        gameCardHBox.setAlignment(Pos.CENTER);
 
-        return gameCardPane;
+        return gameCardHBox;
     }
 
 }

@@ -67,6 +67,15 @@
             <Text fx:id="paginationPosition" layoutX="115.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 5" />
          </children>
       </Pane>
-      <VBox fx:id="GamesCardsPane" layoutX="492.0" layoutY="395.0" prefHeight="290.0" prefWidth="300.0" />
+      <VBox fx:id="GamesCardsPane" layoutX="479.0" layoutY="395.0" prefHeight="290.0" prefWidth="300.0" />
+      <Button fx:id="refreshButton" layoutX="732.0" layoutY="205.0" mnemonicParsing="false" onAction="#refreshAction">
+         <graphic>
+            <ImageView fx:id="refreshIcon" fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/refresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>
