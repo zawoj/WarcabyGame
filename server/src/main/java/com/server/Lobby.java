@@ -6,7 +6,7 @@ import com.messages.MessageHolder;
 import java.util.LinkedList;
 
 public class Lobby {
-    private String host;
+    private String host, name;
     private int numberOfPlayers;
     private LinkedList<UserCommunicationThread> players;
 
@@ -18,7 +18,8 @@ public class Lobby {
     public void addPlayer(UserCommunicationThread newPlayer){
         if(numberOfPlayers == 6) return;
         if(numberOfPlayers == 0){
-            host = newPlayer.getName();
+            host = newPlayer.userData.getLogin();
+            name = host + "'s game";
         }
         numberOfPlayers++;
         players.add(newPlayer);
@@ -61,5 +62,17 @@ public class Lobby {
     }
     public String getHost() {
         return host;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNumberOfPlayers(){
+        return numberOfPlayers;
     }
 }

@@ -1,6 +1,7 @@
 package com.server;
 
 import com.Database.UserInformationPackage;
+import com.messages.LobbyListMessage;
 import com.messages.LoginMessage;
 import com.messages.MessageHolder;
 import com.messages.RegisterMessage;
@@ -99,7 +100,11 @@ public class UserCommunicationThread extends Thread {
                 ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
             }
             case "get lobby info" ->{
-
+                LobbyListMessage llm = new LobbyListMessage();
+                llm.setMessageType("lobby list info");
+                llm.setLobbys(ServerCore.getInstance().getLobbysInfo());
+                out.writeObject(llm);
+                ServerCore.getInstance().getController().appendOutput(llm.getMessageType());
             }
             case "Create Lobby" -> {
                 Lobby lobby = new Lobby();

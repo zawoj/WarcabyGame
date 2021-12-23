@@ -8,6 +8,7 @@ import com.client.ClientCore;
 import com.client.helpers.Routes;
 // import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
 
+import com.messages.dummyLobbyClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -42,7 +42,7 @@ public class DashboardController {
     @FXML
     ImageView refreshIcon;
     // Dummy list
-    public LinkedList<dummyLobbyClass> lobbyLinkedList = new LinkedList<dummyLobbyClass>();
+    public LinkedList<dummyLobbyClass> lobbyLinkedList = new LinkedList<>();
 
     // Varible for help which card games we schuld load
     private Integer paginationIndex = 0;
@@ -51,6 +51,7 @@ public class DashboardController {
     public void initialize() throws MalformedURLException, IOException {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
+        ClientCore.getInstance().setDashboardController(this);
 
         // Dummy create list
         lobbyLinkedList.clear();
@@ -68,7 +69,7 @@ public class DashboardController {
         lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
         lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
         // Send link list off lobbys init dasboard
-        initDashboardGames(lobbyLinkedList);
+        initDashboardGames();
 
         // Control when pagination button schuld be active
         if (paginationIndex == ((int) Math.ceil(lobbyLinkedList.size() / 5))) {
@@ -148,23 +149,28 @@ public class DashboardController {
                         e.printStackTrace();
                     }
                 }
-                // ClientCore.getInstance().getLobbyController().refreshData();
+                ClientCore.getInstance().getLobbyController().refreshData();
             }
         });
 
     }
 
     // Load game list from linkList and create them
-    public void initDashboardGames(LinkedList<dummyLobbyClass> lobbyList) throws MalformedURLException, IOException {
-        for (int i = 0; i < 5; i++) {
-            if (i + (paginationIndex * 5) < lobbyList.size()) {
-                GamesCardsPane.getChildren().add(i,
-                        gameCardCreator(lobbyList.get(i + (paginationIndex * 5)).getName(),
-                                lobbyList.get(i + (paginationIndex * 5)).getPlayersInLobby(),
-                                lobbyList.get(i + (paginationIndex * 5)).hostName()));
+    public void initDashboardGames() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                GamesCardsPane.getChildren().clear();
+                for (int i = 0; i < 5; i++) {
+                    if (i + (paginationIndex * 5) < lobbyLinkedList.size()) {
+                        GamesCardsPane.getChildren().add(i,
+                                gameCardCreator(lobbyLinkedList.get(i + (paginationIndex * 5)).getName(),
+                                        lobbyLinkedList.get(i + (paginationIndex * 5)).getPlayersInLobby(),
+                                        lobbyLinkedList.get(i + (paginationIndex * 5)).hostName()));
+                    }
+                }
             }
-        }
-
+        });
     }
 
     @FXML
@@ -208,4 +214,8 @@ public class DashboardController {
         return gameCardHBox;
     }
 
+    public void changeLobbyList(final LinkedList<dummyLobbyClass> newList) {
+        lobbyLinkedList.clear();
+        lobbyLinkedList.addAll(newList);
+    }
 }

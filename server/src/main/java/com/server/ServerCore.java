@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.controllers.TerminalController;
+import com.messages.dummyLobbyClass;
 
 /**
  * class being the core of the server.
@@ -158,5 +159,14 @@ public class ServerCore {
             }
         }
         return null;
+    }
+
+    public LinkedList<dummyLobbyClass> getLobbysInfo(){
+        LinkedList<dummyLobbyClass> info = new LinkedList<>();
+        for(int i = 0; i < serverLobbys.size(); i++){
+            Lobby lobby = serverLobbys.get(i);
+            info.add(i, new dummyLobbyClass(lobby.getName(),lobby.getNumberOfPlayers(),lobby.getHost()));
+        }
+        return info;
     }
 }
