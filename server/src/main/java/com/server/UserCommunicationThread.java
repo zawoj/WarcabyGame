@@ -1,10 +1,7 @@
 package com.server;
 
 import com.Database.UserInformationPackage;
-import com.messages.LobbyListMessage;
-import com.messages.LoginMessage;
-import com.messages.MessageHolder;
-import com.messages.RegisterMessage;
+import com.messages.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -110,7 +107,12 @@ public class UserCommunicationThread extends Thread {
                 Lobby lobby = new Lobby();
                 lobby.addPlayer(this);
                 ServerCore.getInstance().getLobbys().add(lobby);
-                lobby.sendLobbyInfo();
+            }
+            case "join lobby" ->{
+                joinLobbyMessage jlm = (joinLobbyMessage) message;
+                Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
+                if(lobby != null) lobby.addPlayer(this);
+
             }
         }
     }

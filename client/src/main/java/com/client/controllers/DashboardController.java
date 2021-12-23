@@ -126,7 +126,6 @@ public class DashboardController {
         System.out.println(avatarNumber);
         System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
-        System.out.println(avatarImagePreview);
         avatarImage.setImage(avatarImagePreview);
     }
 
@@ -143,13 +142,13 @@ public class DashboardController {
                         root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
                         Scene scene = new Scene(root, 1200, 800);
                         scene.getStylesheets().add(Routes.styleRoute("app.css"));
-                        stage.setScene(scene);
-                        stage.show();
+                        ClientCore.getInstance().programStage.setScene(scene);
+                        ClientCore.getInstance().programStage.show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                ClientCore.getInstance().getLobbyController().refreshData();
+                ClientCore.getInstance().getLobbyController().refreshLobbyData();
             }
         });
 
@@ -201,7 +200,9 @@ public class DashboardController {
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(((Node) event.getSource()).getId());
+                try {
+                    ClientCore.getInstance().joinLobby(((Node) event.getSource()).getId());
+                }catch(Exception ignored){}
             }
         });
 

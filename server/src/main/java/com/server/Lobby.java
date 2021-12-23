@@ -23,6 +23,7 @@ public class Lobby {
         }
         numberOfPlayers++;
         players.add(newPlayer);
+        sendLobbyInfo();
     }
 
     public void removePlayer(UserCommunicationThread playerToRemove){

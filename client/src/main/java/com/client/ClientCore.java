@@ -1,10 +1,8 @@
 package com.client;
 
 import com.client.controllers.*;
-import com.messages.LobbyInfoMessage;
-import com.messages.LoginMessage;
-import com.messages.MessageHolder;
-import com.messages.RegisterMessage;
+import com.messages.*;
+import javafx.stage.Stage;
 
 import java.net.Socket;
 
@@ -24,6 +22,7 @@ public class ClientCore {
     String Login;
     int avatar;
     LobbyInfoMessage lobbyInfo;
+    public Stage programStage;
 
     // Singletion
     public static ClientCore getInstance() {
@@ -131,6 +130,13 @@ public class ClientCore {
     public void createLobby() throws Exception{
         MessageHolder mh = new MessageHolder();
         mh.setMessageType("Create Lobby");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void joinLobby(String hostName) throws Exception{
+        joinLobbyMessage mh = new joinLobbyMessage();
+        mh.setMessageType("join lobby");
+        mh.setHostName(hostName);
         conlis.getOut().writeObject(mh);
     }
 

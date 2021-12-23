@@ -21,7 +21,7 @@ public class Window extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Stage stage = new Stage();
-
+        ClientCore.getInstance().programStage = primaryStage;
         // Custom Fonr load
         Font.loadFont(getClass().getResourceAsStream(Routes.styleRoute("LatoRegular.ttf")), 14);
         // FXML loader
