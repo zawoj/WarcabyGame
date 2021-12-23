@@ -98,6 +98,9 @@ public class UserCommunicationThread extends Thread {
                 out.writeObject(rm);
                 ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
             }
+            case "get lobby info" ->{
+
+            }
         }
     }
 }

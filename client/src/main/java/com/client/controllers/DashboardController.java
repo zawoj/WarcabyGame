@@ -42,7 +42,7 @@ public class DashboardController {
     @FXML
     ImageView refreshIcon;
     // Dummy list
-    public LinkedList lobbyLinkedList = new LinkedList<dummyLobbyClass>();
+    public LinkedList<dummyLobbyClass> lobbyLinkedList = new LinkedList<dummyLobbyClass>();
 
     // Varible for help which card games we schuld load
     private Integer paginationIndex = 0;
@@ -54,19 +54,19 @@ public class DashboardController {
 
         // Dummy create list
         lobbyLinkedList.clear();
-        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj", "Link1"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo", "Link2"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej", "Link3"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej", "Link4"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej", "Link5"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej", "Link6"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej", "Link7"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej", "Link8"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej", "Link9"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej", "Link10"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej", "Link11"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej", "Link12"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej", "Link13"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
         // Send link list off lobbys init dasboard
         initDashboardGames(lobbyLinkedList);
 
@@ -96,7 +96,9 @@ public class DashboardController {
     @FXML
     public void refreshAction() {
         // TODO nice animation
-        System.out.println("Refresh !");
+        try {
+            ClientCore.getInstance().sendLobbyListRequest();
+        }catch (Exception ignored){}
     }
 
     @FXML
@@ -125,6 +127,7 @@ public class DashboardController {
     }
 
     public void LoadLobby() {
+        System.out.println("Load Lobby");
 
         Platform.runLater(new Runnable() {
             @Override
@@ -149,14 +152,13 @@ public class DashboardController {
     }
 
     // Load game list from linkList and create them
-    public void initDashboardGames(LinkedList lobbyList) throws MalformedURLException, IOException {
+    public void initDashboardGames(LinkedList<dummyLobbyClass> lobbyList) throws MalformedURLException, IOException {
         for (int i = 0; i < 5; i++) {
             if (i + (paginationIndex * 5) < lobbyList.size()) {
                 GamesCardsPane.getChildren().add(i,
-                        gameCardCreator(((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).getName(),
-                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).getPlayersInLobby(),
-                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).hostName(),
-                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).somethnikToGame()));
+                        gameCardCreator(lobbyList.get(i + (paginationIndex * 5)).getName(),
+                                lobbyList.get(i + (paginationIndex * 5)).getPlayersInLobby(),
+                                lobbyList.get(i + (paginationIndex * 5)).hostName()));
             }
         }
 
@@ -177,14 +179,15 @@ public class DashboardController {
         initialize();
     }
 
-    // Creator of game's card TODO make better styles
-    public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName, String somethnikToGame) {
+    // Create new card gamer
+    // Lepsze style będą. Wszystko będzie lepiej wyrównane
+    public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName) {
 
         HBox gameCardHBox = new HBox();
         gameCardHBox.setId("gameCardHBox");
 
         Button playButton = new Button();
-        playButton.setId(somethnikToGame);
+        playButton.setId(hostName);
         playButton.setGraphic(new ImageView(new Image(Routes.imageRoute("Play.png"))));
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

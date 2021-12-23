@@ -16,8 +16,7 @@ public class ServerCore {
     private ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     boolean isRunning;
-
-    DataBaseManager dataBaseManager;
+    private DataBaseManager dataBaseManager;
 
     private ServerCore() {
 

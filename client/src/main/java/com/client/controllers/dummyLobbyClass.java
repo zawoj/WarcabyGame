@@ -1,14 +1,13 @@
 package com.client.controllers;
 
 public class dummyLobbyClass {
-    public String gameName, hostName, somethnikToGame;
+    public String gameName, hostName;
     public Integer playersInLobby;
 
-    dummyLobbyClass(String gameName, Integer playersInLobby, String hostName, String somethnikToGame) {
+    dummyLobbyClass(String gameName, Integer playersInLobby, String hostName) {
         this.gameName = gameName;
         this.playersInLobby = playersInLobby;
         this.hostName = hostName;
-        this.somethnikToGame = somethnikToGame;
     }
 
     public String getName() {
@@ -17,10 +16,6 @@ public class dummyLobbyClass {
 
     public String hostName() {
         return this.hostName;
-    }
-
-    public String somethnikToGame() {
-        return this.somethnikToGame;
     }
 
     public Integer getPlayersInLobby() {

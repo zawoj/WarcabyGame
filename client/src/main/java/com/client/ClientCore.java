@@ -4,6 +4,7 @@ import com.client.controllers.LoginIntoLauncherController;
 import com.client.controllers.RegisteryController;
 import com.client.controllers.StartViewController;
 import com.messages.LoginMessage;
+import com.messages.MessageHolder;
 import com.messages.RegisterMessage;
 
 import java.net.Socket;
@@ -107,5 +108,11 @@ public class ClientCore {
 
     public Object getLobbyController() {
         return null;
+    }
+
+    public void sendLobbyListRequest() throws Exception{
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("get lobby info");
+        conlis.getOut().writeObject(mh);
     }
 }
