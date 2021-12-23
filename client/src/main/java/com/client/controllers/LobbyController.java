@@ -23,6 +23,10 @@ public class LobbyController {
         Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
         gameName.setText("Game Name");
 
+    public void refreshData(){
+        for(String s :ClientCore.getInstance().getLobbyInfo().getPlayerinfo()){
+            System.out.println(s);
+        }
     }
 
     public void displayNickName(String nickName) {

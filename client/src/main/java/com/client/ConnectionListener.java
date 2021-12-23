@@ -1,4 +1,6 @@
 package com.client;
+import com.client.controllers.DashboardController;
+import com.messages.LobbyInfoMessage;
 import com.messages.MessageHolder;
 import com.messages.RegisterMessage;
 
@@ -50,6 +52,10 @@ public class ConnectionListener extends Thread{
                 break;
             case "Login fail": ClientCore.getInstance().getLoginIntoLauncherController().ErrorNotification();
             break;
+            case "LobbyInfo":
+                LobbyInfoMessage lm = (LobbyInfoMessage) message;
+                ClientCore.getInstance().setLobbyInfo(lm);
+                ClientCore.getInstance().getDashboardController().LoadLobby();
         }
     }
 

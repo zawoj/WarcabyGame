@@ -101,6 +101,12 @@ public class UserCommunicationThread extends Thread {
             case "get lobby info" ->{
 
             }
+            case "Create Lobby" -> {
+                Lobby lobby = new Lobby();
+                lobby.addPlayer(this);
+                ServerCore.getInstance().getLobbys().add(lobby);
+                lobby.sendLobbyInfo();
+            }
         }
     }
 }

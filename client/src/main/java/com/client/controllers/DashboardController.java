@@ -102,7 +102,7 @@ public class DashboardController {
     }
 
     @FXML
-    public void logout() throws MalformedURLException, IOException {
+    public void logout() throws IOException {
         Stage stage;
         Parent root;
 
@@ -122,7 +122,10 @@ public class DashboardController {
     }
 
     public void displayAvatar(Integer avatarNumber) {
+        System.out.println(avatarNumber);
+        System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
+        System.out.println(avatarImagePreview);
         avatarImage.setImage(avatarImagePreview);
     }
 
