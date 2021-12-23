@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="GameCard" prefHeight="61.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.GameCardController">
+   <children>
+      <Text fx:id="gameNameText" layoutX="34.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game #1" />
+      <Text fx:id="numeberOfPlayers" layoutX="167.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3/6" />
+      <Text fx:id="hostName" layoutX="257.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" />
+      <ImageView fx:id="joinToLobbyButton" fitHeight="27.0" fitWidth="37.0" layoutX="359.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Play.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

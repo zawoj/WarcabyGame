@@ -2,6 +2,7 @@ package com.client.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.LinkedList;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
@@ -10,27 +11,44 @@ import com.client.helpers.Routes;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import kotlin.collections.IntIterator;
+import kotlin.jvm.internal.Intrinsics;
 
 public class DashboardController {
     @FXML
-    Text NickName;
+    Text NickName, paginationPosition;
     @FXML
     private ImageView avatarImage;
     @FXML
-    Button createGameButton, logoutButtin;
+    Button createGameButton, logoutButtin, paginationButtonNext, paginationButtonPrev;
+    @FXML
+    VBox GamesCardsPane;
+    // Dummy list
+    public LinkedList lobbyLinkedList = new LinkedList<dummyLobbyClass>();
 
     @FXML
-    public void initialize() {
+    public void initialize() throws MalformedURLException, IOException {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
+
+        // Dummy create list
+        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj", "Link1"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo", "Link2"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej", "Link3"));
+        initDashboardGames(lobbyLinkedList);
+
     }
 
     @FXML
@@ -92,6 +110,43 @@ public class DashboardController {
             }
         });
 
+    }
+
+    // Laoad game list from linkList and create them
+    public void initDashboardGames(LinkedList lobbyList) throws MalformedURLException, IOException {
+        for (int i = 0; i < lobbyList.size(); i++) {
+            GamesCardsPane.getChildren().add(i, gameCardCreator(((dummyLobbyClass) lobbyList.get(i)).getName(),
+                    ((dummyLobbyClass) lobbyList.get(i)).getPlayersInLobby(),
+                    ((dummyLobbyClass) lobbyList.get(i)).hostName(),
+                    ((dummyLobbyClass) lobbyList.get(i)).somethnikToGame()));
+        }
+
+    }
+
+    @FXML
+    public void loadNext() {
+        System.out.println("Load Next");
+
+    }
+
+    @FXML
+    public void loadPrev() {
+        System.out.println("Load Prev");
+    }
+
+    // Create new card gamer
+    public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName, String somethnikToGame) {
+        Pane gameCardPane = new Pane();
+        gameCardPane.setId("GameCard");
+
+        VBox gameCardVBox = new VBox();
+        gameCardPane.getChildren().add(gameCardVBox);
+
+        gameCardVBox.getChildren().add(new Text(gameName));
+        gameCardVBox.getChildren().add(new Text(playersInLobby + "/6"));
+        gameCardVBox.getChildren().add(new Text(hostName));
+
+        return gameCardPane;
     }
 
 }

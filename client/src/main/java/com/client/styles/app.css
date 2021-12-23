@@ -75,6 +75,8 @@
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
   -fx-background-color: #ffffff;
   -fx-background-radius: 10;
+  -fx-min-width: 410;
+  -fx-min-height: 60;
 }
 
 /*  Pane */
@@ -160,3 +162,14 @@
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
 }
 /* -END- LOBBY */
+
+/* Pagination */
+#paginationButtonPrev,
+#paginationButtonNext {
+  -fx-background-color: #ffffff;
+  -fx-min-width: 30;
+  -fx-min-height: 30;
+  -fx-background-radius: 50;
+}
+
+/* -END- Pagination */
