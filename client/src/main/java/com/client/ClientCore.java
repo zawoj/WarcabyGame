@@ -121,12 +121,6 @@ public class ClientCore {
             conlis.close();
     }
 
-    public void createLobby() {
-    }
-
-    public Object getLobbyController() {
-        return null;
-    }
 
     public void sendLobbyListRequest() throws Exception{
         MessageHolder mh = new MessageHolder();

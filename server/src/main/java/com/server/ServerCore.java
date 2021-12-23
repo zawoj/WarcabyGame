@@ -151,7 +151,7 @@ public class ServerCore {
         return serverLobbys;
     }
 
-    public Lobby createLobbybyHost(String host){
+    public Lobby getLobbybyHost(String host){
         for(Lobby lobby : serverLobbys){
             if(Objects.equals(lobby.getHost(), host)){
                 return lobby;
