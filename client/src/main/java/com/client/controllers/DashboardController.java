@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -153,12 +154,12 @@ public class DashboardController {
         gameCardHBox.setId("gameCardHBox");
 
         Button playButton = new Button();
+        playButton.setId(somethnikToGame);
         playButton.setGraphic(new ImageView(new Image(Routes.imageRoute("Play.png"))));
-        // This will be propably better but for now i dont have any idea
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("clicked");
+                System.out.println(((Node) event.getSource()).getId());
             }
         });
 

@@ -80,6 +80,10 @@
   -fx-min-width: 410;
   -fx-min-height: 60;
 }
+
+#gameCardHBox > .button {
+  -fx-background-color: #ffffff00;
+}
 /* -END-Dashboard */
 
 /*  Pane */
