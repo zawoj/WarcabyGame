@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -139,12 +140,16 @@ public class DashboardController {
         Pane gameCardPane = new Pane();
         gameCardPane.setId("GameCard");
 
-        VBox gameCardVBox = new VBox();
-        gameCardPane.getChildren().add(gameCardVBox);
+        HBox gameCardVBox = new HBox();
+        gameCardPane.getChildren().addAll(gameCardVBox);
 
-        gameCardVBox.getChildren().add(new Text(gameName));
-        gameCardVBox.getChildren().add(new Text(playersInLobby + "/6"));
-        gameCardVBox.getChildren().add(new Text(hostName));
+        Button playButton = new Button();
+        playButton.setGraphic(new ImageView(new Image(Routes.imageRoute("Play.png"))));
+
+        gameCardVBox.getChildren().addAll(new Text(gameName), new Text(playersInLobby + "/6"), new Text(hostName),
+                playButton);
+
+        gameCardVBox.setSpacing(70.0);
 
         return gameCardPane;
     }

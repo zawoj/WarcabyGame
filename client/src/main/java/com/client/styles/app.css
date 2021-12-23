@@ -71,6 +71,7 @@
   -fx-transition: all 1s ease-in-out;
 }
 
+/* Dashboard */
 #GameCard {
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
   -fx-background-color: #ffffff;
@@ -78,6 +79,7 @@
   -fx-min-width: 410;
   -fx-min-height: 60;
 }
+/* -END-Dashboard */
 
 /*  Pane */
 

@@ -41,8 +41,8 @@
       </ImageView>
       <Text layoutX="626.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game List" />
       <Text layoutX="486.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name" />
-      <Text layoutX="617.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" />
-      <Text layoutX="715.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Name" />
+      <Text layoutX="608.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" />
+      <Text layoutX="702.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Name" />
       <Button fx:id="logoutButtin" layoutX="1056.0" layoutY="206.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="86.0" text="Log out" />
       <Pane fx:id="paginationPane" layoutX="539.0" layoutY="685.0" prefHeight="34.0" prefWidth="200.0">
          <children>
