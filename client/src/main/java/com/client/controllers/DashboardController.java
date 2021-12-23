@@ -5,18 +5,16 @@ import java.net.MalformedURLException;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
-import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
+// import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
 
-import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -28,10 +26,6 @@ public class DashboardController {
     private ImageView avatarImage;
     @FXML
     Button createGameButton, logoutButtin;
-    @FXML
-    Pane lobbyNamePane;
-    @FXML
-    TextField createNameLobby;
 
     @FXML
     public void initialize() {
@@ -40,8 +34,14 @@ public class DashboardController {
     }
 
     @FXML
-    void createLooby() throws MalformedURLException, IOException {
-        LoadLobby();
+    public void createLooby() {
+        System.out.println("Create Lobby");
+        try {
+            ClientCore.getInstance().createLobby();
+            LoadLobby();
+        } catch (Exception ignored) {
+
+        }
     }
 
     @FXML
@@ -59,15 +59,6 @@ public class DashboardController {
         stage.show();
     }
 
-    @FXML
-    public void setLobbyName() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(lobbyNamePane);
-        transition.setToY(-650);
-        transition.play();
-
-    }
-
     public void displayNickName(String nickName) {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
@@ -78,14 +69,29 @@ public class DashboardController {
         avatarImage.setImage(avatarImagePreview);
     }
 
-    public void LoadLobby() throws MalformedURLException, IOException {
+    public void LoadLobby() {
+        System.out.println("Load Lobby");
 
-        Stage stage = (Stage) createGameButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
-        Scene scene = new Scene(root, 1200, 800);
-        scene.getStylesheets().add(Routes.styleRoute("app.css"));
-        stage.setScene(scene);
-        stage.show();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (ClientCore.getInstance().getLobbyController() == null) {
+                    Stage stage = (Stage) createGameButton.getScene().getWindow();
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
+                        Scene scene = new Scene(root, 1200, 800);
+                        scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                // ClientCore.getInstance().getLobbyController().refreshData();
+            }
+        });
+
     }
 
 }

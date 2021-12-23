@@ -96,7 +96,16 @@ public class ClientCore {
         rm.setAvatar(chosenAvatar);
         conlis.getOut().writeObject(rm);
     }
-    public void close(){
-        if(conlis!=null) conlis.close();
+
+    public void close() {
+        if (conlis != null)
+            conlis.close();
+    }
+
+    public void createLobby() {
+    }
+
+    public Object getLobbyController() {
+        return null;
     }
 }
