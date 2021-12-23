@@ -44,16 +44,41 @@ public class DashboardController {
     // Dummy list
     public LinkedList lobbyLinkedList = new LinkedList<dummyLobbyClass>();
 
+    // Varible for help which card games we schuld load
+    private Integer paginationIndex = 0;
+
     @FXML
     public void initialize() throws MalformedURLException, IOException {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
 
         // Dummy create list
+        lobbyLinkedList.clear();
         lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj", "Link1"));
         lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo", "Link2"));
         lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej", "Link3"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej", "Link4"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej", "Link5"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej", "Link6"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej", "Link7"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej", "Link8"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej", "Link9"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej", "Link10"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej", "Link11"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej", "Link12"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej", "Link13"));
+        // Send link list off lobbys init dasboard
         initDashboardGames(lobbyLinkedList);
+
+        // Control when pagination button schuld be active
+        if (paginationIndex == ((int) Math.ceil(lobbyLinkedList.size() / 5))) {
+            paginationButtonNext.setDisable(true);
+        } else if (paginationIndex == 0) {
+            paginationButtonPrev.setDisable(true);
+        } else {
+            paginationButtonNext.setDisable(false);
+            paginationButtonPrev.setDisable(false);
+        }
 
     }
 
@@ -100,7 +125,6 @@ public class DashboardController {
     }
 
     public void LoadLobby() {
-        System.out.println("Load Lobby");
 
         Platform.runLater(new Runnable() {
             @Override
@@ -124,30 +148,36 @@ public class DashboardController {
 
     }
 
-    // Laoad game list from linkList and create them
+    // Load game list from linkList and create them
     public void initDashboardGames(LinkedList lobbyList) throws MalformedURLException, IOException {
-        for (int i = 0; i < lobbyList.size(); i++) {
-            GamesCardsPane.getChildren().add(i, gameCardCreator(((dummyLobbyClass) lobbyList.get(i)).getName(),
-                    ((dummyLobbyClass) lobbyList.get(i)).getPlayersInLobby(),
-                    ((dummyLobbyClass) lobbyList.get(i)).hostName(),
-                    ((dummyLobbyClass) lobbyList.get(i)).somethnikToGame()));
+        for (int i = 0; i < 5; i++) {
+            if (i + (paginationIndex * 5) < lobbyList.size()) {
+                GamesCardsPane.getChildren().add(i,
+                        gameCardCreator(((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).getName(),
+                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).getPlayersInLobby(),
+                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).hostName(),
+                                ((dummyLobbyClass) lobbyList.get(i + (paginationIndex * 5))).somethnikToGame()));
+            }
         }
 
     }
 
     @FXML
-    public void loadNext() {
-        System.out.println("Load Next");
+    public void loadNext() throws MalformedURLException, IOException {
+        GamesCardsPane.getChildren().clear();
+        paginationIndex++;
+        initialize();
 
     }
 
     @FXML
-    public void loadPrev() {
-        System.out.println("Load Prev");
+    public void loadPrev() throws MalformedURLException, IOException {
+        GamesCardsPane.getChildren().clear();
+        paginationIndex--;
+        initialize();
     }
 
-    // Create new card gamer
-    // Lepsze style będą. Wszystko będzie lepiej wyrównane
+    // Creator of game's card TODO make better styles
     public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName, String somethnikToGame) {
 
         HBox gameCardHBox = new HBox();
