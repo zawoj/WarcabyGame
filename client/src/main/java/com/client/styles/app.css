@@ -168,6 +168,32 @@
   -fx-background-radius: 10;
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
 }
+#gameName:focused {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #4c596b00;
+  -fx-text-fill: #000000;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0), 10, 0, 0, 0);
+  -fx-background-radius: 0;
+  -fx-min-width: 80;
+  -fx-min-height: 40;
+}
+
+#gameName {
+  -fx-background-color: #ffffff00;
+  -fx-border-color: #00000000;
+  -fx-text-fill: #000000;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0), 10, 0, 0, 0);
+  -fx-background-radius: 30;
+  -fx-min-width: 80;
+  -fx-min-height: 40;
+}
+#gameName:disabled {
+  -fx-opacity: 1;
+}
 /* -END- LOBBY */
 
 /* Pagination */
