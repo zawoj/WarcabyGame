@@ -7,6 +7,7 @@ import com.client.ClientCore;
 import com.client.Lobby;
 import com.client.helpers.Routes;
 
+import com.client.helpers.Routes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -67,6 +69,15 @@ public class LobbyController {
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
         stage.show();
+        displayAvatar(ClientCore.getInstance().getAvatar());
+        ClientCore.getInstance().setLobbyController(this);
+        gameName.setText("Game Name");
+    }
+
+    public void refreshLobbyData(){
+        for(String s :ClientCore.getInstance().getLobbyInfo().getPlayerinfo()){
+            System.out.println(s);
+        }
     }
 
     @FXML
@@ -77,6 +88,13 @@ public class LobbyController {
     private void displayNickName(String nickName) {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
+    }
+    public void displayAvatar(Integer avatarNumber) {
+        System.out.println(avatarNumber);
+        System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
+        Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
+        System.out.println(avatarImagePreview);
+        avatarImage.setImage(avatarImagePreview);
     }
 
     private void isHost() {

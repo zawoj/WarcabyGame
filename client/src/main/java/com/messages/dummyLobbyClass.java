@@ -1,10 +1,12 @@
-package com.client.controllers;
+package com.messages;
 
-public class dummyLobbyClass {
+import java.io.Serializable;
+
+public class dummyLobbyClass implements Serializable {
     public String gameName, hostName;
     public Integer playersInLobby;
 
-    dummyLobbyClass(String gameName, Integer playersInLobby, String hostName) {
+    public dummyLobbyClass(String gameName, Integer playersInLobby, String hostName) {
         this.gameName = gameName;
         this.playersInLobby = playersInLobby;
         this.hostName = hostName;
@@ -22,3 +24,4 @@ public class dummyLobbyClass {
         return this.playersInLobby;
     }
 }
+

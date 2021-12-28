@@ -1,11 +1,8 @@
 package com.client;
 
-import com.client.controllers.LoginIntoLauncherController;
-import com.client.controllers.RegisteryController;
-import com.client.controllers.StartViewController;
-import com.messages.LoginMessage;
-import com.messages.MessageHolder;
-import com.messages.RegisterMessage;
+import com.client.controllers.*;
+import com.messages.*;
+import javafx.stage.Stage;
 
 import java.net.Socket;
 
@@ -19,9 +16,13 @@ public class ClientCore {
     StartViewController startViewController;
     LoginIntoLauncherController loginIntoLauncherController;
     RegisteryController registeryController;
+    DashboardController dashboardController;
+    LobbyController lobbyController;
     ConnectionListener conlis;
     String Login;
     int avatar;
+    LobbyInfoMessage lobbyInfo;
+    public Stage programStage;
 
     // Singletion
     public static ClientCore getInstance() {
@@ -45,6 +46,22 @@ public class ClientCore {
 
     public void setRegisteryController(RegisteryController registeryController) {
         this.registeryController = registeryController;
+    }
+
+    public DashboardController getDashboardController() {
+        return dashboardController;
+    }
+
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
+    }
+
+    public LobbyController getLobbyController() {
+        return lobbyController;
+    }
+
+    public void setLobbyController(LobbyController lobbyController) {
+        this.lobbyController = lobbyController;
     }
 
     public StartViewController getStartViewController() {
@@ -103,16 +120,31 @@ public class ClientCore {
             conlis.close();
     }
 
-    public void createLobby() {
-    }
-
-    public Object getLobbyController() {
-        return null;
-    }
 
     public void sendLobbyListRequest() throws Exception{
         MessageHolder mh = new MessageHolder();
         mh.setMessageType("get lobby info");
         conlis.getOut().writeObject(mh);
+    }
+
+    public void createLobby() throws Exception{
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("Create Lobby");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void joinLobby(String hostName) throws Exception{
+        joinLobbyMessage mh = new joinLobbyMessage();
+        mh.setMessageType("join lobby");
+        mh.setHostName(hostName);
+        conlis.getOut().writeObject(mh);
+    }
+
+    public LobbyInfoMessage getLobbyInfo() {
+        return lobbyInfo;
+    }
+
+    public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
+        this.lobbyInfo = lobbyInfo;
     }
 }

@@ -3,8 +3,10 @@ package com.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import com.controllers.TerminalController;
+import com.messages.dummyLobbyClass;
 
 /**
  * class being the core of the server.
@@ -15,11 +17,12 @@ public class ServerCore {
     private TerminalController terminalController;
     private ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
+    private final LinkedList<Lobby> serverLobbys;
     boolean isRunning;
     private DataBaseManager dataBaseManager;
 
     private ServerCore() {
-
+        serverLobbys = new LinkedList<>();
         userConnections = new LinkedList<>();
         isRunning = false;
     }
@@ -139,5 +142,31 @@ public class ServerCore {
      */
     public LinkedList<UserCommunicationThread> getUsers() {
         return userConnections;
+    }
+
+    /**
+     * returns the list of lobbys
+     * @return list of lobbys
+     */
+    public LinkedList<Lobby> getLobbys() {
+        return serverLobbys;
+    }
+
+    public Lobby getLobbybyHost(String host){
+        for(Lobby lobby : serverLobbys){
+            if(Objects.equals(lobby.getHost(), host)){
+                return lobby;
+            }
+        }
+        return null;
+    }
+
+    public LinkedList<dummyLobbyClass> getLobbysInfo(){
+        LinkedList<dummyLobbyClass> info = new LinkedList<>();
+        for(int i = 0; i < serverLobbys.size(); i++){
+            Lobby lobby = serverLobbys.get(i);
+            info.add(i, new dummyLobbyClass(lobby.getName(),lobby.getNumberOfPlayers(),lobby.getHost()));
+        }
+        return info;
     }
 }
