@@ -37,6 +37,7 @@ public class LobbyController {
 
     @FXML
     public void initialize() {
+        ClientCore.getInstance().setLobbyController(this);
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
