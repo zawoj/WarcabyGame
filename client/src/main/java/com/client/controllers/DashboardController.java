@@ -85,7 +85,6 @@ public class DashboardController {
 
     @FXML
     public void createLooby() {
-        System.out.println("Create Lobby");
         try {
             ClientCore.getInstance().createLobby();
             LoadLobby();
@@ -99,7 +98,8 @@ public class DashboardController {
         // TODO nice animation
         try {
             ClientCore.getInstance().sendLobbyListRequest();
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     @FXML
@@ -109,7 +109,6 @@ public class DashboardController {
 
         stage = (Stage) logoutButtin.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("loginIntoLauncher.fxml"));
-        System.out.println("Connect Server");
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
@@ -123,14 +122,11 @@ public class DashboardController {
     }
 
     public void displayAvatar(Integer avatarNumber) {
-        System.out.println(avatarNumber);
-        System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
         avatarImage.setImage(avatarImagePreview);
     }
 
     public void LoadLobby() {
-        System.out.println("Load Lobby");
 
         Platform.runLater(new Runnable() {
             @Override
@@ -202,7 +198,8 @@ public class DashboardController {
             public void handle(ActionEvent event) {
                 try {
                     ClientCore.getInstance().joinLobby(((Node) event.getSource()).getId());
-                }catch(Exception ignored){}
+                } catch (Exception ignored) {
+                }
             }
         });
 

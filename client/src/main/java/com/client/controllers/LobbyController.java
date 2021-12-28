@@ -38,17 +38,18 @@ public class LobbyController {
     @FXML
     public void initialize() {
         displayNickName(ClientCore.getInstance().getLogin());
+        displayAvatar(ClientCore.getInstance().getAvatar());
         Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
-        gameName.setPromptText("Host's game");
+        gameName.setPromptText(ClientCore.getInstance().getLogin() + "'s game");
         gameName.setDisable(true);
-        isHost();
+        // isHost();
+        System.out.println(ClientCore.getInstance());
 
     }
 
     @FXML
     public void saveEdit() {
         saveMode = !saveMode;
-        System.out.println(saveMode);
         if (saveMode == true) {
             // After edit
             saveEditButton.setText("Save");
@@ -57,7 +58,6 @@ public class LobbyController {
             // After Save
             saveEditButton.setText("Edit");
             gameName.setDisable(true);
-            System.out.println(gameName.getText());
         }
     }
 
@@ -69,13 +69,12 @@ public class LobbyController {
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
         stage.show();
-        displayAvatar(ClientCore.getInstance().getAvatar());
         ClientCore.getInstance().setLobbyController(this);
         gameName.setText("Game Name");
     }
 
-    public void refreshLobbyData(){
-        for(String s :ClientCore.getInstance().getLobbyInfo().getPlayerinfo()){
+    public void refreshLobbyData() {
+        for (String s : ClientCore.getInstance().getLobbyInfo().getPlayerinfo()) {
             System.out.println(s);
         }
     }
@@ -89,11 +88,9 @@ public class LobbyController {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
     }
+
     public void displayAvatar(Integer avatarNumber) {
-        System.out.println(avatarNumber);
-        System.out.println(Routes.imageRoute("avatar" + avatarNumber + ".png"));
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
-        System.out.println(avatarImagePreview);
         avatarImage.setImage(avatarImagePreview);
     }
 
