@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -75,7 +75,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button layoutX="536.0" layoutY="701.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="129.0" text="Start Game">
+      <Button fx:id="startGame" layoutX="536.0" layoutY="701.0" mnemonicParsing="false" onAction="#startGame" prefHeight="34.0" prefWidth="129.0" text="Start Game">
          <graphic>
             <ImageView fitHeight="15.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -84,6 +84,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="gameName" layoutX="587.0" layoutY="84.0" text="GameName" />
+      <Button fx:id="saveEditButton" layoutX="665.0" layoutY="80.0" mnemonicParsing="false" onAction="#saveEdit" text="Edit" />
+      <TextField fx:id="gameName" layoutX="550.0" layoutY="75.0" prefHeight="25.0" prefWidth="101.0" />
+      <Button fx:id="goOut" layoutX="1053.0" layoutY="205.0" mnemonicParsing="false" onAction="#goOut" text="Go Out" />
    </children>
 </Pane>
