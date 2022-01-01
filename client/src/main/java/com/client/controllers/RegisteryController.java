@@ -41,7 +41,7 @@ public class RegisteryController implements Initializable {
 
     private static Stage stage;
     private static Parent root;
-    private static ObservableList<String> avatarId = FXCollections.observableArrayList("Avatar 1", "Avatar 2",
+    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Avatar 1", "Avatar 2",
             "Avatar 3", "Avatar 4", "Avatar 5", "Avatar 6", "Avatar 7", "Avatar 8", "Avatar 9", "Avatar 10",
             "Avatar 11", "Avatar 12", "Avatar 13", "Avatar 14", "Avatar 15", "Avatar 16", "Avatar 17", "Avatar 18",
             "Avatar 19", "Avatar 20", "Avatar 21", "Avatar 22", "Avatar 23", "Avatar 24");
@@ -132,7 +132,7 @@ public class RegisteryController implements Initializable {
     }
 
     @FXML
-    private void backButtonController(ActionEvent e) throws MalformedURLException, IOException {
+    private void backButtonController(ActionEvent e) throws IOException {
         LoadLoingLauncher();
     }
     @Override
@@ -145,13 +145,13 @@ public class RegisteryController implements Initializable {
     @FXML
     private void changeAvatarPreview() throws FileNotFoundException {
         Image avatarImagePreview = new Image(Routes.imageRoute(
-                "avatars\\" + ((String) avatarChoiceBox.getValue()).replaceAll(" ", "") +
+                "avatars\\" + avatarChoiceBox.getValue().replaceAll(" ", "") +
                         ".png"));
         avatarImage.setImage(avatarImagePreview);
 
     }
 
-    private void LoadLoingLauncher() throws MalformedURLException, IOException {
+    private void LoadLoingLauncher() throws IOException {
         stage = (Stage) buttonCreateAccount.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("LoginIntoLauncher.fxml"));
         Scene scene = new Scene(root, 800, 600);
@@ -161,11 +161,7 @@ public class RegisteryController implements Initializable {
     }
 
     private boolean passwordValidation(String password) {
-        if (password.length() > 4) {
-            return true;
-        } else {
-            return false;
-        }
+        return password.length() > 4;
     }
 
 }

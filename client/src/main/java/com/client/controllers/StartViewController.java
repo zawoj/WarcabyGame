@@ -60,7 +60,7 @@ public class StartViewController implements Initializable {
         ClientCore.getInstance().setStartViewController(this);
     }
 
-    public void LoadNewScene() throws MalformedURLException, IOException {
+    public void LoadNewScene() throws IOException {
         Stage stage;
         Parent root;
 

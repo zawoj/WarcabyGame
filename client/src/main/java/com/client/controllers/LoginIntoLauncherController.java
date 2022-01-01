@@ -83,7 +83,7 @@ public class LoginIntoLauncherController implements Initializable {
         });
     }
 
-    private void LoadRegisteryScene() throws MalformedURLException, IOException {
+    private void LoadRegisteryScene() throws IOException {
         stage = (Stage) RegisteryButton.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("RegisterView.fxml"));
         Scene scene = new Scene(root, 800, 600);

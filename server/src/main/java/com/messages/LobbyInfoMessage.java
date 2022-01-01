@@ -3,13 +3,23 @@ package com.messages;
 import java.util.LinkedList;
 
 public class LobbyInfoMessage extends MessageHolder{
-    LinkedList<String> playerinfo;
+    LinkedList<String> playernames;
+    LinkedList<Integer> playerimages;
+    String GameName;
     public LobbyInfoMessage(){
-        playerinfo = new LinkedList<>();
+        playernames = new LinkedList<>();
+        playerimages = new LinkedList<>();
     }
 
-    public LinkedList<String> getPlayerinfo() {
-        return playerinfo;
+    public LinkedList<String> getPlayernames() {
+        return playernames;
+    }
+    public LinkedList<Integer> getPlayerimages(){return playerimages;}
+    public String getGameName() {
+        return GameName;
     }
 
+    public void setGameName(String gameName) {
+        GameName = gameName;
+    }
 }

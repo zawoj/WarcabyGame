@@ -41,7 +41,7 @@ public class LobbyController {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
-        gameName.setPromptText(ClientCore.getInstance().getLogin() + "'s game");
+        gameName.setPromptText(ClientCore.getInstance().getLobbyInfo().getGameName());
         gameName.setDisable(true);
         // isHost();
         System.out.println(ClientCore.getInstance());
@@ -63,7 +63,8 @@ public class LobbyController {
     }
 
     @FXML
-    private void goOut() throws MalformedURLException, IOException {
+    private void goOut() throws IOException {
+        ClientCore.getInstance().exitLobby();
         stage = (Stage) goOut.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("DashboardView.fxml"));
         Scene scene = new Scene(root, 1200, 800);
@@ -75,7 +76,7 @@ public class LobbyController {
     }
 
     public void refreshLobbyData() {
-        for (String s : ClientCore.getInstance().getLobbyInfo().getPlayerinfo()) {
+        for (String s : ClientCore.getInstance().getLobbyInfo().getPlayernames()) {
             System.out.println(s);
         }
     }

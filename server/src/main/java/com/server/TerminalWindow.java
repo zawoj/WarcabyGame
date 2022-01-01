@@ -19,7 +19,7 @@ public class TerminalWindow extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
         stage.setScene(scene);
-        stage.setOnCloseRequest(windowEvent -> ServerCore.getInstance().close());
+        stage.setOnCloseRequest(windowEvent -> ServerCore.getInstance().close(false));
         stage.show();
     }
 

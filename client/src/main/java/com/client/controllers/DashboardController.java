@@ -48,7 +48,7 @@ public class DashboardController {
     private Integer paginationIndex = 0;
 
     @FXML
-    public void initialize() throws MalformedURLException, IOException {
+    public void initialize() throws IOException {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         ClientCore.getInstance().setDashboardController(this);
@@ -88,8 +88,8 @@ public class DashboardController {
         try {
             ClientCore.getInstance().createLobby();
             LoadLobby();
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -131,18 +131,15 @@ public class DashboardController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if (ClientCore.getInstance().getLobbyController() == null) {
-                    Stage stage = (Stage) createGameButton.getScene().getWindow();
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
-                        Scene scene = new Scene(root, 1200, 800);
-                        scene.getStylesheets().add(Routes.styleRoute("app.css"));
-                        ClientCore.getInstance().programStage.setScene(scene);
-                        ClientCore.getInstance().programStage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
+                    Scene scene = new Scene(root, 1200, 800);
+                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                    ClientCore.getInstance().programStage.setScene(scene);
+                    ClientCore.getInstance().programStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 ClientCore.getInstance().getLobbyController().refreshLobbyData();
             }
@@ -169,7 +166,7 @@ public class DashboardController {
     }
 
     @FXML
-    public void loadNext() throws MalformedURLException, IOException {
+    public void loadNext() throws IOException {
         GamesCardsPane.getChildren().clear();
         paginationIndex++;
         initialize();
@@ -177,7 +174,7 @@ public class DashboardController {
     }
 
     @FXML
-    public void loadPrev() throws MalformedURLException, IOException {
+    public void loadPrev() throws IOException {
         GamesCardsPane.getChildren().clear();
         paginationIndex--;
         initialize();

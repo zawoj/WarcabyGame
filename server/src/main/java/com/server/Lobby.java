@@ -27,14 +27,17 @@ public class Lobby {
     }
 
     public void removePlayer(UserCommunicationThread playerToRemove){
-        if(!players.remove(playerToRemove)){
-            return;
+        if(!players.remove(playerToRemove)) return;
+        numberOfPlayers--;
+        if(numberOfPlayers==0){
+            ServerCore.getInstance().getLobbys().remove(this);
         }else{
-            numberOfPlayers--;
-            if(numberOfPlayers==0){
-                ServerCore.getInstance().getLobbys().remove(this);
+            if(playerToRemove.userData.getLogin().equals(host)){
+                host = players.get(0).userData.getLogin();
             }
         }
+
+        sendLobbyInfo();
     }
 
     public void start(){
@@ -45,8 +48,10 @@ public class Lobby {
         LobbyInfoMessage info = new LobbyInfoMessage();
         info.setMessageType("LobbyInfo");
         for(UserCommunicationThread uct : players){
-            info.getPlayerinfo().add(uct.userData.getLogin());
+            info.getPlayernames().add(uct.userData.getLogin());
+            info.getPlayerimages().add(uct.userData.getAvatarNbr());
         }
+        info.setGameName(name);
         return info;
     }
     public void sendLobbyInfo(){

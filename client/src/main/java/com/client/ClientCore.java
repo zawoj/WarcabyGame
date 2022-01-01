@@ -4,6 +4,7 @@ import com.client.controllers.*;
 import com.messages.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -137,6 +138,13 @@ public class ClientCore {
         joinLobbyMessage mh = new joinLobbyMessage();
         mh.setMessageType("join lobby");
         mh.setHostName(hostName);
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void exitLobby() throws IOException {
+        joinLobbyMessage mh = new joinLobbyMessage();
+        mh.setMessageType("exit lobby");
+        mh.setHostName(lobbyInfo.getPlayernames().get(0));
         conlis.getOut().writeObject(mh);
     }
 

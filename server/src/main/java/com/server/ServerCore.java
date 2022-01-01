@@ -91,7 +91,7 @@ public class ServerCore {
                     }
                 }
             }
-            case "close" -> close();
+            case "close" -> close(true);
             default -> terminalController.append("unknown command: " + splitCommand[0]);
         }
     }
@@ -119,7 +119,7 @@ public class ServerCore {
     /**
      * function closing the server
      */
-    public void close() {
+    public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
             serverSocket.close();
@@ -129,9 +129,9 @@ public class ServerCore {
                 UCT.close();
             }
             serverSocket.close();
-            terminalController.append("server closed");
+            if(write) terminalController.append("server closed");
         } catch (Exception e) {
-            terminalController.append("failed to close server");
+            if(write) terminalController.append("failed to close server");
         }
     }
 

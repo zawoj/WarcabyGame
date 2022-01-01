@@ -62,58 +62,68 @@ public class UserCommunicationThread extends Thread {
     public void InputObjectHandling(MessageHolder message) throws IOException {
         ServerCore.getInstance().getController().appendInput(message.getMessageType());
         switch (message.getMessageType()) {
-            case "register" -> {
-                RegisterMessage rm = (RegisterMessage) message;
-                MessageHolder ms = new MessageHolder();
-                if (ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(rm.getLogin())) {
-                    ms.setMessageType("Register failed");
-                } else {
-                    ServerCore.getInstance().getDataBaseManager().addUser(rm.getLogin(), rm.getPassword(),
-                            rm.getAvatar());
-                    ms.setMessageType("Registered");
-                }
-                out.writeObject(ms);
-                ServerCore.getInstance().getController().appendOutput(ms.getMessageType());
-            }
-            case "login" -> {
-                LoginMessage lm = (LoginMessage) message;
-                RegisterMessage rm = new RegisterMessage();
-                if (ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(lm.getLogin())) {
-                    UserInformationPackage uip = ServerCore.getInstance().getDataBaseManager()
-                            .getUserByLogin(lm.getLogin());
-                    if (uip.getPassword().equals(lm.getPassword())) {
-                        userData = uip;
-                        rm.setMessageType("Logged in");
-                        rm.setPassword(lm.getPassword());
-                        rm.setLogin(lm.getLogin());
-                        rm.setAvatar(uip.getAvatarNbr());
-                    } else {
-                        rm.setMessageType("Login fail");
-                    }
-                } else {
-                    rm.setMessageType("Login fail");
-                }
-                out.writeObject(rm);
-                ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
-            }
-            case "get lobby info" ->{
-                LobbyListMessage llm = new LobbyListMessage();
-                llm.setMessageType("lobby list info");
-                llm.setLobbys(ServerCore.getInstance().getLobbysInfo());
-                out.writeObject(llm);
-                ServerCore.getInstance().getController().appendOutput(llm.getMessageType());
-            }
-            case "Create Lobby" -> {
-                Lobby lobby = new Lobby();
-                lobby.addPlayer(this);
-                ServerCore.getInstance().getLobbys().add(lobby);
-            }
-            case "join lobby" ->{
-                joinLobbyMessage jlm = (joinLobbyMessage) message;
-                Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
-                if(lobby != null) lobby.addPlayer(this);
-
-            }
+            case "register" -> register(message);
+            case "login" -> login(message);
+            case "get lobby info" -> getLobbyInfo();
+            case "Create Lobby" -> createLobby();
+            case "join lobby" -> joinLobby(message);
+            case "exit lobby" -> exitLobby(message);
         }
+    }
+    private void register(MessageHolder message) throws IOException {
+        RegisterMessage rm = (RegisterMessage) message;
+        MessageHolder ms = new MessageHolder();
+        if (ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(rm.getLogin())) {
+            ms.setMessageType("Register failed");
+        } else {
+            ServerCore.getInstance().getDataBaseManager().addUser(rm.getLogin(), rm.getPassword(),
+                    rm.getAvatar());
+            ms.setMessageType("Registered");
+        }
+        out.writeObject(ms);
+        ServerCore.getInstance().getController().appendOutput(ms.getMessageType());
+    }
+    private void login(MessageHolder message) throws IOException{
+        LoginMessage lm = (LoginMessage) message;
+        RegisterMessage rm = new RegisterMessage();
+        if (ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(lm.getLogin())) {
+            UserInformationPackage uip = ServerCore.getInstance().getDataBaseManager()
+                    .getUserByLogin(lm.getLogin());
+            if (uip.getPassword().equals(lm.getPassword())) {
+                userData = uip;
+                rm.setMessageType("Logged in");
+                rm.setPassword(lm.getPassword());
+                rm.setLogin(lm.getLogin());
+                rm.setAvatar(uip.getAvatarNbr());
+            } else {
+                rm.setMessageType("Login fail");
+            }
+        } else {
+            rm.setMessageType("Login fail");
+        }
+        out.writeObject(rm);
+        ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
+    }
+    private void getLobbyInfo() throws IOException{
+        LobbyListMessage llm = new LobbyListMessage();
+        llm.setMessageType("lobby list info");
+        llm.setLobbys(ServerCore.getInstance().getLobbysInfo());
+        out.writeObject(llm);
+        ServerCore.getInstance().getController().appendOutput(llm.getMessageType());
+    }
+    private void createLobby(){
+        Lobby lobby = new Lobby();
+        lobby.addPlayer(this);
+        ServerCore.getInstance().getLobbys().add(lobby);
+    }
+    private void joinLobby(MessageHolder message){
+        joinLobbyMessage jlm = (joinLobbyMessage) message;
+        Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
+        if(lobby != null) lobby.addPlayer(this);
+    }
+    private void exitLobby(MessageHolder message){
+        joinLobbyMessage jlm = (joinLobbyMessage) message;
+        Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
+        if(lobby != null) lobby.removePlayer(this);
     }
 }
