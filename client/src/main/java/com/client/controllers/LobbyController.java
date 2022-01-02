@@ -108,53 +108,54 @@ public class LobbyController {
 
     private void setUsers() {
         // Set Nicks
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 1
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 1
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0) != null)
             HostName.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0).toString());
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 2
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 2
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(1) != null)
             Player1Nick.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(1).toString());
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 3
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 3
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(2) != null)
             Player2Nick.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(2).toString());
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 4
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 4
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(3) != null)
             Player3Nick.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(3).toString());
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 5
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 5
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(4) != null)
             Player4Nick.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(4).toString());
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 6
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 6
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().get(5) != null)
             Player5Nick.setText(ClientCore.getInstance().getLobbyInfo().getPlayernames().get(5).toString());
 
         // Set Avatars
 
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 1
+
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 1
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(0) != null)
             HostAvatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(0) + ".png")));
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 2
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 2
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(1) != null)
             Player1Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(1) + ".png")));
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 3
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 3
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(2) != null)
             Player2Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(2) + ".png")));
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 4
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 4
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(3) != null)
             Player3Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(3) + ".png")));
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 5
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 5
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(4) != null)
             Player4Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(4) + ".png")));
-        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() == 6
+        if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 6
                 && ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) != null)
             Player5Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) + ".png")));
