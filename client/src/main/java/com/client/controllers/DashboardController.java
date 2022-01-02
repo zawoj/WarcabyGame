@@ -1,7 +1,6 @@
 package com.client.controllers;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.LinkedList;
 
 import com.client.ClientCore;
@@ -27,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import kotlin.ranges.ClosedRange;
 
 public class DashboardController {
     @FXML
@@ -53,7 +51,10 @@ public class DashboardController {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         ClientCore.getInstance().setDashboardController(this);
-
+        try {
+            ClientCore.getInstance().sendLobbyListRequest();
+        } catch (Exception ignored) {
+        }
         lobbyList();
 
     }
@@ -94,18 +95,18 @@ public class DashboardController {
     public void lobbyList() {
 
         // Dummy create list
-        lobbyLinkedList.clear();
-        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
+        // lobbyLinkedList.clear();
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
         // lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
         // lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
         // Send link list off lobbys init dasboard
