@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import kotlin.ranges.ClosedRange;
 
 public class DashboardController {
     @FXML
@@ -53,33 +54,7 @@ public class DashboardController {
         displayAvatar(ClientCore.getInstance().getAvatar());
         ClientCore.getInstance().setDashboardController(this);
 
-        // Dummy create list
-        lobbyLinkedList.clear();
-        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
-        lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
-        // Send link list off lobbys init dasboard
-        initDashboardGames();
-
-        // Control when pagination button schuld be active
-        if (paginationIndex == ((int) Math.ceil(lobbyLinkedList.size() / 5))) {
-            paginationButtonNext.setDisable(true);
-        } else if (paginationIndex == 0) {
-            paginationButtonPrev.setDisable(true);
-        } else {
-            paginationButtonNext.setDisable(false);
-            paginationButtonPrev.setDisable(false);
-        }
+        lobbyList();
 
     }
 
@@ -114,6 +89,43 @@ public class DashboardController {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void lobbyList() {
+
+        // Dummy create list
+        lobbyLinkedList.clear();
+        lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
+        lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
+        // lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
+        // Send link list off lobbys init dasboard
+        initDashboardGames();
+
+        // Control when pagination button schuld be active
+        if (lobbyLinkedList.size() < 5) {
+            paginationButtonNext.setDisable(true);
+            paginationButtonPrev.setDisable(true);
+        } else if (paginationIndex == ((int) Math.ceil(lobbyLinkedList.size() / 5))) {
+            paginationButtonNext.setDisable(true);
+            System.out.println("Im eee");
+        } else if (paginationIndex == 0) {
+            paginationButtonPrev.setDisable(true);
+
+        } else {
+            paginationButtonNext.setDisable(false);
+            paginationButtonPrev.setDisable(false);
+        }
+
     }
 
     public void displayNickName(String nickName) {
@@ -169,7 +181,7 @@ public class DashboardController {
     public void loadNext() throws IOException {
         GamesCardsPane.getChildren().clear();
         paginationIndex++;
-        initialize();
+        lobbyList();
 
     }
 
@@ -177,7 +189,7 @@ public class DashboardController {
     public void loadPrev() throws IOException {
         GamesCardsPane.getChildren().clear();
         paginationIndex--;
-        initialize();
+        lobbyList();
     }
 
     // Create new card gamer

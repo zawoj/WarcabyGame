@@ -55,6 +55,7 @@ public class LobbyController {
             // After edit
             saveEditButton.setText("Save");
             gameName.setDisable(false);
+            gameName.requestFocus();
         } else {
             // After Save
             saveEditButton.setText("Edit");

@@ -1,1 +1,8 @@
-{"Users":[{"Login":"Zawoj","Avatar":5,"Password":"12345"},{"Login":"Zawoj2","Avatar":6,"Password":"123425"},{"Login":"Zawoj3","Avatar":6,"Password":"123425"},{"Login":"Vipo","Avatar":4,"Password":"12345"}]}
+{
+  "Users": [
+    { "Login": "Zawoj", "Avatar": 5, "Password": "12345" },
+    { "Login": "Zawoj2", "Avatar": 6, "Password": "123425" },
+    { "Login": "Zawoj3", "Avatar": 6, "Password": "123425" },
+    { "Login": "Vipo", "Avatar": 4, "Password": "12345" }
+  ]
+}
