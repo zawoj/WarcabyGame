@@ -94,21 +94,6 @@ public class DashboardController {
 
     public void lobbyList() {
 
-        // Dummy create list
-        // lobbyLinkedList.clear();
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #1", 3, "Zawoj"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #2", 1, "Vipo"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #3", 5, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #4", 5, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #5", 2, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #6", 1, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #7", 4, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #8", 5, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #9", 6, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #10", 2, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #11", 4, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #12", 3, "Andrzej"));
-        // lobbyLinkedList.add(new dummyLobbyClass("Game #13", 3, "Andrzej"));
         // Send link list off lobbys init dasboard
         initDashboardGames();
 
@@ -212,6 +197,10 @@ public class DashboardController {
                 }
             }
         });
+
+        if (playersInLobby == 6) {
+            playButton.setDisable(true);
+        }
 
         gameCardHBox.getChildren().addAll(new Text(gameName), new Text(playersInLobby + "/6"), new Text(hostName),
                 playButton);
