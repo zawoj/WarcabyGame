@@ -2,6 +2,7 @@ package com.client.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Objects;
 
 import com.client.ClientCore;
 import com.client.Lobby;
@@ -20,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import kotlin.ranges.ClosedRange;
 
 public class LobbyController {
     @FXML
@@ -41,11 +43,8 @@ public class LobbyController {
         ClientCore.getInstance().setLobbyController(this);
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
-        Lobby newLobby = new Lobby(ClientCore.getInstance().getLogin());
         gameName.setPromptText(ClientCore.getInstance().getLobbyInfo().getGameName());
         gameName.setDisable(true);
-        // isHost();
-        setUsers();
 
     }
 
@@ -78,9 +77,8 @@ public class LobbyController {
     }
 
     public void refreshLobbyData() {
-        // for (String s : ClientCore.getInstance().getLobbyInfo().getPlayernames()) {
-        // System.out.println(s);
-        // }
+        setUsers();
+        isHost(ClientCore.getInstance().getLogin());
     }
 
     @FXML
@@ -98,8 +96,12 @@ public class LobbyController {
         avatarImage.setImage(avatarImagePreview);
     }
 
-    private void isHost() {
-        if (true) {
+    private void isHost(String playerName) {
+
+        System.out.println("Host: " + ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0) + " My name: "
+                + playerName);
+
+        if (!Objects.equals(playerName, ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0))) {
             gameName.setDisable(true);
             saveEditButton.setDisable(true);
             startGame.setDisable(true);
