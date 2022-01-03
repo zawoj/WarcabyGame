@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Line endX="-50.0" endY="717.0" layoutX="262.0" layoutY="87.0" startX="-50.0" startY="-91.70709228515625" />
+      <Pane fx:id="gameBoard" layoutX="213.0" prefHeight="800.0" prefWidth="988.0">
+         <children>
+            <Text layoutX="442.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load game board ..." />
+         </children>
+      </Pane>
+      <Pane fx:id="PlayersList" layoutY="268.0" prefHeight="264.0" prefWidth="211.0">
+         <children>
+            <Text layoutX="86.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1" />
+            <Text layoutX="86.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player2" />
+            <Text layoutX="86.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player3" />
+            <Text layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player4" />
+            <Text layoutX="86.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player5" />
+            <Text layoutX="86.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player6" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

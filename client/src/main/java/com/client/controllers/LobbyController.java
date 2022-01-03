@@ -5,23 +5,19 @@ import java.net.MalformedURLException;
 import java.util.Objects;
 
 import com.client.ClientCore;
-import com.client.Lobby;
 import com.client.helpers.Routes;
 
-import com.client.helpers.Routes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import kotlin.ranges.ClosedRange;
 
 public class LobbyController {
     @FXML
@@ -79,6 +75,13 @@ public class LobbyController {
     public void refreshLobbyData() {
         setUsers();
         isHost(ClientCore.getInstance().getLogin());
+
+        // Check that game can by started
+        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
+            startGame.setDisable(false);
+        } else {
+            startGame.setDisable(true);
+        }
     }
 
     @FXML
@@ -147,6 +150,15 @@ public class LobbyController {
         if (ClientCore.getInstance().getLobbyInfo().getPlayerimages().size() >= 6)
             Player5Avatar.setImage(new Image(Routes.imageRoute(
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) + ".png")));
+    }
+
+    public void loadGameScene() throws IOException {
+        stage = (Stage) goOut.getScene().getWindow();
+        root = FXMLLoader.load(Routes.viewsRoute("GameView.fxml"));
+        Scene scene = new Scene(root, 1200, 800);
+        scene.getStylesheets().add(Routes.styleRoute("app.css"));
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
