@@ -121,20 +121,19 @@ public class ClientCore {
             conlis.close();
     }
 
-
-    public void sendLobbyListRequest() throws Exception{
+    public void sendLobbyListRequest() throws Exception {
         MessageHolder mh = new MessageHolder();
         mh.setMessageType("get lobby info");
         conlis.getOut().writeObject(mh);
     }
 
-    public void createLobby() throws Exception{
+    public void createLobby() throws Exception {
         MessageHolder mh = new MessageHolder();
         mh.setMessageType("Create Lobby");
         conlis.getOut().writeObject(mh);
     }
 
-    public void joinLobby(String hostName) throws Exception{
+    public void joinLobby(String hostName) throws Exception {
         joinLobbyMessage mh = new joinLobbyMessage();
         mh.setMessageType("join lobby");
         mh.setHostName(hostName);
@@ -155,4 +154,5 @@ public class ClientCore {
     public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
         this.lobbyInfo = lobbyInfo;
     }
+
 }

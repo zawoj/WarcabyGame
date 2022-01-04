@@ -4,8 +4,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.GameViewController">
    <children>
       <Line endX="-50.0" endY="717.0" layoutX="262.0" layoutY="87.0" startX="-50.0" startY="-91.70709228515625" />
       <Pane fx:id="gameBoard" layoutX="213.0" prefHeight="800.0" prefWidth="988.0">
