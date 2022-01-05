@@ -70,6 +70,9 @@ public class ConnectionListener extends Thread{
                     e.printStackTrace();
                 }
             }
+            case "invalid move" ->{
+                ClientCore.getInstance().myTurn = true; //jakaś wiadomość że ruch niepoprawny by się przydała
+            }
             case "your turn" -> {
                 ClientCore.getInstance().myTurn = true;
             }
