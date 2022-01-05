@@ -1,7 +1,6 @@
 package com.client.controllers;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;

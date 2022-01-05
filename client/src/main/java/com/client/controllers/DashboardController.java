@@ -53,9 +53,9 @@ public class DashboardController {
         ClientCore.getInstance().setDashboardController(this);
         try {
             ClientCore.getInstance().sendLobbyListRequest();
+            lobbyList();
         } catch (Exception ignored) {
         }
-        lobbyList();
 
     }
 
@@ -74,6 +74,7 @@ public class DashboardController {
         // TODO nice animation
         try {
             ClientCore.getInstance().sendLobbyListRequest();
+            lobbyList();
         } catch (Exception ignored) {
         }
     }
@@ -96,20 +97,20 @@ public class DashboardController {
 
         // Send link list off lobbys init dasboard
         initDashboardGames();
-
         // Control when pagination button schuld be active
         if (lobbyLinkedList.size() < 5) {
             paginationButtonNext.setDisable(true);
             paginationButtonPrev.setDisable(true);
         } else if (paginationIndex == ((int) Math.ceil(lobbyLinkedList.size() / 5))) {
             paginationButtonNext.setDisable(true);
-            System.out.println("Im eee");
+            paginationButtonPrev.setDisable(false);
         } else if (paginationIndex == 0) {
             paginationButtonPrev.setDisable(true);
-
+            paginationButtonNext.setDisable(false);
         } else {
             paginationButtonNext.setDisable(false);
             paginationButtonPrev.setDisable(false);
+
         }
 
     }
