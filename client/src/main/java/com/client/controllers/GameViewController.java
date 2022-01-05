@@ -39,7 +39,9 @@ public class GameViewController {
 
     @FXML
     public void skipRound() {
-        System.out.println("Skip round");
+        try {
+            ClientCore.getInstance().skipRound();
+        }catch (Exception ignored){}
     }
 
     public Group gameBoardLoader() {

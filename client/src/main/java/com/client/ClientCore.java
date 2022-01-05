@@ -182,4 +182,13 @@ public class ClientCore {
         mm.setAll(pawnX, pawnY, moveX, moveY);
         conlis.getOut().writeObject(mm);
     }
+
+    public void skipRound() throws IOException {
+        if(myTurn){
+            MessageHolder mh = new MessageHolder();
+            mh.setMessageType("skip turn");
+            conlis.getOut().writeObject(mh);
+            myTurn = false;
+        }
+    }
 }
