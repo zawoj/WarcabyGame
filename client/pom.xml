@@ -18,6 +18,8 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+  <packaging>jar</packaging>
+
   <repositories>
     <repository>
       <id>jitpack.io</id>
@@ -57,6 +59,23 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+          <groupId>com.zenjava</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>8.8.3</version>
+          <configuration>
+            <mainClass>com.client.App</mainClass>
+          </configuration>
+          <executions>
+            <execution>
+              <id>create-jfxjar</id>
+              <phase>package</phase>
+              <goals>
+                <goal>build-jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -119,6 +138,19 @@
           <target>14</target>
         </configuration>
       </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>com.client.App</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>

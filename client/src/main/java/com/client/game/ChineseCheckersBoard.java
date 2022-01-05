@@ -99,7 +99,7 @@ public class ChineseCheckersBoard {
     }
 
     private void validateAfterJump(ChineseCheckersBoard logic, int heightAfterJump, int widthAfterJump, int heightBeforeJump, int widthBeforeJump, int pawnX,int pawnY){
-        boolean isInTarget = isInTarget(pawnX,pawnY,pawnX,pawnY);
+        boolean isInTarget = isInTarget(pawnX,pawnY,widthAfterJump,heightAfterJump);
         for(int i = 0; i<6; i++){
             try {
                 int[] pointaftermove = moveOneField(heightAfterJump, widthAfterJump, i);
@@ -111,6 +111,8 @@ public class ChineseCheckersBoard {
                         if(isInTarget){
                             if(isInTarget(pawnX,pawnY,pointafterjump[1],pointafterjump[0])){
                                 logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                            }else{
+                                return;
                             }
                         }else {
                             logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
