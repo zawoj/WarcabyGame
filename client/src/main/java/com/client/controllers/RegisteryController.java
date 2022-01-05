@@ -45,20 +45,6 @@ public class RegisteryController implements Initializable {
             "Avatar 11", "Avatar 12", "Avatar 13", "Avatar 14", "Avatar 15", "Avatar 16", "Avatar 17", "Avatar 18",
             "Avatar 19", "Avatar 20", "Avatar 21", "Avatar 22", "Avatar 23", "Avatar 24");
 
-    public void accountCreatedSuccesfullyNotification() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(accountCreatedSuccesfully);
-        transition.setToX(-300);
-        transition.play();
-    }
-
-    public void errorNotification() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(errorRegisteryNewAccount);
-        transition.setToX(-300);
-        transition.play();
-    }
-
     @FXML
     private void CreateAccountButtonController(ActionEvent e) {
         try {
@@ -149,6 +135,20 @@ public class RegisteryController implements Initializable {
                         ".png"));
         avatarImage.setImage(avatarImagePreview);
 
+    }
+
+    public void accountCreatedSuccesfullyNotification() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(accountCreatedSuccesfully);
+        transition.setToX(-300);
+        transition.play();
+    }
+
+    public void errorNotification() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(errorRegisteryNewAccount);
+        transition.setToX(-300);
+        transition.play();
     }
 
     private void LoadLoingLauncher() throws IOException {

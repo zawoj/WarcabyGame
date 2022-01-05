@@ -39,18 +39,18 @@ public class StartViewController implements Initializable {
         }
     }
 
-    public void showError() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(ErrorPane);
-        transition.setToX(-285);
-        transition.play();
-    }
-
     @FXML
     private void errorButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
         transition.setToX(0);
+        transition.play();
+    }
+
+    public void showError() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
+        transition.setToX(-285);
         transition.play();
     }
 

@@ -1,6 +1,7 @@
 package com.client.controllers;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
@@ -39,19 +40,21 @@ public class LobbyController {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         gameName.setPromptText(ClientCore.getInstance().getLobbyInfo().getGameName());
-        gameName.setDisable(true);
-
+        if (!isHost(ClientCore.getInstance().getLogin())) {
+            saveEditButton.setDisable(true);
+            gameName.setDisable(true);
+        }
     }
 
     @FXML
     public void saveEdit() {
         saveMode = !saveMode;
-        if (saveMode == true) {
+        if (saveMode == true && isHost(ClientCore.getInstance().getLogin())) {
             // After edit
             saveEditButton.setText("Save");
             gameName.setDisable(false);
             gameName.requestFocus();
-        } else {
+        } else if (isHost(ClientCore.getInstance().getLogin())) {
             // After Save
             saveEditButton.setText("Edit");
             gameName.setDisable(true);
@@ -80,41 +83,26 @@ public class LobbyController {
 
     public void refreshLobbyData() {
         setUsers();
-        // ! TODO Reapir validation
-        // isHost(ClientCore.getInstance().getLogin());
-        // Check that game can by started
-        // if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
-        // startGame.setDisable(false);
-        // } else {
-        // startGame.setDisable(true);
-        // }
+        // Set privileges
+        if (isHost(ClientCore.getInstance().getLogin())) {
+            if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
+                startGame.setDisable(false);
+            }
+            saveEditButton.setDefaultButton(false);
+
+        } else {
+            saveEditButton.setDefaultButton(true);
+            startGame.setDisable(true);
+
+        }
     }
 
-    private void displayNickName(String nickName) {
-        NickName.setTextAlignment(TextAlignment.CENTER);
-        NickName.setText(nickName);
+    // Check if you are host
+    private Boolean isHost(String playerName) {
+        return Objects.equals(playerName, ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0));
     }
 
-    public void displayAvatar(Integer avatarNumber) {
-        Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
-        avatarImage.setImage(avatarImagePreview);
-    }
-
-    // isHost checks that you are host
-    private void isHost(String playerName) {
-
-        System.out.println("Host: " + ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0) + " My name: "
-                + playerName);
-
-        // ! TODO Reapir validation
-        // if (!Objects.equals(playerName,
-        // ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0))) {
-        // gameName.setDisable(true);
-        // saveEditButton.setDisable(true);
-        // startGame.setDisable(true);
-        // }
-    }
-
+    // Set avatars and nicknames
     private void setUsers() {
         // Set Nicks
         if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() >= 1)
@@ -156,6 +144,7 @@ public class LobbyController {
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) + ".png")));
     }
 
+    // Load game scene
     public void loadGameScene() throws IOException {
         Platform.runLater(new Runnable() {
             @Override
@@ -173,6 +162,16 @@ public class LobbyController {
                 }
             }
         });
+    }
+
+    private void displayNickName(String nickName) {
+        NickName.setTextAlignment(TextAlignment.CENTER);
+        NickName.setText(nickName);
+    }
+
+    public void displayAvatar(Integer avatarNumber) {
+        Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
+        avatarImage.setImage(avatarImagePreview);
     }
 
 }

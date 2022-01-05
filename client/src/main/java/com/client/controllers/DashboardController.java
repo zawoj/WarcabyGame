@@ -93,8 +93,22 @@ public class DashboardController {
         stage.show();
     }
 
-    public void lobbyList() {
+    @FXML
+    public void loadNext() throws IOException {
+        GamesCardsPane.getChildren().clear();
+        paginationIndex++;
+        lobbyList();
 
+    }
+
+    @FXML
+    public void loadPrev() throws IOException {
+        GamesCardsPane.getChildren().clear();
+        paginationIndex--;
+        lobbyList();
+    }
+
+    public void lobbyList() {
         // Send link list off lobbys init dasboard
         initDashboardGames();
         // Control when pagination button schuld be active
@@ -110,40 +124,7 @@ public class DashboardController {
         } else {
             paginationButtonNext.setDisable(false);
             paginationButtonPrev.setDisable(false);
-
         }
-
-    }
-
-    public void displayNickName(String nickName) {
-        NickName.setTextAlignment(TextAlignment.CENTER);
-        NickName.setText(nickName);
-    }
-
-    public void displayAvatar(Integer avatarNumber) {
-        Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
-        avatarImage.setImage(avatarImagePreview);
-    }
-
-    public void LoadLobby() {
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
-                    Scene scene = new Scene(root, 1200, 800);
-                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
-                    ClientCore.getInstance().programStage.setScene(scene);
-                    ClientCore.getInstance().programStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ClientCore.getInstance().getLobbyController().refreshLobbyData();
-            }
-        });
-
     }
 
     // Load game list from linkList and create them
@@ -164,23 +145,23 @@ public class DashboardController {
         });
     }
 
-    @FXML
-    public void loadNext() throws IOException {
-        GamesCardsPane.getChildren().clear();
-        paginationIndex++;
-        lobbyList();
-
+    public void changeLobbyList(final LinkedList<dummyLobbyClass> newList) {
+        lobbyLinkedList.clear();
+        lobbyLinkedList.addAll(newList);
     }
 
-    @FXML
-    public void loadPrev() throws IOException {
-        GamesCardsPane.getChildren().clear();
-        paginationIndex--;
-        lobbyList();
+    public void displayNickName(String nickName) {
+        NickName.setTextAlignment(TextAlignment.CENTER);
+        NickName.setText(nickName);
+    }
+
+    public void displayAvatar(Integer avatarNumber) {
+        Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
+        avatarImage.setImage(avatarImagePreview);
     }
 
     // Create new card gamer
-    // Lepsze style będą. Wszystko będzie lepiej wyrównane
+    // TODO better styles
     public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName) {
 
         HBox gameCardHBox = new HBox();
@@ -212,8 +193,24 @@ public class DashboardController {
         return gameCardHBox;
     }
 
-    public void changeLobbyList(final LinkedList<dummyLobbyClass> newList) {
-        lobbyLinkedList.clear();
-        lobbyLinkedList.addAll(newList);
+    public void LoadLobby() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(Routes.viewsRoute("Lobby.fxml"));
+                    Scene scene = new Scene(root, 1200, 800);
+                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                    ClientCore.getInstance().programStage.setScene(scene);
+                    ClientCore.getInstance().programStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ClientCore.getInstance().getLobbyController().refreshLobbyData();
+            }
+        });
+
     }
+
 }

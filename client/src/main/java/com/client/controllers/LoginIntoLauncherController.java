@@ -48,18 +48,18 @@ public class LoginIntoLauncherController implements Initializable {
 
     }
 
-    public void ErrorNotification() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(ErrorPane);
-        transition.setToX(-285);
-        transition.play();
-    }
-
     @FXML
     private void errorButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
         transition.setToX(0);
+        transition.play();
+    }
+
+    public void ErrorNotification() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
+        transition.setToX(-285);
         transition.play();
     }
 
