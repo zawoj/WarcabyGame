@@ -1,4 +1,4 @@
-package com.board;
+package com.client.game;
 
 /**
  * -1 pole nielegalne

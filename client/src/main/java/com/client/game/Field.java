@@ -1,4 +1,4 @@
-package com.board;
+package com.client.game;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;

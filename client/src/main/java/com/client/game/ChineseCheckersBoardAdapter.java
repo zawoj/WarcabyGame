@@ -1,7 +1,5 @@
-package com.board;
+package com.client.game;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class ChineseCheckersBoardAdapter {

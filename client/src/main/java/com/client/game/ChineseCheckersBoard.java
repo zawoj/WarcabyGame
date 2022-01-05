@@ -1,4 +1,4 @@
-package com.board;
+package com.client.game;
 
 public class ChineseCheckersBoard {
     private int[][] board;
