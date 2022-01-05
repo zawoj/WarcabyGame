@@ -1,4 +1,4 @@
-package com.client.game;
+package com.board;
 
 /**
  * -1 pole nielegalne
@@ -128,3 +128,4 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 }
+

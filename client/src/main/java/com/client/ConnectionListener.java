@@ -1,10 +1,7 @@
 package com.client;
 import com.client.controllers.DashboardController;
-import com.messages.LobbyInfoMessage;
-import com.messages.LobbyListMessage;
-import com.messages.MessageHolder;
-import com.messages.RegisterMessage;
-import com.messages.dummyLobbyClass;
+import com.messages.*;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +13,7 @@ public class ConnectionListener extends Thread{
     ObjectInputStream in;
     ObjectOutputStream out;
     MessageHolder currentMessage;
+    public boolean creatingGame = false;
 
     public ConnectionListener(Socket clientSocket) throws Exception{
         out = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -42,33 +40,43 @@ public class ConnectionListener extends Thread{
     }
 
     private void messageHandler(MessageHolder message){
-        switch(message.getMessageType()){
-            case "Registered" :
-                ClientCore.getInstance().getRegisteryController().accountCreatedSuccesfullyNotification();
-                break;
-            case "Register failed" :
-                ClientCore.getInstance().getRegisteryController().errorNotification();
-                break;
-            case "Logged in":
+        switch (message.getMessageType()) {
+            case "Registered" -> ClientCore.getInstance().getRegisteryController().accountCreatedSuccesfullyNotification();
+            case "Register failed" -> ClientCore.getInstance().getRegisteryController().errorNotification();
+            case "Logged in" -> {
                 RegisterMessage rm = (RegisterMessage) message;
                 ClientCore.getInstance().setLogin(rm.getLogin());
                 ClientCore.getInstance().setAvatar(rm.getAvatar());
                 ClientCore.getInstance().getLoginIntoLauncherController().LoadDashboardScene();
-                break;
-            case "Login fail":
-                ClientCore.getInstance().getLoginIntoLauncherController().ErrorNotification();
-                break;
-            case "LobbyInfo":
+            }
+            case "Login fail" -> ClientCore.getInstance().getLoginIntoLauncherController().ErrorNotification();
+            case "LobbyInfo" -> {
                 LobbyInfoMessage lm = (LobbyInfoMessage) message;
                 ClientCore.getInstance().setLobbyInfo(lm);
                 ClientCore.getInstance().getDashboardController().LoadLobby();
-                break;
-            case "lobby list info":
+            }
+            case "lobby list info" -> {
                 LobbyListMessage llm = (LobbyListMessage) message;
                 LinkedList<dummyLobbyClass> lobbys = llm.getLobbys();
                 ClientCore.getInstance().getDashboardController().changeLobbyList(lobbys);
                 ClientCore.getInstance().getDashboardController().initDashboardGames();
-                break;
+            }
+            case "gameBeginning" -> {
+                creatingGame = true;
+                gameBeginningMessage gbm = (gameBeginningMessage) message;
+                try {
+                    ClientCore.getInstance().getLobbyController().loadGameScene(gbm.getPlayerCount(), gbm.getPlayerNumber());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            case "your turn" -> {
+                ClientCore.getInstance().myTurn = true;
+            }
+            case "move" -> {
+                MoveMessage mm = (MoveMessage) message;
+                ClientCore.getInstance().getGameController().getMouseMoveHandler().executeMove(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
+            }
         }
     }
 

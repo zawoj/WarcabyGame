@@ -8,7 +8,8 @@ import java.util.LinkedList;
 public class Lobby {
     private String host, name;
     private int numberOfPlayers;
-    private LinkedList<UserCommunicationThread> players;
+    private final LinkedList<UserCommunicationThread> players;
+    Game game;
 
     public Lobby(){
         numberOfPlayers = 0;
@@ -23,6 +24,7 @@ public class Lobby {
         }
         numberOfPlayers++;
         players.add(newPlayer);
+        newPlayer.setLobby(this);
         sendLobbyInfo();
     }
 
@@ -41,7 +43,10 @@ public class Lobby {
     }
 
     public void start(){
-
+        try {
+            game = new Game(this, numberOfPlayers);
+        }catch (Exception ignored){
+        }
     }
 
     private LobbyInfoMessage getLobbyInfo(){
@@ -59,12 +64,12 @@ public class Lobby {
     }
 
     public void deliverMessages(MessageHolder mh){
-        try {
-            for (UserCommunicationThread uct : players) {
+        for (UserCommunicationThread uct : players) {
+            try {
                 uct.out.writeObject(mh);
                 ServerCore.getInstance().getController().appendOutput(mh.getMessageType());
-            }
-        }catch(Exception ignored){}
+            }catch(Exception ignored){}
+        }
     }
     public String getHost() {
         return host;
@@ -80,5 +85,9 @@ public class Lobby {
 
     public int getNumberOfPlayers(){
         return numberOfPlayers;
+    }
+
+    public LinkedList<UserCommunicationThread> getPlayers(){
+        return players;
     }
 }

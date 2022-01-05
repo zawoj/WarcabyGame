@@ -75,8 +75,8 @@ public class LobbyController {
 
     @FXML
     public void startGame() throws IOException {
-        System.out.println("Game Start");
-        loadGameScene();
+        ClientCore.getInstance().startGame();
+
     }
 
     public void refreshLobbyData() {
@@ -148,22 +148,21 @@ public class LobbyController {
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) + ".png")));
     }
 
-    // Load game scene
-    public void loadGameScene() throws IOException {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    stage = (Stage) startGame.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("GameView.fxml"));
-                    root = loader.load();
-                    Scene scene = new Scene(root, 1200, 800);
-                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+    public void loadGameScene(int playerCount, int playerNumber) throws Exception {
+        final int count = playerCount;
+        final int number = playerNumber;
+        Platform.runLater(() -> {
+            try {
+                stage = (Stage) startGame.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("GameView.fxml"));
+                root = loader.load();
+                Scene scene = new Scene(root, 1200, 800);
+                scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                stage.setScene(scene);
+                stage.show();
+                ClientCore.getInstance().getGameController().startGameView(count, number);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }

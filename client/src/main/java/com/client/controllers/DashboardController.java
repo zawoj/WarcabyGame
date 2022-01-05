@@ -170,13 +170,10 @@ public class DashboardController {
         Button playButton = new Button();
         playButton.setId(hostName);
         playButton.setGraphic(new ImageView(new Image(Routes.imageRoute("Play.png"))));
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    ClientCore.getInstance().joinLobby(((Node) event.getSource()).getId());
-                } catch (Exception ignored) {
-                }
+        playButton.setOnAction(event -> {
+            try {
+                ClientCore.getInstance().joinLobby(((Node) event.getSource()).getId());
+            } catch (Exception ignored) {
             }
         });
 

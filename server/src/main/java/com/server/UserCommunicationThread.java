@@ -16,10 +16,15 @@ public class UserCommunicationThread extends Thread {
     Socket clientSocket;
     MessageHolder message;
     UserInformationPackage userData;
+    Lobby myLobby = null;
 
     UserCommunicationThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
 
+    }
+
+    public void setLobby(Lobby lobby){
+        myLobby = lobby;
     }
 
     /**
@@ -67,7 +72,9 @@ public class UserCommunicationThread extends Thread {
             case "get lobby info" -> getLobbyInfo();
             case "Create Lobby" -> createLobby();
             case "join lobby" -> joinLobby(message);
-            case "exit lobby" -> exitLobby(message);
+            case "exit lobby" -> exitLobby();
+            case  "StartGame" -> startGame();
+            case "move" -> move(message);
         }
     }
     private void register(MessageHolder message) throws IOException {
@@ -121,9 +128,15 @@ public class UserCommunicationThread extends Thread {
         Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
         if(lobby != null) lobby.addPlayer(this);
     }
-    private void exitLobby(MessageHolder message){
-        joinLobbyMessage jlm = (joinLobbyMessage) message;
-        Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
-        if(lobby != null) lobby.removePlayer(this);
+    private void exitLobby(){
+        if(myLobby != null) myLobby.removePlayer(this);
+        myLobby = null;
+    }
+    private void startGame(){
+        if(myLobby != null) myLobby.start();
+    }
+    private void move(MessageHolder message){
+        MoveMessage mm = (MoveMessage) message;
+        myLobby.game.move(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
     }
 }

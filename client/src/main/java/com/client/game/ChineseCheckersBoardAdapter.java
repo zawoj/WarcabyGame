@@ -8,6 +8,10 @@ public class ChineseCheckersBoardAdapter {
     int radious = 10;
     MouseMoveHandler mmh;
 
+    public MouseMoveHandler getMouseMoveHandler(){
+        return mmh;
+    }
+
     public ChineseCheckersBoardAdapter(ChineseCheckersBoard board) {
         checkersBoard = board;
         fields = new Field[board.getBoard().length][board.getBoard()[0].length];

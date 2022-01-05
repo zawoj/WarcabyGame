@@ -1,6 +1,7 @@
 package com.client;
 
 import com.client.controllers.*;
+import com.client.game.MouseMoveHandler;
 import com.messages.*;
 import javafx.stage.Stage;
 
@@ -19,11 +20,13 @@ public class ClientCore {
     RegisteryController registeryController;
     DashboardController dashboardController;
     LobbyController lobbyController;
+    GameViewController gameController;
     ConnectionListener conlis;
     String Login;
     int avatar;
     LobbyInfoMessage lobbyInfo;
     public Stage programStage;
+    public boolean myTurn = false;
 
     // Singletion
     public static ClientCore getInstance() {
@@ -65,6 +68,14 @@ public class ClientCore {
         this.lobbyController = lobbyController;
     }
 
+    public GameViewController getGameController() {
+        return gameController;
+    }
+
+    public void setGameController(GameViewController gameController) {
+        this.gameController = gameController;
+    }
+
     public StartViewController getStartViewController() {
         return startViewController;
     }
@@ -75,6 +86,10 @@ public class ClientCore {
 
     public RegisteryController getRegisteryController() {
         return registeryController;
+    }
+
+    public ConnectionListener getConLis(){
+        return conlis;
     }
 
     public String getLogin() {
@@ -155,4 +170,16 @@ public class ClientCore {
         this.lobbyInfo = lobbyInfo;
     }
 
+    public void startGame() throws IOException {
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("StartGame");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void sendMove(int pawnX, int pawnY, int moveX, int moveY) throws IOException {
+        MoveMessage mm = new MoveMessage();
+        mm.setMessageType("move");
+        mm.setAll(pawnX, pawnY, moveX, moveY);
+        conlis.getOut().writeObject(mm);
+    }
 }
