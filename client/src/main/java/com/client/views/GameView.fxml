@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.GameViewController">
    <children>
       <Line endX="-50.0" endY="717.0" layoutX="262.0" layoutY="87.0" startX="-50.0" startY="-91.70709228515625" />
-      <Pane fx:id="gameBoard" layoutX="213.0" prefHeight="800.0" prefWidth="988.0">
-         <children>
-            <Text layoutX="442.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load game board ..." />
-         </children>
-      </Pane>
       <Pane fx:id="PlayersList" layoutY="268.0" prefHeight="264.0" prefWidth="211.0">
          <children>
             <Text layoutX="86.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1" />
@@ -22,5 +18,6 @@
             <Text layoutX="86.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player6" />
          </children>
       </Pane>
+      <StackPane fx:id="gameBoard" layoutX="211.0" prefHeight="800.0" prefWidth="992.0" />
    </children>
 </Pane>

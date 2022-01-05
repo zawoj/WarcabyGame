@@ -3,10 +3,14 @@ package com.client.game;
 public class ChineseCheckersBoard {
     private int[][] board;
     private int size;
+    int height;
+    int width;
 
     public void setBoard(int[][] board, int size) {
         this.board = board;
         this.size = size;
+        height = size + 3 * (size - 1);
+        width = 2 * (size + 2 * (size - 1)) - 1;
     }
 
     public int[][] getBoard() {
@@ -35,6 +39,7 @@ public class ChineseCheckersBoard {
          * move down-left width - 1 height + 1
          * move down-right width + 1 height + 1
          */
+        boolean isInTarget = isInTarget(width, height, width, height);
         ChineseCheckersBoard LogicBoard;
         try {
             LogicBoard = new ChineseCheckersBoardBuilder().setNumberOfPlayers(0).setSize(size).build();
@@ -44,13 +49,26 @@ public class ChineseCheckersBoard {
                 try {
                     int[] pointaftermove = moveOneField(height, width, i);
                     if (board[pointaftermove[0]][pointaftermove[1]] == 0) {
-                        LogicBoard.board[pointaftermove[0]][pointaftermove[1]] = 1;
+                        if (isInTarget) {
+                            if (isInTarget(width, height, pointaftermove[1], pointaftermove[0])) {
+                                LogicBoard.board[pointaftermove[0]][pointaftermove[1]] = 1;
+                            }
+                        } else {
+                            LogicBoard.board[pointaftermove[0]][pointaftermove[1]] = 1;
+                        }
                     } else if (board[pointaftermove[0]][pointaftermove[1]] > 0) {
                         int[] pointafterjump = moveOneField(pointaftermove[0], pointaftermove[1], i);
                         // jump validation
                         if (board[pointafterjump[0]][pointafterjump[1]] == 0) {
-                            LogicBoard.board[pointafterjump[0]][pointafterjump[1]] = 1;
-                            validateAfterJump(LogicBoard, pointafterjump[0], pointafterjump[1], height, width);
+                            if (isInTarget) {
+                                if (isInTarget(width, height, pointafterjump[1], pointafterjump[0])) {
+                                    LogicBoard.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                                }
+                            } else {
+                                LogicBoard.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                            }
+                            validateAfterJump(LogicBoard, pointafterjump[0], pointafterjump[1], height, width, width,
+                                    height);
                         }
                     }
                 } catch (Exception ignored) {
@@ -101,7 +119,8 @@ public class ChineseCheckersBoard {
     }
 
     private void validateAfterJump(ChineseCheckersBoard logic, int heightAfterJump, int widthAfterJump,
-            int heightBeforeJump, int widthBeforeJump) {
+            int heightBeforeJump, int widthBeforeJump, int pawnX, int pawnY) {
+        boolean isInTarget = isInTarget(pawnX, pawnY, pawnX, pawnY);
         for (int i = 0; i < 6; i++) {
             try {
                 int[] pointaftermove = moveOneField(heightAfterJump, widthAfterJump, i);
@@ -112,8 +131,15 @@ public class ChineseCheckersBoard {
                     if (board[pointafterjump[0]][pointafterjump[1]] == 0) {
                         if (logic.board[pointafterjump[0]][pointafterjump[1]] == 1)
                             continue;
-                        logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
-                        validateAfterJump(logic, pointafterjump[0], pointafterjump[1], heightAfterJump, widthAfterJump);
+                        if (isInTarget) {
+                            if (isInTarget(pawnX, pawnY, pointafterjump[1], pointafterjump[0])) {
+                                logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                            }
+                        } else {
+                            logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                        }
+                        validateAfterJump(logic, pointafterjump[0], pointafterjump[1], heightAfterJump, widthAfterJump,
+                                pawnX, pawnY);
                     }
                 }
             } catch (Exception ignored) {
@@ -130,4 +156,119 @@ public class ChineseCheckersBoard {
             throw new Exception("invalid move");
         }
     }
+
+    public boolean isInTarget(int pawnX, int pawnY, int moveX, int moveY) {
+        switch (board[pawnY][pawnX]) {
+            case 1 -> {
+                return fourthTriangle(moveX, moveY);
+            }
+            case 2 -> {
+                return fifthTriangle(moveX, moveY);
+            }
+            case 3 -> {
+                return sixthTriangle(moveX, moveY);
+            }
+            case 4 -> {
+                return firstTriangle(moveX, moveY);
+            }
+            case 5 -> {
+                return secondTriangle(moveX, moveY);
+            }
+            case 6 -> {
+                return thirdTriangle(moveX, moveY);
+            }
+        }
+        return false;
+    }
+
+    private boolean firstTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = width / 2;
+        for (int i = 1; i < size; i++) {
+            for (int j = 0; j < i; j++) {
+                if (X == goodPoint + 2 * j && Y == height - i) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint - 1;
+        }
+        return val;
+    }
+
+    private boolean secondTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = 0;
+        for (int i = size; i < 2 * size - 1; i++) {
+            for (int j = 0; j < size - (i - size) - 1; j++) {
+                if (X == goodPoint + 2 * j && Y == height - i) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint + 1;
+        }
+        return val;
+    }
+
+    private boolean thirdTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = 0;
+        for (int i = size; i < 2 * size - 1; i++) {
+            for (int j = 0; j < size - (i - size) - 1; j++) {
+                if (X == goodPoint + 2 * j && Y == i - 1) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint + 1;
+        }
+        return val;
+    }
+
+    private boolean fourthTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = width / 2;
+        for (int i = 1; i < size; i++) {
+            for (int j = 0; j < i; j++) {
+                if (X == goodPoint + 2 * j && Y == i - 1) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint - 1;
+        }
+        return val;
+    }
+
+    private boolean fifthTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = 0;
+        for (int i = size; i < 2 * size - 1; i++) {
+            for (int j = 0; j < size - (i - size) - 1; j++) {
+                if (X == width - goodPoint - 2 * j - 1 && Y == i - 1) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint + 1;
+        }
+        return val;
+    }
+
+    private boolean sixthTriangle(int X, int Y) {
+        boolean val = false;
+        int goodPoint = 0;
+        for (int i = size; i < 2 * size - 1; i++) {
+            for (int j = 0; j < size - (i - size) - 1; j++) {
+                if (X == width - goodPoint - 2 * j - 1 && Y == height - i) {
+                    val = true;
+                    break;
+                }
+            }
+            goodPoint = goodPoint + 1;
+        }
+        return val;
+    }
+
 }

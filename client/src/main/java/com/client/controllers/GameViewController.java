@@ -5,19 +5,19 @@ import com.client.game.ChineseCheckersBoardAdapter;
 import com.client.game.ChineseCheckersBoardBuilder;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class GameViewController {
     @FXML
-    public Pane gameBoard;
+    public StackPane gameBoard;
     static Group group = new Group();
 
     @FXML
     public void initialize() {
-
-        System.out.println("HEJO");
         gameBoard.getChildren().add(gameBoardLoader());
+        gameBoard.setAlignment(Pos.CENTER);
     }
 
     public Group gameBoardLoader() {
@@ -37,6 +37,7 @@ public class GameViewController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         return group;
     }
 }
