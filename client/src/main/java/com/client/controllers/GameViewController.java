@@ -7,17 +7,25 @@ import com.client.game.ChineseCheckersBoardBuilder;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
 public class GameViewController {
     @FXML
     public StackPane gameBoard;
+    @FXML
+    public Button skipRound;
     static Group group = new Group();
 
     @FXML
     public void initialize() {
         gameBoard.getChildren().add(gameBoardLoader());
         gameBoard.setAlignment(Pos.CENTER);
+    }
+
+    @FXML
+    public void skipRound() {
+        System.out.println("Skip round");
     }
 
     public Group gameBoardLoader() {

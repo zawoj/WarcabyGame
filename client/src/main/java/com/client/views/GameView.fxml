@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
@@ -16,6 +17,7 @@
             <Text layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player4" />
             <Text layoutX="86.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player5" />
             <Text layoutX="86.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player6" />
+            <Button fx:id="skipRound" layoutX="67.0" layoutY="225.0" mnemonicParsing="false" onAction="#skipRound" text="Skip Round" />
          </children>
       </Pane>
       <StackPane fx:id="gameBoard" layoutX="211.0" prefHeight="800.0" prefWidth="992.0" />
