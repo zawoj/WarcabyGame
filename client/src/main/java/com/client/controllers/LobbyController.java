@@ -47,7 +47,7 @@ public class LobbyController {
     public void saveEdit() {
         saveMode = !saveMode;
         if (isHost(ClientCore.getInstance().getLogin())) {
-            if (saveMode == true) {
+            if (saveMode) {
                 // After edit
                 saveEditButton.setText("Save");
                 gameName.setDisable(false);
@@ -56,6 +56,7 @@ public class LobbyController {
                 // After Save
                 saveEditButton.setText("Edit");
                 gameName.setDisable(true);
+                ClientCore.getInstance().changeLobbyName(gameName.getText());
             }
         }
     }

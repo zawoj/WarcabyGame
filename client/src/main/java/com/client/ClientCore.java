@@ -132,8 +132,10 @@ public class ClientCore {
     }
 
     public void close() {
-        if (conlis != null)
-            conlis.close();
+        try{
+            exitLobby();
+        }catch (Exception ignored){}
+        if (conlis != null) conlis.close();
     }
 
     public void sendLobbyListRequest() throws Exception {
@@ -168,6 +170,15 @@ public class ClientCore {
 
     public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
         this.lobbyInfo = lobbyInfo;
+    }
+
+    public void changeLobbyName(String name){
+        joinLobbyMessage message = new joinLobbyMessage();
+        message.setMessageType("change name");
+        message.setHostName(name);
+        try {
+            conlis.getOut().writeObject(message);
+        }catch (Exception ignored){}
     }
 
     public void startGame() throws IOException {

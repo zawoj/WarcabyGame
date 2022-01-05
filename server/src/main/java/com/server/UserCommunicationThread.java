@@ -76,6 +76,7 @@ public class UserCommunicationThread extends Thread {
             case  "StartGame" -> startGame();
             case "move" -> move(message);
             case "skip turn" ->skipTurn();
+            case "change name" -> changeLobbyName(message);
         }
     }
     private void register(MessageHolder message) throws IOException {
@@ -132,6 +133,10 @@ public class UserCommunicationThread extends Thread {
     private void exitLobby(){
         if(myLobby != null) myLobby.removePlayer(this);
         myLobby = null;
+    }
+    public void changeLobbyName(MessageHolder message){
+        joinLobbyMessage jm = (joinLobbyMessage) message;
+        if(myLobby != null) myLobby.setName(jm.getHostName());
     }
     private void startGame(){
         if(myLobby != null) myLobby.start();

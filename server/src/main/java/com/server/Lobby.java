@@ -45,6 +45,7 @@ public class Lobby {
     public void start(){
         try {
             game = new Game(this, numberOfPlayers);
+            ServerCore.getInstance().getLobbys().remove(this);
         }catch (Exception ignored){
         }
     }
@@ -80,7 +81,11 @@ public class Lobby {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(!name.equals("")) {
+            this.name = name;
+        }else{
+            this.name = host + "'s game";
+        }
     }
 
     public int getNumberOfPlayers(){
