@@ -51,7 +51,7 @@ public class Game {
         try{
             board.move(pawnX, pawnY, moveX, moveY);
             deliverMove(pawnX, pawnY, moveX, moveY);
-            //check if game ended
+            int win = board.checkIfGameEnded(); //sprawdzałem działa
             skipMove();
         } catch (Exception e) {
             MessageHolder mh = new MessageHolder();

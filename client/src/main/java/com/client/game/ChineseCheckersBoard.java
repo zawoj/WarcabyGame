@@ -62,6 +62,8 @@ public class ChineseCheckersBoard {
                             if(isInTarget){
                                 if(isInTarget(width,height,pointafterjump[1],pointafterjump[0])){
                                     LogicBoard.board[pointafterjump[0]][pointafterjump[1]] = 1;
+                                }else{
+                                    continue;
                                 }
                             }else {
                                 LogicBoard.board[pointafterjump[0]][pointafterjump[1]] = 1;
@@ -112,7 +114,7 @@ public class ChineseCheckersBoard {
                             if(isInTarget(pawnX,pawnY,pointafterjump[1],pointafterjump[0])){
                                 logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
                             }else{
-                                return;
+                                continue;
                             }
                         }else {
                             logic.board[pointafterjump[0]][pointafterjump[1]] = 1;
@@ -228,5 +230,31 @@ public class ChineseCheckersBoard {
         }
         return val;
     }
-
+    public int checkIfGameEnded(){
+        int[] countInTriangles = new int[6];
+        int trianglesize = 0;
+        int goodPoint = width/2;
+        for(int i = 1; i<size; i++){
+            for(int j = 0; j<i; j++){
+                trianglesize++;
+                if(board[height-i][goodPoint+2*j] == 4) countInTriangles[3]++;
+                if(board[i-1][goodPoint+2*j] == 1) countInTriangles[0]++;
+            }
+            goodPoint = goodPoint - 1;
+        }
+        goodPoint = 0;
+        for(int i = size; i<2*size-1; i++){
+            for(int j = 0; j<size-(i-size)-1; j++){
+                if(board[height-i][goodPoint+2*j] == 5) countInTriangles[4]++;
+                if(board[i-1][goodPoint+2*j] == 6) countInTriangles[5]++;
+                if(board[i-1][width-goodPoint-2*j-1] == 2) countInTriangles[1]++;
+                if(board[height-i][width-goodPoint-2*j-1] == 3) countInTriangles[2]++;
+            }
+            goodPoint = goodPoint + 1;
+        }
+        for(int i = 0; i<6; i++){
+            if(countInTriangles[i]==trianglesize) return i+1;
+        }
+        return 0;
+    }
 }
