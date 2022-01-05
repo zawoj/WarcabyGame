@@ -3,8 +3,6 @@ package com.client.controllers;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.lang.model.element.Element;
-
 import com.client.ClientCore;
 import com.client.helpers.Routes;
 
@@ -92,17 +90,14 @@ public class LobbyController {
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
             saveEditButton.setDisable(false);
             startGame.setDisable(false);
-            System.out.println("Lets go");
         } else if (isHost(ClientCore.getInstance().getLogin())
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 1) {
             saveEditButton.setDisable(false);
             startGame.setDisable(true);
-            System.out.println("There are just you host");
         } else {
             saveEditButton.setDisable(true);
             startGame.setDisable(true);
             gameName.setDisable(true);
-            System.out.println("You are not allowed to all");
         }
     }
 
