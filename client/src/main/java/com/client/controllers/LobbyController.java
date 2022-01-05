@@ -1,12 +1,12 @@
 package com.client.controllers;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Objects;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,21 +72,23 @@ public class LobbyController {
         gameName.setText("Game Name");
     }
 
-    public void refreshLobbyData() {
-        setUsers();
-        isHost(ClientCore.getInstance().getLogin());
+    @FXML
+    public void startGame() throws IOException {
+        System.out.println("Game Start");
+        loadGameScene();
 
-        // Check that game can by started
-        if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
-            startGame.setDisable(false);
-        } else {
-            startGame.setDisable(true);
-        }
     }
 
-    @FXML
-    public void startGame() {
-        System.out.println("Game Start");
+    public void refreshLobbyData() {
+        setUsers();
+        // ! TODO Reapir validation
+        // isHost(ClientCore.getInstance().getLogin());
+        // Check that game can by started
+        // if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
+        // startGame.setDisable(false);
+        // } else {
+        // startGame.setDisable(true);
+        // }
     }
 
     private void displayNickName(String nickName) {
@@ -99,16 +101,19 @@ public class LobbyController {
         avatarImage.setImage(avatarImagePreview);
     }
 
+    // isHost checks that you are host
     private void isHost(String playerName) {
 
         System.out.println("Host: " + ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0) + " My name: "
                 + playerName);
 
-        if (!Objects.equals(playerName, ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0))) {
-            gameName.setDisable(true);
-            saveEditButton.setDisable(true);
-            startGame.setDisable(true);
-        }
+        // ! TODO Reapir validation
+        // if (!Objects.equals(playerName,
+        // ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0))) {
+        // gameName.setDisable(true);
+        // saveEditButton.setDisable(true);
+        // startGame.setDisable(true);
+        // }
     }
 
     private void setUsers() {
@@ -153,12 +158,22 @@ public class LobbyController {
     }
 
     public void loadGameScene() throws IOException {
-        stage = (Stage) goOut.getScene().getWindow();
-        root = FXMLLoader.load(Routes.viewsRoute("GameView.fxml"));
-        Scene scene = new Scene(root, 1200, 800);
-        scene.getStylesheets().add(Routes.styleRoute("app.css"));
-        stage.setScene(scene);
-        stage.show();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    stage = (Stage) startGame.getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader(Routes.viewsRoute("GameView.fxml"));
+                    root = loader.load();
+                    Scene scene = new Scene(root, 1200, 800);
+                    scene.getStylesheets().add(Routes.styleRoute("app.css"));
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
     }
 
 }

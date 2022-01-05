@@ -31,16 +31,16 @@ public class StartViewController implements Initializable {
     private Pane ErrorPane;
 
     @FXML
-    private void StartViewControllerButtons(ActionEvent event){
-        try{
-            ClientCore.getInstance().reqServerConnection(IP.getText(),PORT.getText());
+    private void StartViewControllerButtons(ActionEvent event) {
+        try {
+            ClientCore.getInstance().reqServerConnection(IP.getText(), PORT.getText());
             LoadNewScene();
-        }catch(Exception e){
+        } catch (Exception e) {
             showError();
         }
     }
 
-    public void showError(){
+    public void showError() {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
         transition.setToX(-285);
