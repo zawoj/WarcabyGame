@@ -3,6 +3,8 @@ package com.client.controllers;
 import java.io.IOException;
 import java.util.Objects;
 
+import javax.lang.model.element.Element;
+
 import com.client.ClientCore;
 import com.client.helpers.Routes;
 
@@ -40,24 +42,23 @@ public class LobbyController {
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         gameName.setPromptText(ClientCore.getInstance().getLobbyInfo().getGameName());
-        if (!isHost(ClientCore.getInstance().getLogin())) {
-            saveEditButton.setDisable(true);
-            gameName.setDisable(true);
-        }
+        checkPrivilages();
     }
 
     @FXML
     public void saveEdit() {
         saveMode = !saveMode;
-        if (saveMode == true && isHost(ClientCore.getInstance().getLogin())) {
-            // After edit
-            saveEditButton.setText("Save");
-            gameName.setDisable(false);
-            gameName.requestFocus();
-        } else if (isHost(ClientCore.getInstance().getLogin())) {
-            // After Save
-            saveEditButton.setText("Edit");
-            gameName.setDisable(true);
+        if (isHost(ClientCore.getInstance().getLogin())) {
+            if (saveMode == true) {
+                // After edit
+                saveEditButton.setText("Save");
+                gameName.setDisable(false);
+                gameName.requestFocus();
+            } else if (isHost(ClientCore.getInstance().getLogin())) {
+                // After Save
+                saveEditButton.setText("Edit");
+                gameName.setDisable(true);
+            }
         }
     }
 
@@ -78,26 +79,34 @@ public class LobbyController {
     public void startGame() throws IOException {
         System.out.println("Game Start");
         loadGameScene();
-
     }
 
     public void refreshLobbyData() {
         setUsers();
-        // Set privileges
-        if (isHost(ClientCore.getInstance().getLogin())) {
-            if (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
-                startGame.setDisable(false);
-            }
-            saveEditButton.setDefaultButton(false);
+        checkPrivilages();
+    }
 
-        } else {
-            saveEditButton.setDefaultButton(true);
+    // Set for useers theirs privileges
+    private void checkPrivilages() {
+        if (isHost(ClientCore.getInstance().getLogin())
+                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
+            saveEditButton.setDisable(false);
+            startGame.setDisable(false);
+            System.out.println("Lets go");
+        } else if (isHost(ClientCore.getInstance().getLogin())
+                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 1) {
+            saveEditButton.setDisable(false);
             startGame.setDisable(true);
-
+            System.out.println("There are just you host");
+        } else {
+            saveEditButton.setDisable(true);
+            startGame.setDisable(true);
+            gameName.setDisable(true);
+            System.out.println("You are not allowed to all");
         }
     }
 
-    // Check if you are host
+    // Helper function to check that you are host
     private Boolean isHost(String playerName) {
         return Objects.equals(playerName, ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0));
     }
