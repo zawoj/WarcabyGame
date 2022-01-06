@@ -1,7 +1,6 @@
 package com.client;
 
 import com.client.controllers.*;
-import com.client.game.MouseMoveHandler;
 import com.messages.*;
 import javafx.stage.Stage;
 
@@ -25,6 +24,7 @@ public class ClientCore {
     String Login;
     int avatar;
     LobbyInfoMessage lobbyInfo;
+    public String currentPlayer;
     public Stage programStage;
     public boolean myTurn = false;
 
@@ -88,7 +88,7 @@ public class ClientCore {
         return registeryController;
     }
 
-    public ConnectionListener getConLis(){
+    public ConnectionListener getConLis() {
         return conlis;
     }
 
@@ -132,10 +132,12 @@ public class ClientCore {
     }
 
     public void close() {
-        try{
+        try {
             exitLobby();
-        }catch (Exception ignored){}
-        if (conlis != null) conlis.close();
+        } catch (Exception ignored) {
+        }
+        if (conlis != null)
+            conlis.close();
     }
 
     public void sendLobbyListRequest() throws Exception {
@@ -172,13 +174,14 @@ public class ClientCore {
         this.lobbyInfo = lobbyInfo;
     }
 
-    public void changeLobbyName(String name){
+    public void changeLobbyName(String name) {
         joinLobbyMessage message = new joinLobbyMessage();
         message.setMessageType("change name");
         message.setHostName(name);
         try {
             conlis.getOut().writeObject(message);
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     public void startGame() throws IOException {
@@ -195,7 +198,7 @@ public class ClientCore {
     }
 
     public void skipRound() throws IOException {
-        if(myTurn){
+        if (myTurn) {
             MessageHolder mh = new MessageHolder();
             mh.setMessageType("skip turn");
             conlis.getOut().writeObject(mh);

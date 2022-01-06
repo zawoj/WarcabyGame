@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.GameViewController">
@@ -11,15 +14,30 @@
       <Line endX="-50.0" endY="717.0" layoutX="262.0" layoutY="87.0" startX="-50.0" startY="-91.70709228515625" />
       <Pane fx:id="PlayersList" layoutY="268.0" prefHeight="264.0" prefWidth="211.0">
          <children>
-            <Text layoutX="86.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1" />
-            <Text layoutX="86.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player2" />
-            <Text layoutX="86.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player3" />
-            <Text layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player4" />
-            <Text layoutX="86.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player5" />
-            <Text layoutX="86.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player6" />
+            <Text fx:id="Player1" layoutX="86.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="123" />
+            <Text fx:id="Player2" layoutX="86.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="Player3" layoutX="86.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="Player4" layoutX="86.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="Player5" layoutX="86.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="Player6" layoutX="86.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Button fx:id="skipRound" layoutX="67.0" layoutY="225.0" mnemonicParsing="false" onAction="#skipRound" text="Skip Round" />
+            <Rectangle fx:id="Color1" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Rectangle fx:id="Color2" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Rectangle fx:id="Color3" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Rectangle fx:id="Color4" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="132.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Rectangle fx:id="Color5" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="159.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Rectangle fx:id="Color6" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="15.0" layoutX="59.0" layoutY="184.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <Pane fx:id="arrow" layoutX="35.0" layoutY="44.0" prefHeight="25.0" prefWidth="27.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/TurnArrow.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
-      <StackPane fx:id="gameBoard" layoutX="211.0" prefHeight="800.0" prefWidth="992.0" />
+      <StackPane fx:id="gameBoard" layoutX="210.0" layoutY="4.0" prefHeight="800.0" prefWidth="992.0" />
    </children>
 </Pane>

@@ -9,20 +9,17 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
     int pawnX, pawnY, playerNumber;
     ChineseCheckersBoardAdapter ccba;
 
-
     public MouseMoveHandler(ChineseCheckersBoardAdapter ccba) {
         System.out.println("mmh created");
         this.ccba = ccba;
     }
 
-
     @Override
     public void handle(MouseEvent mouseEvent) {
-        System.out.println("siema " + ClientCore.getInstance().myTurn);
-        System.out.println("numer - " + playerNumber);
+
         Field field = (Field) mouseEvent.getSource();
-        System.out.println("klikam - " + ccba.checkersBoard.getBoard()[field.getHeight()][field.getWidth()]);
-        if(!ClientCore.getInstance().myTurn) return;
+        if (!ClientCore.getInstance().myTurn)
+            return;
         try {
             if (isPawnChoosen) {
                 move(pawnX, pawnY, field.getWidth(), field.getHeight());
@@ -30,7 +27,8 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
             } else {
                 pawnX = field.getWidth();
                 pawnY = field.getHeight();
-                if(ccba.checkersBoard.getBoard()[pawnY][pawnX] != playerNumber ) return;
+                if (ccba.checkersBoard.getBoard()[pawnY][pawnX] != playerNumber)
+                    return;
                 isPawnChoosen = true;
             }
         } catch (Exception e) {
@@ -51,12 +49,12 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
     public void executeMove(int pawnX, int pawnY, int moveX, int moveY) {
         try {
             ccba.move(pawnX, pawnY, moveX, moveY);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setPlayerNumber(int playerNumber){
+    public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
     }
 }

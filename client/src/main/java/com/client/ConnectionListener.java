@@ -1,7 +1,6 @@
 package com.client;
-import com.client.controllers.DashboardController;
+
 import com.messages.*;
-import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,19 +9,20 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class ConnectionListener extends Thread{
+public class ConnectionListener extends Thread {
     ObjectInputStream in;
     ObjectOutputStream out;
     MessageHolder currentMessage;
     public boolean creatingGame = false;
 
-    public ConnectionListener(Socket clientSocket) throws Exception{
+    public ConnectionListener(Socket clientSocket) throws Exception {
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new ObjectInputStream(clientSocket.getInputStream());
     }
+
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 currentMessage = (MessageHolder) in.readObject();
                 messageHandler(currentMessage);
@@ -31,7 +31,8 @@ public class ConnectionListener extends Thread{
             }
         }
     }
-    public void close(){
+
+    public void close() {
         try {
             out.close();
             in.close();
@@ -40,9 +41,10 @@ public class ConnectionListener extends Thread{
         }
     }
 
-    private void messageHandler(MessageHolder message){
+    private void messageHandler(MessageHolder message) {
         switch (message.getMessageType()) {
-            case "Registered" -> ClientCore.getInstance().getRegisteryController().accountCreatedSuccesfullyNotification();
+            case "Registered" -> ClientCore.getInstance().getRegisteryController()
+                    .accountCreatedSuccesfullyNotification();
             case "Register failed" -> ClientCore.getInstance().getRegisteryController().errorNotification();
             case "Logged in" -> {
                 RegisterMessage rm = (RegisterMessage) message;
@@ -66,24 +68,30 @@ public class ConnectionListener extends Thread{
                 creatingGame = true;
                 gameBeginningMessage gbm = (gameBeginningMessage) message;
                 try {
-                    ClientCore.getInstance().getLobbyController().loadGameScene(gbm.getPlayerCount(), gbm.getPlayerNumber());
-                }catch (Exception e){
+                    ClientCore.getInstance().getLobbyController().loadGameScene(gbm.getPlayerCount(),
+                            gbm.getPlayerNumber());
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            case "invalid move" ->{
-                ClientCore.getInstance().myTurn = true; //jakaś wiadomość że ruch niepoprawny by się przydała
+            case "invalid move" -> {
+                ClientCore.getInstance().myTurn = true; // jakaś wiadomość że ruch niepoprawny by się przydała
             }
             case "turn" -> {
                 joinLobbyMessage jlm = (joinLobbyMessage) message;
-                if(Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
+                // Hostname but thhi is player which is actually turn
+                if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
                 }
+                // // TODO This broke when is next turn
+                // ClientCore.getInstance().currentPlayer = jlm.getHostName();
+                // ClientCore.getInstance().getGameController().setTurnArrow();
 
             }
             case "move" -> {
                 MoveMessage mm = (MoveMessage) message;
-                ClientCore.getInstance().getGameController().getMouseMoveHandler().executeMove(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
+                ClientCore.getInstance().getGameController().getMouseMoveHandler().executeMove(mm.getPawnX(),
+                        mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
             }
         }
     }
