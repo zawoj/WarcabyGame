@@ -2,8 +2,8 @@ package com.client.game;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
+import javafx.scene.transform.Rotate;
 
 public class Field extends Polyline {
     private int height;
@@ -19,6 +19,9 @@ public class Field extends Polyline {
                 centerX - (radius / 2.0), centerY + radius * (Math.sqrt(3) / 2.0),
                 centerX, centerY);
         this.setFill(fill);
+        this.setStroke(Color.BLACK);
+        Rotate rotation = new Rotate(30, centerX, centerY);
+        this.getTransforms().add(rotation);
         this.height = height;
         this.width = width;
 
