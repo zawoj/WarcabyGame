@@ -5,10 +5,10 @@ import javafx.scene.paint.Color;
 public class ChineseCheckersBoardAdapter {
     ChineseCheckersBoard checkersBoard;
     Field[][] fields;
-    int radious = 10;
+    int radious = 15;
     MouseMoveHandler mmh;
 
-    public MouseMoveHandler getMouseMoveHandler(){
+    public MouseMoveHandler getMouseMoveHandler() {
         return mmh;
     }
 
@@ -43,7 +43,7 @@ public class ChineseCheckersBoardAdapter {
                 if (fields[x][y] == null)
                     continue;
                 fields[x][y].setStroke(Color.BLACK);
-                fields[x][y].setStrokeWidth(5);
+                fields[x][y].setStrokeWidth(2);
                 fields[x][y].setOnMouseMoved(mouseEvent -> {
                     Field field = (Field) mouseEvent.getSource();
                     ChineseCheckersBoard Logic = checkersBoard.setValidMoves(field.getHeight(), field.getWidth());
@@ -51,8 +51,11 @@ public class ChineseCheckersBoardAdapter {
                         for (int j = 0; j < Logic.getBoard()[0].length; j++) {
                             if (Logic.getBoard()[i][j] == 1) {
                                 fields[i][j].setStroke(Color.DARKBLUE);
+                                fields[i][j].setStrokeWidth(5);
                             } else if (Logic.getBoard()[i][j] == 0) {
                                 fields[i][j].setStroke(Color.BLACK);
+                                fields[i][j].setStrokeWidth(2);
+
                             }
                         }
                     }

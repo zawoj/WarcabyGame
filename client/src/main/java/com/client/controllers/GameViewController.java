@@ -1,5 +1,7 @@
 package com.client.controllers;
 
+import java.util.LinkedList;
+
 import com.client.ClientCore;
 import com.client.game.ChineseCheckersBoard;
 import com.client.game.ChineseCheckersBoardAdapter;
@@ -14,39 +16,42 @@ import javafx.scene.layout.StackPane;
 
 public class GameViewController {
 
-    int playerCount;
-    int playerNumber;
-    private MouseMoveHandler mmh;
-
     @FXML
     public StackPane gameBoard;
     @FXML
     public Button skipRound;
+
+    LinkedList<String> playersNicknames;
+    int playerCount;
+    int playerNumber;
     static Group group = new Group();
+    private MouseMoveHandler mmh;
 
     @FXML
     public void initialize() {
         ClientCore.getInstance().setGameController(this);
     }
 
-    public void startGameView(int playerCount, int playerNumber){
+    public void startGameView(int playerCount, int playerNumber) {
         this.playerCount = playerCount;
         this.playerNumber = playerNumber;
         gameBoard.getChildren().add(gameBoardLoader());
-        mmh.setPlayerNumber(playerNumber);
         gameBoard.setAlignment(Pos.CENTER);
+        mmh.setPlayerNumber(playerNumber);
     }
 
     @FXML
     public void skipRound() {
         try {
             ClientCore.getInstance().skipRound();
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     public Group gameBoardLoader() {
         try {
-            ChineseCheckersBoard board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount).build();
+            ChineseCheckersBoard board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount)
+                    .build();
             ChineseCheckersBoardAdapter BoardAdapter = new ChineseCheckersBoardAdapter(board);
             mmh = BoardAdapter.getMouseMoveHandler();
 

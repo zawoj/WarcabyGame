@@ -11,14 +11,15 @@ public class Lobby {
     private final LinkedList<UserCommunicationThread> players;
     Game game;
 
-    public Lobby(){
+    public Lobby() {
         numberOfPlayers = 0;
         players = new LinkedList<>();
     }
 
-    public void addPlayer(UserCommunicationThread newPlayer){
-        if(numberOfPlayers == 6) return;
-        if(numberOfPlayers == 0){
+    public void addPlayer(UserCommunicationThread newPlayer) {
+        if (numberOfPlayers == 6)
+            return;
+        if (numberOfPlayers == 0) {
             host = newPlayer.userData.getLogin();
             name = host + "'s game";
         }
@@ -28,13 +29,14 @@ public class Lobby {
         sendLobbyInfo();
     }
 
-    public void removePlayer(UserCommunicationThread playerToRemove){
-        if(!players.remove(playerToRemove)) return;
+    public void removePlayer(UserCommunicationThread playerToRemove) {
+        if (!players.remove(playerToRemove))
+            return;
         numberOfPlayers--;
-        if(numberOfPlayers==0){
+        if (numberOfPlayers == 0) {
             ServerCore.getInstance().getLobbys().remove(this);
-        }else{
-            if(playerToRemove.userData.getLogin().equals(host)){
+        } else {
+            if (playerToRemove.userData.getLogin().equals(host)) {
                 host = players.get(0).userData.getLogin();
             }
         }
@@ -42,36 +44,39 @@ public class Lobby {
         sendLobbyInfo();
     }
 
-    public void start(){
+    public void start() {
         try {
             game = new Game(this, numberOfPlayers);
             ServerCore.getInstance().getLobbys().remove(this);
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 
-    private LobbyInfoMessage getLobbyInfo(){
+    private LobbyInfoMessage getLobbyInfo() {
         LobbyInfoMessage info = new LobbyInfoMessage();
         info.setMessageType("LobbyInfo");
-        for(UserCommunicationThread uct : players){
+        for (UserCommunicationThread uct : players) {
             info.getPlayernames().add(uct.userData.getLogin());
             info.getPlayerimages().add(uct.userData.getAvatarNbr());
         }
         info.setGameName(name);
         return info;
     }
-    public void sendLobbyInfo(){
+
+    public void sendLobbyInfo() {
         deliverMessages(getLobbyInfo());
     }
 
-    public void deliverMessages(MessageHolder mh){
+    public void deliverMessages(MessageHolder mh) {
         for (UserCommunicationThread uct : players) {
             try {
                 uct.out.writeObject(mh);
                 ServerCore.getInstance().getController().appendOutput(mh.getMessageType());
-            }catch(Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
+
     public String getHost() {
         return host;
     }
@@ -81,18 +86,18 @@ public class Lobby {
     }
 
     public void setName(String name) {
-        if(!name.equals("")) {
+        if (!name.equals("")) {
             this.name = name;
-        }else{
+        } else {
             this.name = host + "'s game";
         }
     }
 
-    public int getNumberOfPlayers(){
+    public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    public LinkedList<UserCommunicationThread> getPlayers(){
+    public LinkedList<UserCommunicationThread> getPlayers() {
         return players;
     }
 }

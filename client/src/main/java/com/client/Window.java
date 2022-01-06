@@ -8,6 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -20,6 +23,7 @@ public class Window extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         // Stage stage = new Stage();
         ClientCore.getInstance().programStage = primaryStage;
         // Custom Fonr load

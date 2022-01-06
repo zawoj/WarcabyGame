@@ -1,6 +1,6 @@
 package com.messages;
 
-public class gameBeginningMessage extends MessageHolder{
+public class gameBeginningMessage extends MessageHolder {
     int playerCount;
     int playerNumber;
 

@@ -15,18 +15,19 @@ public class Game {
     ChineseCheckersBoard board;
     int[] playerNumbers;
     int currentPlayer;
+
     public Game(Lobby lobby, int playerCount) throws Exception {
         this.lobby = lobby;
-        this.playerCount=playerCount;
+        this.playerCount = playerCount;
         board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount).build();
-        switch (playerCount){
-            case 2 -> playerNumbers = new int[]{1, 4};
-            case 3 -> playerNumbers = new int[]{1, 3, 5};
-            case 4 -> playerNumbers = new int[]{2, 3, 5, 6};
-            case 6 -> playerNumbers = new int[]{1,2,3,4,5,6};
+        switch (playerCount) {
+            case 2 -> playerNumbers = new int[] { 1, 4 };
+            case 3 -> playerNumbers = new int[] { 1, 3, 5 };
+            case 4 -> playerNumbers = new int[] { 2, 3, 5, 6 }; // TODO why there is not case for 5 playerNumbers
+            case 6 -> playerNumbers = new int[] { 1, 2, 3, 4, 5, 6 };
         }
         currentPlayer = new Random().nextInt(playerCount);
-        for(int i = 0; i< playerCount; i++){
+        for (int i = 0; i < playerCount; i++) {
             gameBeginningMessage gbm = new gameBeginningMessage();
             gbm.setMessageType("gameBeginning");
             gbm.setPlayerCount(playerCount);
@@ -41,17 +42,17 @@ public class Game {
         mh.setMessageType("your turn");
         messageCurrentPlayer(mh);
     }
-    public void skipMove(){
-        currentPlayer = (currentPlayer+1)%playerCount;
+
+    public void skipMove() {
+        currentPlayer = (currentPlayer + 1) % playerCount;
         turn();
     }
 
-
-    public void move(int pawnX, int pawnY, int moveX, int moveY){
-        try{
+    public void move(int pawnX, int pawnY, int moveX, int moveY) {
+        try {
             board.move(pawnX, pawnY, moveX, moveY);
             deliverMove(pawnX, pawnY, moveX, moveY);
-            int win = board.checkIfGameEnded(); //sprawdzałem działa
+            int win = board.checkIfGameEnded(); // sprawdzałem działa
             skipMove();
         } catch (Exception e) {
             MessageHolder mh = new MessageHolder();
@@ -61,19 +62,20 @@ public class Game {
 
     }
 
-    public void endGame(){
+    public void endGame() {
         System.out.println("Game Ended");
     }
 
-    public void messageCurrentPlayer(MessageHolder message){
+    public void messageCurrentPlayer(MessageHolder message) {
         try {
             lobby.getPlayers().get(currentPlayer).out.writeObject(message);
             ServerCore.getInstance().getController().appendOutput(message.getMessageType());
-        }catch (IOException ex){
+        } catch (IOException ex) {
             endGame();
         }
     }
-    public void deliverMove(int pawnX, int pawnY, int moveX, int moveY){
+
+    public void deliverMove(int pawnX, int pawnY, int moveX, int moveY) {
         MoveMessage mm = new MoveMessage();
         mm.setMessageType("move");
         mm.setAll(pawnX, pawnY, moveX, moveY);
