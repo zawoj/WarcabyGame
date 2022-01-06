@@ -18,11 +18,18 @@ public class UserCommunicationThread extends Thread {
     UserInformationPackage userData;
     Lobby myLobby = null;
 
+    /**
+     * creates new user thread
+     * @param clientSocket users socket
+     */
     UserCommunicationThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
-
     }
 
+    /**
+     * sets player lobby
+     * @param lobby
+     */
     public void setLobby(Lobby lobby){
         myLobby = lobby;
     }
@@ -53,6 +60,10 @@ public class UserCommunicationThread extends Thread {
         } while (message != null);
     }
 
+    /**
+     * closes connection
+     * @throws IOException
+     */
     public void close() throws IOException {
         in.close();
         out.close();

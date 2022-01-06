@@ -21,12 +21,18 @@ public class ServerCore {
     boolean isRunning;
     private DataBaseManager dataBaseManager;
 
+    /**
+     * creates new server core
+     */
     private ServerCore() {
         serverLobbys = new LinkedList<>();
         userConnections = new LinkedList<>();
         isRunning = false;
     }
 
+    /**
+     * sets up database manager
+     */
     public void ServerCoreSetup() {
         dataBaseManager = new DataBaseManager();
     }
@@ -57,7 +63,7 @@ public class ServerCore {
     }
 
     /**
-     * -returns the window controller used by the class
+     * returns the window controller used by the class
      * 
      * @return terminal controller
      */
@@ -65,6 +71,10 @@ public class ServerCore {
         return terminalController;
     }
 
+    /**
+     * returns database manager
+     * @return database manager
+     */
     public DataBaseManager getDataBaseManager() {
         return dataBaseManager;
     }
@@ -161,6 +171,10 @@ public class ServerCore {
         return null;
     }
 
+    /**
+     * returns info about lobbys
+     * @return
+     */
     public LinkedList<dummyLobbyClass> getLobbysInfo(){
         LinkedList<dummyLobbyClass> info = new LinkedList<>();
         for(int i = 0; i < serverLobbys.size(); i++){

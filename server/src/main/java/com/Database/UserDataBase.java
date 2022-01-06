@@ -10,13 +10,25 @@ import com.helpers.Routes;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * user database
+ */
 public class UserDataBase implements Serializable {
     private LinkedList<UserInformationPackage> users = new LinkedList<>();
 
+    /**
+     * adds a new user to the database
+     * @param userToAdd user to add
+     */
     public void addUser(UserInformationPackage userToAdd) {
         users.add(userToAdd);
     }
 
+    /**
+     * returns user information given his login
+     * @param login users login
+     * @return user information
+     */
     public UserInformationPackage getUserByLogin(String login) {
         for (UserInformationPackage uip : users) {
             if (uip.getLogin().equals(login)) {
@@ -26,6 +38,11 @@ public class UserDataBase implements Serializable {
         return null;
     }
 
+    /**
+     * checks if user is in database
+     * @param login users login
+     * @return true if user in database false otherwise
+     */
     public boolean checkIfUserInDatabase(String login) {
         for (UserInformationPackage uip : users) {
             if (uip.getLogin().equals(login)) {
@@ -35,6 +52,11 @@ public class UserDataBase implements Serializable {
         return false;
     }
 
+    /**
+     * updates users password
+     * @param login users login
+     * @param newPassword users new password
+     */
     public void updatePassword(String login, String newPassword) {
         for (UserInformationPackage uip : users) {
             if (uip.getLogin().equals(login)) {
@@ -43,6 +65,10 @@ public class UserDataBase implements Serializable {
         }
     }
 
+    /**
+     * saves database
+     * @throws IOException
+     */
     public void save() throws IOException {
         JSONObject mainObject = new JSONObject();
 
@@ -63,6 +89,9 @@ public class UserDataBase implements Serializable {
         }
     }
 
+    /**
+     * loads database
+     */
     public void load() {
         try {
             String contents = new String((Files.readAllBytes(Path.of(Routes.databaseRoute("Users.json").toURI()))));
@@ -81,6 +110,11 @@ public class UserDataBase implements Serializable {
 
     }
 
+    /**
+     * changes users avatar
+     * @param login users login
+     * @param newAvatar users new avatar
+     */
     public void changeAvatar(String login, int newAvatar) {
         for (UserInformationPackage uip : users) {
             if (uip.getLogin().equals(login)) {
@@ -89,6 +123,9 @@ public class UserDataBase implements Serializable {
         }
     }
 
+    /**
+     * deletes database
+     */
     public void dumpDatabase() {
         users = new LinkedList<>();
     }

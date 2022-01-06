@@ -1,14 +1,7 @@
 package com.board;
 
 /**
- * -1 pole nielegalne
- * 0 pole puste
- * 1-6 pole z pionkiem gracza
- *
- * [x][y]
- * x - wysokosc
- * y - szerokosc
- * wiem ze dziwnie ale tak mi na razie wygodniej w kodzie
+ * checkers board builder
  */
 public class ChineseCheckersBoardBuilder {
     int size;
@@ -16,14 +9,31 @@ public class ChineseCheckersBoardBuilder {
     int height;
     int width;
 
+    /**
+     * sets the number of players
+     * @param numberOfPlayers number of players
+     * @return this builder
+     */
     public ChineseCheckersBoardBuilder setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         return this;
     }
+
+    /**
+     * sets the board size
+     * @param size size
+     * @return this builder
+     */
     public ChineseCheckersBoardBuilder setSize(int size){
         this.size=size;
         return this;
     }
+
+    /**
+     * builds the board
+     * @return built board
+     * @throws Exception throws if size or number of players if wrongly set
+     */
     public ChineseCheckersBoard build() throws Exception{
         if(size < 1 || numberOfPlayers < 0 || numberOfPlayers==1 || numberOfPlayers == 5 || numberOfPlayers >6) throw new Exception("wrong build parameters");
         ChineseCheckersBoard checkersBoard = new ChineseCheckersBoard();

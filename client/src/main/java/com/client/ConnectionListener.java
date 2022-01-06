@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class ConnectionListener extends Thread{
     ObjectInputStream in;
@@ -73,8 +74,12 @@ public class ConnectionListener extends Thread{
             case "invalid move" ->{
                 ClientCore.getInstance().myTurn = true; //jakaś wiadomość że ruch niepoprawny by się przydała
             }
-            case "your turn" -> {
-                ClientCore.getInstance().myTurn = true;
+            case "turn" -> {
+                joinLobbyMessage jlm = (joinLobbyMessage) message;
+                if(Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
+                    ClientCore.getInstance().myTurn = true;
+                }
+
             }
             case "move" -> {
                 MoveMessage mm = (MoveMessage) message;

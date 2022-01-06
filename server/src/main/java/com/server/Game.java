@@ -2,13 +2,14 @@ package com.server;
 
 import com.board.ChineseCheckersBoard;
 import com.board.ChineseCheckersBoardBuilder;
-import com.messages.MessageHolder;
-import com.messages.MoveMessage;
-import com.messages.gameBeginningMessage;
+import com.messages.*;
 
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * class that handles one game
+ */
 public class Game {
     Lobby lobby;
     int playerCount;
@@ -16,6 +17,12 @@ public class Game {
     int[] playerNumbers;
     int currentPlayer;
 
+    /**
+     * creates the game
+     * @param lobby games lobby
+     * @param playerCount number of players
+     * @throws Exception throws if size or number of players if wrongly set
+     */
     public Game(Lobby lobby, int playerCount) throws Exception {
         this.lobby = lobby;
         this.playerCount = playerCount;
@@ -23,7 +30,7 @@ public class Game {
         switch (playerCount) {
             case 2 -> playerNumbers = new int[] { 1, 4 };
             case 3 -> playerNumbers = new int[] { 1, 3, 5 };
-            case 4 -> playerNumbers = new int[] { 2, 3, 5, 6 }; // TODO why there is not case for 5 playerNumbers
+            case 4 -> playerNumbers = new int[] { 2, 3, 5, 6 };
             case 6 -> playerNumbers = new int[] { 1, 2, 3, 4, 5, 6 };
         }
         currentPlayer = new Random().nextInt(playerCount);
@@ -37,17 +44,31 @@ public class Game {
         turn();
     }
 
+    /**
+     * informs current player that its his move
+     */
     public void turn() {
-        MessageHolder mh = new MessageHolder();
-        mh.setMessageType("your turn");
-        messageCurrentPlayer(mh);
+        joinLobbyMessage jlm = new joinLobbyMessage();
+        jlm.setMessageType("turn");
+        jlm.setHostName(lobby.getPlayers().get(currentPlayer).userData.getLogin());
+        lobby.deliverMessages(jlm);
     }
 
+    /**
+     * goes to next player
+     */
     public void skipMove() {
         currentPlayer = (currentPlayer + 1) % playerCount;
         turn();
     }
 
+    /**
+     * performs move on board
+     * @param pawnX pawns x
+     * @param pawnY pawns y
+     * @param moveX moves x
+     * @param moveY moves y
+     */
     public void move(int pawnX, int pawnY, int moveX, int moveY) {
         try {
             board.move(pawnX, pawnY, moveX, moveY);
@@ -62,10 +83,17 @@ public class Game {
 
     }
 
+    /**
+     * ends game
+     */
     public void endGame() {
         System.out.println("Game Ended");
     }
 
+    /**
+     * sends a message to current player
+     * @param message message to send
+     */
     public void messageCurrentPlayer(MessageHolder message) {
         try {
             lobby.getPlayers().get(currentPlayer).out.writeObject(message);
@@ -75,6 +103,13 @@ public class Game {
         }
     }
 
+    /**
+     * informs all players about the move
+     * @param pawnX pawns x
+     * @param pawnY pawns y
+     * @param moveX moves x
+     * @param moveY moves y
+     */
     public void deliverMove(int pawnX, int pawnY, int moveX, int moveY) {
         MoveMessage mm = new MoveMessage();
         mm.setMessageType("move");

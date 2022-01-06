@@ -53,10 +53,18 @@ public class TerminalController implements Initializable {
         ServerCore.getInstance().ServerCoreSetup();
     }
 
+    /**
+     * adds string as input
+     * @param text text to add
+     */
     public void appendInput(String text) {
         InOutTextArea.setText(InOutTextArea.getText() + "\n<- " + text);
     }
 
+    /**
+     * adds string as output
+     * @param text text to add
+     */
     public void appendOutput(String text) {
         InOutTextArea.setText(InOutTextArea.getText() + "\n-> " + text);
     }

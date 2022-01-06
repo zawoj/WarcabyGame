@@ -1,11 +1,19 @@
 package com.board;
 
+/**
+ * checkers board
+ */
 public class ChineseCheckersBoard {
     private int[][] board;
     private int size;
     int height;
     int width;
 
+    /**
+     * sets board
+     * @param board board to set
+     * @param size size of the board
+     */
     public void setBoard(int[][] board, int size){
         this.board=board;
         this.size = size;
@@ -13,10 +21,17 @@ public class ChineseCheckersBoard {
         width = 2*(size+2*(size-1))-1;
     }
 
+    /**
+     * returns board
+     * @return board
+     */
     public int[][] getBoard(){
         return board;
     }
 
+    /**
+     * prints the board on standard output
+     */
     public void printInTerminal(){
         for(int[] a :board){
             for(int b :a){
@@ -30,6 +45,12 @@ public class ChineseCheckersBoard {
         }
     }
 
+    /**
+     * returns a board where 0 is a non-valid move and 1 is a valid one
+     * @param height Y coordinate of the point to validate
+     * @param width X coordinate of the point to validate
+     * @return board with valid points
+     */
     public ChineseCheckersBoard setValidMoves(int height, int width) {
         /*
         move left width - 2
@@ -126,6 +147,14 @@ public class ChineseCheckersBoard {
         }
     }
 
+    /**
+     * moves a pawn on the board
+     * @param pawnX pawn's X coordinate
+     * @param pawnY pawn's Y coordinate
+     * @param moveX move's X coordinate
+     * @param moveY move's Y coordinate
+     * @throws Exception throws if move isn't valid
+     */
     public void move(int pawnX, int pawnY, int moveX, int moveY) throws Exception{
         ChineseCheckersBoard Logic = setValidMoves(pawnY, pawnX);
         if(Logic.getBoard()[moveY][moveX] == 1){
@@ -135,6 +164,15 @@ public class ChineseCheckersBoard {
             throw new Exception("invalid move");
         }
     }
+
+    /**
+     * checks if a move is in target triangle
+     * @param pawnX pawn's X coordinate (this is for choosing triangle to check)
+     * @param pawnY pawn's Y coordinate (this is for choosing triangle to check)
+     * @param moveX move's X coordinate (this is for choosing a field to check)
+     * @param moveY move's Y coordinate (this is for choosing a field to check)
+     * @return true if is in target false otherwise
+     */
     public boolean isInTarget(int pawnX, int pawnY, int moveX, int moveY){
         switch(board[pawnY][pawnX]){
             case 1 -> {return fourthTriangle(moveX,moveY);}
@@ -230,6 +268,11 @@ public class ChineseCheckersBoard {
         }
         return val;
     }
+
+    /**
+     * chcecks if game ended
+     * @return number of player that won else 0
+     */
     public int checkIfGameEnded(){
         int[] countInTriangles = new int[6];
         int trianglesize = 0;

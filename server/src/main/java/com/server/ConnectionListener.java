@@ -14,6 +14,9 @@ public class ConnectionListener extends Thread {
         server = serverSocket;
     }
 
+    /**
+     * waits for new connections
+     */
     @Override
     public void run() {
         while (true) {
