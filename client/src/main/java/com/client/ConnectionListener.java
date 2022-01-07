@@ -83,10 +83,9 @@ public class ConnectionListener extends Thread {
                 if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
                 }
-                // // TODO This broke when is next turn
-                // ClientCore.getInstance().currentPlayer = jlm.getHostName();
-                // ClientCore.getInstance().getGameController().setTurnArrow();
-
+                // TODO This broke when is next turn
+                ClientCore.getInstance().currentPlayer = jlm.getHostName();
+                ClientCore.getInstance().getGameController().setTurnArrow();
 
             }
             case "move" -> {

@@ -156,46 +156,47 @@ public class GameViewController {
         String currntTurPlayer = ClientCore.getInstance().currentPlayer;
         System.out.println("Set arrow on player " + currntTurPlayer);
         System.out.println(ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer));
-        System.out.println(arrow);
-
         // TODO repair setToY bsc isn'y good
         switch (ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer)) {
             case 0: {
                 TranslateTransition transition = new TranslateTransition();
                 transition.setNode(arrow);
-                transition.setToY(25.0);
+                transition.setToY(0.0);
                 transition.play();
                 break;
             }
             case 1: {
                 TranslateTransition transition = new TranslateTransition();
                 transition.setNode(arrow);
-                transition.setToY(50.0);
+                transition.setToY(28.0);
                 transition.play();
                 break;
             }
             case 2: {
                 TranslateTransition transition = new TranslateTransition();
                 transition.setNode(arrow);
-                transition.setToY(100.0);
+                transition.setToY(56.0);
                 transition.play();
                 break;
             }
             case 3: {
                 TranslateTransition transition = new TranslateTransition();
-                transition.setToY(126.0);
+                transition.setNode(arrow);
+                transition.setToY(84.0);
                 transition.play();
                 break;
             }
             case 4: {
                 TranslateTransition transition = new TranslateTransition();
-                transition.setToY(154.0);
+                transition.setNode(arrow);
+                transition.setToY(112.0);
                 transition.play();
                 break;
             }
             case 5: {
                 TranslateTransition transition = new TranslateTransition();
-                transition.setToY(180.0);
+                transition.setNode(arrow);
+                transition.setToY(140.0);
                 transition.play();
                 break;
             }

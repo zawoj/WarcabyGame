@@ -88,11 +88,13 @@ public class LobbyController {
     // Set for useers theirs privileges
     private void checkPrivilages() {
         if (isHost(ClientCore.getInstance().getLogin())
-                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1) {
+                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1
+                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() != 5) {
             saveEditButton.setDisable(false);
             startGame.setDisable(false);
         } else if (isHost(ClientCore.getInstance().getLogin())
-                && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 1) {
+                && (ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 1
+                        || ClientCore.getInstance().getLobbyInfo().getPlayernames().size() == 5)) {
             saveEditButton.setDisable(false);
             startGame.setDisable(true);
         } else {
