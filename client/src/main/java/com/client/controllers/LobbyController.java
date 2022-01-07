@@ -162,6 +162,7 @@ public class LobbyController {
                 stage.setScene(scene);
                 stage.show();
                 ClientCore.getInstance().getGameController().startGameView(count, number);
+                ClientCore.getInstance().ready();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

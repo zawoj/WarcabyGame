@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Game {
     Lobby lobby;
-    int playerCount;
+    int playerCount, readyPlayers;
     ChineseCheckersBoard board;
     int[] playerNumbers;
     int currentPlayer;
@@ -26,6 +26,7 @@ public class Game {
     public Game(Lobby lobby, int playerCount) throws Exception {
         this.lobby = lobby;
         this.playerCount = playerCount;
+        readyPlayers = 0;
         board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount).build();
         switch (playerCount) {
             case 2 -> playerNumbers = new int[] { 1, 4 };
@@ -41,7 +42,14 @@ public class Game {
             gbm.setPlayerNumber(playerNumbers[i]);
             lobby.getPlayers().get(i).out.writeObject(gbm);
         }
-        turn();
+    }
+
+    /**
+     * adds one to ready players and when all players are ready starts the game
+     */
+    public void ready(){
+        readyPlayers++;
+        if(readyPlayers == playerCount) turn();
     }
 
     /**

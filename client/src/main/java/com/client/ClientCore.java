@@ -205,4 +205,13 @@ public class ClientCore {
             myTurn = false;
         }
     }
+
+    public void ready(){
+        try{
+            MessageHolder mh = new MessageHolder();
+            mh.setMessageType("ready");
+            conlis.getOut().writeObject(mh);
+        } catch (IOException ignored) {
+        }
+    }
 }

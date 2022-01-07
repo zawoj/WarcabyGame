@@ -87,6 +87,7 @@ public class ConnectionListener extends Thread {
                 // ClientCore.getInstance().currentPlayer = jlm.getHostName();
                 // ClientCore.getInstance().getGameController().setTurnArrow();
 
+
             }
             case "move" -> {
                 MoveMessage mm = (MoveMessage) message;

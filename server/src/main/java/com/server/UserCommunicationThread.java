@@ -88,6 +88,7 @@ public class UserCommunicationThread extends Thread {
             case "move" -> move(message);
             case "skip turn" ->skipTurn();
             case "change name" -> changeLobbyName(message);
+            case "ready" -> ready();
         }
     }
     private void register(MessageHolder message) throws IOException {
@@ -154,9 +155,12 @@ public class UserCommunicationThread extends Thread {
     }
     private void move(MessageHolder message){
         MoveMessage mm = (MoveMessage) message;
-        myLobby.game.move(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
+        if(myLobby != null) myLobby.game.move(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
     }
     private void skipTurn(){
         myLobby.game.skipMove();
+    }
+    private void ready(){
+        if(myLobby != null) myLobby.game.ready();
     }
 }
