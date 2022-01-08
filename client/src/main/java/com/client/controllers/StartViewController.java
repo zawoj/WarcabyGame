@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class StartViewController implements Initializable {
 
     @FXML
-    private Button connectServerButton, errorButton;
+    public Button connectServerButton, errorButton;
     @FXML
     private TextField IP, PORT;
 
