@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
+import com.client.helpers.exceptions.StringLengthException;
+import com.client.helpers.exceptions.StringSameValidation;
 
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -40,7 +42,8 @@ public class RegisteryController implements Initializable {
 
     private static Stage stage;
     private static Parent root;
-    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Avatar 1", "Avatar 2",
+    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Choiceavatar", "Avatar 1",
+            "Avatar 2",
             "Avatar 3", "Avatar 4", "Avatar 5", "Avatar 6", "Avatar 7", "Avatar 8", "Avatar 9", "Avatar 10",
             "Avatar 11", "Avatar 12", "Avatar 13", "Avatar 14", "Avatar 15", "Avatar 16", "Avatar 17", "Avatar 18",
             "Avatar 19", "Avatar 20", "Avatar 21", "Avatar 22", "Avatar 23", "Avatar 24");
@@ -51,14 +54,13 @@ public class RegisteryController implements Initializable {
             if (e.getSource() == buttonCreateAccount) {
 
                 if (passwordValidation(newPassword.getText())) {
-                    if (newPassword.getText().equals(checkNewPassword.getText())) {
+                    if (passwordCheckValidation(newPassword.toString(), checkNewPassword.toString())) {
                         ClientCore.getInstance().reqCreateNewAccount(newLogin.getText(), newPassword.getText(),
                                 Integer.parseInt(avatarChoiceBox.getValue().split(" ")[1]));
 
                         newLogin.setText("");
                         newPassword.setText("");
                         checkNewPassword.setText("");
-
                         avatarChoiceBox.setValue("Choose avatar");
                     } else {
                         TranslateTransition transition = new TranslateTransition();
@@ -160,8 +162,20 @@ public class RegisteryController implements Initializable {
         stage.show();
     }
 
-    private boolean passwordValidation(String password) {
-        return password.length() > 4;
+    public boolean passwordValidation(String password) throws StringLengthException {
+        if (password.length() > 4) {
+            return true;
+        } else {
+            throw new StringLengthException("Password must be at least 4 characters");
+        }
+    }
+
+    public boolean passwordCheckValidation(String password, String checkPassword) throws StringSameValidation {
+        if (password.equals(checkPassword)) {
+            return true;
+        } else {
+            throw new StringSameValidation("Password are not same");
+        }
     }
 
 }
