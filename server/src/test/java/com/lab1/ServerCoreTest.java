@@ -1,4 +1,5 @@
 package com.lab1;
+
 import com.Database.UserInformationPackage;
 import com.messages.dummyLobbyClass;
 import com.server.Lobby;
@@ -16,27 +17,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ServerCoreTest {
     @Test
-    public void instanceTest(){
+    public void instanceTest() {
         ServerCore s1 = ServerCore.getInstance();
         ServerCore s2 = ServerCore.getInstance();
         assertEquals(s1, s2);
         assertNotNull(s1);
     }
-    private static class dummyControler extends TerminalController{
+
+    private static class dummyControler extends TerminalController {
         public String append, appendin, appendout;
+
         @Override
         public void append(String text) {
             append = text;
         }
     }
+
     @Test
-    public void commandTest(){
+    public void commandTest() {
         ServerCore.getInstance().setController(new dummyControler());
         ServerCore.getInstance().command("echo test1234");
-        assertEquals(" test1234", ((dummyControler)ServerCore.getInstance().getController()).append);
+        assertEquals(" test1234", ((dummyControler) ServerCore.getInstance().getController()).append);
     }
+
     @Test
-    public void lobbyTest(){
+    public void lobbyTest() {
         Lobby test = new Lobby();
         UserCommunicationThread u = new UserCommunicationThread(new Socket());
         u.userData = new UserInformationPackage("testLogin", "testPassword", 1);
@@ -48,6 +53,7 @@ public class ServerCoreTest {
         assertEquals(d.get(0).hostName, "testLogin");
 
     }
+
     private static class dummySocket extends ServerSocket {
         public boolean amIactive = true;
 
@@ -59,6 +65,7 @@ public class ServerCoreTest {
             amIactive = false;
         }
     }
+
     @Test
     public void closeTest() throws IOException {
         dummyControler dc = new dummyControler();
@@ -74,7 +81,7 @@ public class ServerCoreTest {
     }
 
     @Test
-    public void startTest(){
+    public void startTest() {
         dummyControler dc = new dummyControler();
         ServerCore.getInstance().setController(dc);
         ServerCore.getInstance().ServerCoreSetup();

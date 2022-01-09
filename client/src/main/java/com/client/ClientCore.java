@@ -44,68 +44,68 @@ public class ClientCore {
         this.startViewController = startViewController;
     }
 
-    public void setLoginIntoLauncherController(LoginIntoLauncherController loginIntoLauncherController) {
-        this.loginIntoLauncherController = loginIntoLauncherController;
-    }
-
-    public void setRegisteryController(RegisteryController registeryController) {
-        this.registeryController = registeryController;
-    }
-
-    public DashboardController getDashboardController() {
-        return dashboardController;
-    }
-
-    public void setDashboardController(DashboardController dashboardController) {
-        this.dashboardController = dashboardController;
-    }
-
-    public LobbyController getLobbyController() {
-        return lobbyController;
-    }
-
-    public void setLobbyController(LobbyController lobbyController) {
-        this.lobbyController = lobbyController;
-    }
-
-    public GameViewController getGameController() {
-        return gameController;
+    public StartViewController getStartViewController() {
+        return startViewController;
     }
 
     public void setGameController(GameViewController gameController) {
         this.gameController = gameController;
     }
 
-    public StartViewController getStartViewController() {
-        return startViewController;
+    public GameViewController getGameController() {
+        return gameController;
+    }
+
+    public void setLoginIntoLauncherController(LoginIntoLauncherController loginIntoLauncherController) {
+        this.loginIntoLauncherController = loginIntoLauncherController;
     }
 
     public LoginIntoLauncherController getLoginIntoLauncherController() {
         return loginIntoLauncherController;
     }
 
+    public void setRegisteryController(RegisteryController registeryController) {
+        this.registeryController = registeryController;
+    }
+
     public RegisteryController getRegisteryController() {
         return registeryController;
+    }
+
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
+    }
+
+    public DashboardController getDashboardController() {
+        return dashboardController;
+    }
+
+    public void setLobbyController(LobbyController lobbyController) {
+        this.lobbyController = lobbyController;
+    }
+
+    public LobbyController getLobbyController() {
+        return lobbyController;
     }
 
     public ConnectionListener getConLis() {
         return conlis;
     }
 
-    public String getLogin() {
-        return Login;
-    }
-
     public void setLogin(String login) {
         Login = login;
     }
 
-    public int getAvatar() {
-        return avatar;
+    public String getLogin() {
+        return Login;
     }
 
     public void setAvatar(int avatar) {
         this.avatar = avatar;
+    }
+
+    public int getAvatar() {
+        return avatar;
     }
 
     public void reqServerConnection(String ip, String port) throws Exception {
@@ -166,12 +166,12 @@ public class ClientCore {
         conlis.getOut().writeObject(mh);
     }
 
-    public LobbyInfoMessage getLobbyInfo() {
-        return lobbyInfo;
-    }
-
     public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
         this.lobbyInfo = lobbyInfo;
+    }
+
+    public LobbyInfoMessage getLobbyInfo() {
+        return lobbyInfo;
     }
 
     public void changeLobbyName(String name) {
