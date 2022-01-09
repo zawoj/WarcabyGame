@@ -42,7 +42,7 @@ public class RegisteryController implements Initializable {
 
     private static Stage stage;
     private static Parent root;
-    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Choiceavatar", "Avatar 1",
+    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Avatar 1",
             "Avatar 2",
             "Avatar 3", "Avatar 4", "Avatar 5", "Avatar 6", "Avatar 7", "Avatar 8", "Avatar 9", "Avatar 10",
             "Avatar 11", "Avatar 12", "Avatar 13", "Avatar 14", "Avatar 15", "Avatar 16", "Avatar 17", "Avatar 18",
@@ -54,7 +54,8 @@ public class RegisteryController implements Initializable {
             if (e.getSource() == buttonCreateAccount) {
 
                 if (passwordValidation(newPassword.getText())) {
-                    if (passwordCheckValidation(newPassword.toString(), checkNewPassword.toString())) {
+                    if (passwordCheckValidation(newPassword.getText().toString(),
+                            checkNewPassword.getText().toString())) {
                         ClientCore.getInstance().reqCreateNewAccount(newLogin.getText(), newPassword.getText(),
                                 Integer.parseInt(avatarChoiceBox.getValue().split(" ")[1]));
 
