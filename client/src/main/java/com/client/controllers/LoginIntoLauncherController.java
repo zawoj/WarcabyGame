@@ -58,6 +58,7 @@ public class LoginIntoLauncherController implements Initializable {
 
     public void ErrorNotification() {
         TranslateTransition transition = new TranslateTransition();
+        ErrorPane.setVisible(true);
         transition.setNode(ErrorPane);
         transition.setToX(-285);
         transition.play();

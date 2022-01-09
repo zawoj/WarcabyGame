@@ -206,8 +206,8 @@ public class ClientCore {
         }
     }
 
-    public void ready(){
-        try{
+    public void ready() {
+        try {
             MessageHolder mh = new MessageHolder();
             mh.setMessageType("ready");
             conlis.getOut().writeObject(mh);

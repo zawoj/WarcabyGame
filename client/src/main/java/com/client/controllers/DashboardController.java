@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 
 public class DashboardController {
     @FXML
-    Text NickName, paginationPosition;
+    public Text NickName, paginationPosition;
     @FXML
     private ImageView avatarImage;
     @FXML

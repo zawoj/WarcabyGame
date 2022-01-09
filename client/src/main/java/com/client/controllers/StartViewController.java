@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
+import com.client.helpers.exceptions.StringLengthException;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -24,10 +25,15 @@ public class StartViewController implements Initializable {
     @FXML
     public Button connectServerButton, errorButton;
     @FXML
-    private TextField IP, PORT;
+    public TextField IP, PORT;
 
     @FXML
     private Pane ErrorPane;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        ClientCore.getInstance().setStartViewController(this);
+    }
 
     @FXML
     private void StartViewControllerButtons(ActionEvent event) {
@@ -54,12 +60,7 @@ public class StartViewController implements Initializable {
         transition.play();
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        ClientCore.getInstance().setStartViewController(this);
-    }
-
-    public void LoadNewScene() throws IOException {
+    public void LoadNewScene() throws IOException, StringLengthException {
         Stage stage;
         Parent root;
 
@@ -71,6 +72,11 @@ public class StartViewController implements Initializable {
 
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public String getIP() {
+        return this.IP.getText();
     }
 
 }

@@ -21,12 +21,12 @@ import javafx.stage.Stage;
 
 public class LobbyController {
     @FXML
-    Text NickName, HostName, Player1Nick, Player2Nick, Player3Nick, Player4Nick, Player5Nick;
+    public Text NickName, HostName, Player1Nick, Player2Nick, Player3Nick, Player4Nick, Player5Nick;
     @FXML
-    private ImageView avatarImage, HostAvatar, Player1Avatar, Player2Avatar, Player3Avatar, Player4Avatar,
+    public ImageView avatarImage, HostAvatar, Player1Avatar, Player2Avatar, Player3Avatar, Player4Avatar,
             Player5Avatar;
     @FXML
-    TextField gameName;
+    public TextField gameName;
     @FXML
     Button saveEditButton, goOut, startGame;
 

@@ -105,6 +105,7 @@ public class RegisteryController implements Initializable {
     @FXML
     private void accountCreatedSuccesfullyButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
+        accountCreatedSuccesfully.setVisible(false);
         transition.setNode(accountCreatedSuccesfully);
         transition.setToX(0);
         transition.play();
@@ -141,6 +142,7 @@ public class RegisteryController implements Initializable {
 
     public void accountCreatedSuccesfullyNotification() {
         TranslateTransition transition = new TranslateTransition();
+        accountCreatedSuccesfully.setVisible(true);
         transition.setNode(accountCreatedSuccesfully);
         transition.setToX(-300);
         transition.play();
@@ -148,6 +150,7 @@ public class RegisteryController implements Initializable {
 
     public void errorNotification() {
         TranslateTransition transition = new TranslateTransition();
+        accountCreatedSuccesfully.setVisible(true);
         transition.setNode(errorRegisteryNewAccount);
         transition.setToX(-300);
         transition.play();
