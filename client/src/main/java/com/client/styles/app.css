@@ -1,13 +1,8 @@
-@font-face {
-  font-family: Lato;
-  src: url("LatoRegular.ttf");
-}
 #Logo {
   -fx-effect: dropshadow(three-pass-box, rgba(56, 56, 56, 0.653), 12, 0, 0, 0);
 }
 .root {
   -fx-background-color: #e4e8ed;
-  -fx-font-family: "Lato";
   -fx-font-size: 14;
 }
 
@@ -71,11 +66,20 @@
   -fx-transition: all 1s ease-in-out;
 }
 
-#GameCard {
+/* Dashboard */
+
+#gameCardHBox {
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
   -fx-background-color: #ffffff;
   -fx-background-radius: 10;
+  -fx-min-width: 410;
+  -fx-min-height: 60;
 }
+
+#gameCardHBox > .button {
+  -fx-background-color: #ffffff00;
+}
+/* -END-Dashboard */
 
 /*  Pane */
 
@@ -136,3 +140,64 @@
   -fx-min-height: 100%;
 }
 /* -END- Scrollbar*/
+
+/* LOBBY */
+#Host {
+  -fx-background-color: #6dd1e0;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+  -fx-text-fill: white;
+}
+#Player1,
+#Player2,
+#Player3,
+#Player4,
+#Player5 {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+  -fx-text-fill: #7a8599;
+}
+#lobbyNamePane {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10;
+  -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);
+}
+#gameName:focused {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #4c596b00;
+  -fx-text-fill: #000000;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0), 10, 0, 0, 0);
+  -fx-background-radius: 0;
+  -fx-min-width: 80;
+  -fx-min-height: 40;
+}
+
+#gameName {
+  -fx-background-color: #ffffff00;
+  -fx-border-color: #00000000;
+  -fx-text-fill: #000000;
+  -fx-border-width: 2;
+  -fx-border-radius: 30;
+  -fx-effect: dropshadow(three-pass-box, rgba(54, 61, 77, 0), 10, 0, 0, 0);
+  -fx-background-radius: 30;
+  -fx-min-width: 80;
+  -fx-min-height: 40;
+}
+#gameName:disabled {
+  -fx-opacity: 1;
+}
+/* -END- LOBBY */
+
+/* Pagination */
+#paginationButtonPrev,
+#paginationButtonNext {
+  -fx-background-color: #ffffff;
+  -fx-min-width: 30;
+  -fx-min-height: 30;
+  -fx-background-radius: 50;
+}
+
+/* -END- Pagination */

@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controllers.DashboardController">
@@ -24,7 +25,7 @@
          </image>
       </ImageView>
       <Text fx:id="NickName" layoutX="1011.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" textOrigin="CENTER" wrappingWidth="175.0" />
-      <Button layoutX="574.0" layoutY="202.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="129.0" text="Create Game">
+      <Button fx:id="createGameButton" layoutX="574.0" layoutY="202.0" mnemonicParsing="false" onAction="#createLooby" prefHeight="34.0" prefWidth="129.0" text="Create Game">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,19 +41,41 @@
       </ImageView>
       <Text layoutX="626.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game List" />
       <Text layoutX="486.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Name" />
-      <Text layoutX="617.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" />
-      <Pane fx:id="GameCard" layoutX="462.0" layoutY="413.0" prefHeight="61.0" prefWidth="408.0">
+      <Text layoutX="608.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" />
+      <Text layoutX="702.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Name" />
+      <Button fx:id="logoutButtin" layoutX="1056.0" layoutY="206.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="86.0" text="Log out" />
+      <Pane fx:id="paginationPane" layoutX="539.0" layoutY="685.0" prefHeight="34.0" prefWidth="200.0">
          <children>
-            <Text layoutX="34.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game #1" />
-            <Text layoutX="167.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3/6" />
-            <Text layoutX="257.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick Name" />
-            <ImageView fitHeight="27.0" fitWidth="37.0" layoutX="359.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Play.png" />
-               </image>
-            </ImageView>
+            <Button fx:id="paginationButtonPrev" layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#loadPrev">
+               <graphic>
+                  <ImageView fitHeight="13.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Prev.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="paginationButtonNext" layoutX="52.0" layoutY="5.0" mnemonicParsing="false" onAction="#loadNext">
+               <graphic>
+                  <ImageView fitHeight="13.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/Next.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fx:id="paginationPosition" layoutX="115.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 5" />
          </children>
       </Pane>
-      <Text layoutX="715.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host Name" />
+      <VBox fx:id="GamesCardsPane" layoutX="479.0" layoutY="395.0" prefHeight="290.0" prefWidth="300.0" />
+      <Button fx:id="refreshButton" layoutX="732.0" layoutY="205.0" mnemonicParsing="false" onAction="#refreshAction">
+         <graphic>
+            <ImageView fx:id="refreshIcon" fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/refresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>

@@ -1,7 +1,6 @@
 package com.client.controllers;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -49,18 +48,19 @@ public class LoginIntoLauncherController implements Initializable {
 
     }
 
-    public void ErrorNotification(){
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(ErrorPane);
-        transition.setToX(-285);
-        transition.play();
-    }
-
     @FXML
     private void errorButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
         transition.setToX(0);
+        transition.play();
+    }
+
+    public void ErrorNotification() {
+        TranslateTransition transition = new TranslateTransition();
+        ErrorPane.setVisible(true);
+        transition.setNode(ErrorPane);
+        transition.setToX(-285);
         transition.play();
     }
 
@@ -76,14 +76,14 @@ public class LoginIntoLauncherController implements Initializable {
                     scene.getStylesheets().add(Routes.styleRoute("app.css"));
                     stage.setScene(scene);
                     stage.show();
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
         });
     }
 
-    private void LoadRegisteryScene() throws MalformedURLException, IOException {
+    private void LoadRegisteryScene() throws IOException {
         stage = (Stage) RegisteryButton.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("RegisterView.fxml"));
         Scene scene = new Scene(root, 800, 600);

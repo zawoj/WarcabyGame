@@ -1,12 +1,12 @@
 package com.client.controllers;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
+import com.client.helpers.exceptions.StringLengthException;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -23,28 +23,26 @@ import javafx.stage.Stage;
 public class StartViewController implements Initializable {
 
     @FXML
-    private Button connectServerButton, errorButton;
+    public Button connectServerButton, errorButton;
     @FXML
-    private TextField IP, PORT;
+    public TextField IP, PORT;
 
     @FXML
     private Pane ErrorPane;
 
-    @FXML
-    private void StartViewControllerButtons(ActionEvent event){
-        try{
-            ClientCore.getInstance().reqServerConnection(IP.getText(),PORT.getText());
-            LoadNewScene();
-        }catch(Exception e){
-            showError();
-        }
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        ClientCore.getInstance().setStartViewController(this);
     }
 
-    public void showError(){
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(ErrorPane);
-        transition.setToX(-285);
-        transition.play();
+    @FXML
+    private void StartViewControllerButtons(ActionEvent event) {
+        try {
+            ClientCore.getInstance().reqServerConnection(IP.getText(), PORT.getText());
+            LoadNewScene();
+        } catch (Exception e) {
+            showError();
+        }
     }
 
     @FXML
@@ -55,12 +53,14 @@ public class StartViewController implements Initializable {
         transition.play();
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        ClientCore.getInstance().setStartViewController(this);
+    public void showError() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(ErrorPane);
+        transition.setToX(-285);
+        transition.play();
     }
 
-    public void LoadNewScene() throws MalformedURLException, IOException {
+    public void LoadNewScene() throws IOException, StringLengthException {
         Stage stage;
         Parent root;
 
@@ -72,6 +72,11 @@ public class StartViewController implements Initializable {
 
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public String getIP() {
+        return this.IP.getText();
     }
 
 }

@@ -3,8 +3,10 @@ package com.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import com.controllers.TerminalController;
+import com.messages.dummyLobbyClass;
 
 /**
  * class being the core of the server.
@@ -13,17 +15,24 @@ import com.controllers.TerminalController;
 public class ServerCore {
     private static volatile ServerCore instance;
     private TerminalController terminalController;
-    private ServerSocket serverSocket;
+    public ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
+    private final LinkedList<Lobby> serverLobbys;
     boolean isRunning;
+    private DataBaseManager dataBaseManager;
 
-    DataBaseManager dataBaseManager;
-    private ServerCore(){
-
+    /**
+     * creates new server core
+     */
+    private ServerCore() {
+        serverLobbys = new LinkedList<>();
         userConnections = new LinkedList<>();
         isRunning = false;
     }
 
+    /**
+     * sets up database manager
+     */
     public void ServerCoreSetup() {
         dataBaseManager = new DataBaseManager();
     }
@@ -62,6 +71,10 @@ public class ServerCore {
         return terminalController;
     }
 
+    /**
+     * returns database manager
+     * @return database manager
+     */
     public DataBaseManager getDataBaseManager() {
         return dataBaseManager;
     }
@@ -88,7 +101,7 @@ public class ServerCore {
                     }
                 }
             }
-            case "close" -> close();
+            case "close" -> close(true);
             default -> terminalController.append("unknown command: " + splitCommand[0]);
         }
     }
@@ -116,7 +129,7 @@ public class ServerCore {
     /**
      * function closing the server
      */
-    public void close() {
+    public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
             serverSocket.close();
@@ -126,9 +139,9 @@ public class ServerCore {
                 UCT.close();
             }
             serverSocket.close();
-            terminalController.append("server closed");
+            if(write) terminalController.append("server closed");
         } catch (Exception e) {
-            terminalController.append("failed to close server");
+            if(write) terminalController.append("failed to close server");
         }
     }
 
@@ -139,5 +152,35 @@ public class ServerCore {
      */
     public LinkedList<UserCommunicationThread> getUsers() {
         return userConnections;
+    }
+
+    /**
+     * returns the list of lobbys
+     * @return list of lobbys
+     */
+    public LinkedList<Lobby> getLobbys() {
+        return serverLobbys;
+    }
+
+    public Lobby getLobbybyHost(String host){
+        for(Lobby lobby : serverLobbys){
+            if(Objects.equals(lobby.getHost(), host)){
+                return lobby;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * returns info about lobbys
+     * @return
+     */
+    public LinkedList<dummyLobbyClass> getLobbysInfo(){
+        LinkedList<dummyLobbyClass> info = new LinkedList<>();
+        for(int i = 0; i < serverLobbys.size(); i++){
+            Lobby lobby = serverLobbys.get(i);
+            info.add(i, new dummyLobbyClass(lobby.getName(),lobby.getNumberOfPlayers(),lobby.getHost()));
+        }
+        return info;
     }
 }

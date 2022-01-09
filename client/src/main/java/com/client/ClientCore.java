@@ -1,11 +1,10 @@
 package com.client;
 
-import com.client.controllers.LoginIntoLauncherController;
-import com.client.controllers.RegisteryController;
-import com.client.controllers.StartViewController;
-import com.messages.LoginMessage;
-import com.messages.RegisterMessage;
+import com.client.controllers.*;
+import com.messages.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -18,9 +17,16 @@ public class ClientCore {
     StartViewController startViewController;
     LoginIntoLauncherController loginIntoLauncherController;
     RegisteryController registeryController;
+    DashboardController dashboardController;
+    LobbyController lobbyController;
+    GameViewController gameController;
     ConnectionListener conlis;
     String Login;
     int avatar;
+    LobbyInfoMessage lobbyInfo;
+    public String currentPlayer;
+    public Stage programStage;
+    public boolean myTurn = false;
 
     // Singletion
     public static ClientCore getInstance() {
@@ -38,40 +44,68 @@ public class ClientCore {
         this.startViewController = startViewController;
     }
 
-    public void setLoginIntoLauncherController(LoginIntoLauncherController loginIntoLauncherController) {
-        this.loginIntoLauncherController = loginIntoLauncherController;
-    }
-
-    public void setRegisteryController(RegisteryController registeryController) {
-        this.registeryController = registeryController;
-    }
-
     public StartViewController getStartViewController() {
         return startViewController;
+    }
+
+    public void setGameController(GameViewController gameController) {
+        this.gameController = gameController;
+    }
+
+    public GameViewController getGameController() {
+        return gameController;
+    }
+
+    public void setLoginIntoLauncherController(LoginIntoLauncherController loginIntoLauncherController) {
+        this.loginIntoLauncherController = loginIntoLauncherController;
     }
 
     public LoginIntoLauncherController getLoginIntoLauncherController() {
         return loginIntoLauncherController;
     }
 
+    public void setRegisteryController(RegisteryController registeryController) {
+        this.registeryController = registeryController;
+    }
+
     public RegisteryController getRegisteryController() {
         return registeryController;
     }
 
-    public String getLogin() {
-        return Login;
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
+    }
+
+    public DashboardController getDashboardController() {
+        return dashboardController;
+    }
+
+    public void setLobbyController(LobbyController lobbyController) {
+        this.lobbyController = lobbyController;
+    }
+
+    public LobbyController getLobbyController() {
+        return lobbyController;
+    }
+
+    public ConnectionListener getConLis() {
+        return conlis;
     }
 
     public void setLogin(String login) {
         Login = login;
     }
 
-    public int getAvatar() {
-        return avatar;
+    public String getLogin() {
+        return Login;
     }
 
     public void setAvatar(int avatar) {
         this.avatar = avatar;
+    }
+
+    public int getAvatar() {
+        return avatar;
     }
 
     public void reqServerConnection(String ip, String port) throws Exception {
@@ -96,7 +130,88 @@ public class ClientCore {
         rm.setAvatar(chosenAvatar);
         conlis.getOut().writeObject(rm);
     }
-    public void close(){
-        if(conlis!=null) conlis.close();
+
+    public void close() {
+        try {
+            exitLobby();
+        } catch (Exception ignored) {
+        }
+        if (conlis != null)
+            conlis.close();
+    }
+
+    public void sendLobbyListRequest() throws Exception {
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("get lobby info");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void createLobby() throws Exception {
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("Create Lobby");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void joinLobby(String hostName) throws Exception {
+        joinLobbyMessage mh = new joinLobbyMessage();
+        mh.setMessageType("join lobby");
+        mh.setHostName(hostName);
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void exitLobby() throws IOException {
+        joinLobbyMessage mh = new joinLobbyMessage();
+        mh.setMessageType("exit lobby");
+        mh.setHostName(lobbyInfo.getPlayernames().get(0));
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
+        this.lobbyInfo = lobbyInfo;
+    }
+
+    public LobbyInfoMessage getLobbyInfo() {
+        return lobbyInfo;
+    }
+
+    public void changeLobbyName(String name) {
+        joinLobbyMessage message = new joinLobbyMessage();
+        message.setMessageType("change name");
+        message.setHostName(name);
+        try {
+            conlis.getOut().writeObject(message);
+        } catch (Exception ignored) {
+        }
+    }
+
+    public void startGame() throws IOException {
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("StartGame");
+        conlis.getOut().writeObject(mh);
+    }
+
+    public void sendMove(int pawnX, int pawnY, int moveX, int moveY) throws IOException {
+        MoveMessage mm = new MoveMessage();
+        mm.setMessageType("move");
+        mm.setAll(pawnX, pawnY, moveX, moveY);
+        conlis.getOut().writeObject(mm);
+    }
+
+    public void skipRound() throws IOException {
+        if (myTurn) {
+            MessageHolder mh = new MessageHolder();
+            mh.setMessageType("skip turn");
+            conlis.getOut().writeObject(mh);
+            myTurn = false;
+        }
+    }
+
+    public void ready() {
+        try {
+            MessageHolder mh = new MessageHolder();
+            mh.setMessageType("ready");
+            conlis.getOut().writeObject(mh);
+        } catch (IOException ignored) {
+        }
     }
 }
