@@ -95,7 +95,9 @@ public class Game {
      * ends game
      */
     public void endGame() {
-        System.out.println("Game Ended");
+        MessageHolder mh = new MessageHolder();
+        mh.setMessageType("game ended");
+        lobby.deliverMessages(mh);
     }
 
     /**

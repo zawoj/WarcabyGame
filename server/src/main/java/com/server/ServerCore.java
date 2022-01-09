@@ -15,7 +15,7 @@ import com.messages.dummyLobbyClass;
 public class ServerCore {
     private static volatile ServerCore instance;
     private TerminalController terminalController;
-    private ServerSocket serverSocket;
+    public ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     private final LinkedList<Lobby> serverLobbys;
     boolean isRunning;

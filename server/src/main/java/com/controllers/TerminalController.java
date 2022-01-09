@@ -17,9 +17,9 @@ import com.server.ServerCore;
  */
 public class TerminalController implements Initializable {
     @FXML
-    TextArea TerminalText, InOutTextArea;
+    public TextArea TerminalText, InOutTextArea;
     @FXML
-    TextField TerminalField;
+    public TextField TerminalField;
 
     /**
      * function that checks if the typed key is ENTER, if it is it passes the typed

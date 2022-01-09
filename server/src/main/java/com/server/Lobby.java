@@ -12,7 +12,7 @@ public class Lobby {
     private String host, name;
     private int numberOfPlayers;
     private final LinkedList<UserCommunicationThread> players;
-    Game game;
+    public Game game;
 
     /**
      * creates a new lobby
