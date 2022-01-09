@@ -10,7 +10,6 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
     ChineseCheckersBoardAdapter ccba;
 
     public MouseMoveHandler(ChineseCheckersBoardAdapter ccba) {
-        System.out.println("mmh created");
         this.ccba = ccba;
     }
 

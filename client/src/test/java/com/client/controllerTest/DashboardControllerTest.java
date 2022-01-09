@@ -53,7 +53,6 @@ public class DashboardControllerTest extends ApplicationTest {
         logoutButtin = new Button("logoutButtin");
         paginationButtonNext = new Button("paginationButtonNext");
         paginationButtonPrev = new Button("paginationButtonPrev");
-
         NickName = new Text("NickName");
         paginationPosition = new Text("paginationPosition");
         stage.setScene(scene);
