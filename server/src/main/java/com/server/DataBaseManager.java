@@ -9,12 +9,12 @@ import java.io.IOException;
  * class that manages the player database
  */
 public class DataBaseManager {
-    UserDataBase dataBase;
+    public UserDataBase dataBase;
 
     /**
      * creates manager and loads database
      */
-    DataBaseManager() {
+    public DataBaseManager() {
         dataBase = new UserDataBase();
         dataBase.load();
     }

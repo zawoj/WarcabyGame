@@ -29,21 +29,21 @@ public class ChineseCheckersBoard {
         return board;
     }
 
-    /**
-     * prints the board on standard output
-     */
-    public void printInTerminal(){
-        for(int[] a :board){
-            for(int b :a){
-                if(b<0) {
-                    System.out.print("   ");
-                }else{
-                    System.out.print("[" + b + "]");
-                }
-            }
-            System.out.println();
-        }
-    }
+//    /**
+//     * prints the board on standard output
+//     */
+//    public void printInTerminal(){
+//        for(int[] a :board){
+//            for(int b :a){
+//                if(b<0) {
+//                    System.out.print("   ");
+//                }else{
+//                    System.out.print("[" + b + "]");
+//                }
+//            }
+//            System.out.println();
+//        }
+//    }
 
     /**
      * returns a board where 0 is a non-valid move and 1 is a valid one

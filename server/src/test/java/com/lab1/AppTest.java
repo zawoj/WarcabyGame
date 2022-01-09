@@ -1,20 +1,25 @@
 package com.lab1;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.junit.Test;
+import com.server.App;
+import com.server.ServerCore;
+import javafx.application.Application;
+import javafx.application.Platform;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
 {
-    /**
-     * Rigorous Test :-)
-     */
+
     @Test
-    public void shouldAnswerWithTrue()
+    public void window()
     {
-        assertTrue( true );
+        System.out.println("please close the window that will appear in a moment");
+        App.main(null);
+        Assertions.assertNotNull(ServerCore.getInstance().getController());
     }
 }

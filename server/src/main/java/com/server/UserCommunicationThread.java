@@ -11,38 +11,45 @@ import java.net.Socket;
  */
 public class UserCommunicationThread extends Thread {
 
-    ObjectInputStream in;
-    ObjectOutputStream out;
+    public ObjectInputStream in;
+    public ObjectOutputStream out;
     Socket clientSocket;
     MessageHolder message;
-    UserInformationPackage userData;
-    Lobby myLobby = null;
+    public UserInformationPackage userData;
+    public Lobby myLobby = null;
 
     /**
      * creates new user thread
      * @param clientSocket users socket
      */
-    UserCommunicationThread(Socket clientSocket) {
+    public UserCommunicationThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
     /**
      * sets player lobby
-     * @param lobby
+     * @param lobby lobby
      */
     public void setLobby(Lobby lobby){
         myLobby = lobby;
     }
 
     /**
+     * setups input and output
+     * @throws IOException throws if unable to set up
+     */
+    public void setInOut() throws Exception {
+        out = new ObjectOutputStream(clientSocket.getOutputStream());
+        in = new ObjectInputStream(clientSocket.getInputStream());
+    }
+    /**
      * Function reading input from client
      */
     @Override
     public void run() {
         try {
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
-        } catch (IOException exception) {
+            setInOut();
+        } catch (Exception exception) {
             ServerCore.getInstance().getController()
                     .append("failed to connect client" + clientSocket.getInetAddress().getHostAddress());
             ServerCore.getInstance().getUsers().remove(this);
@@ -51,9 +58,8 @@ public class UserCommunicationThread extends Thread {
         do {
             try {
                 message = (MessageHolder) in.readObject();
-                InputObjectHandling(message);
+                inputObjectHandling(message);
             } catch (IOException | ClassNotFoundException exception) {
-                ServerCore.getInstance().getController().append("Error reading input:" + exception);
                 ServerCore.getInstance().getUsers().remove(this);
                 break;
             }
@@ -75,7 +81,7 @@ public class UserCommunicationThread extends Thread {
      * 
      * @param message input received from client
      */
-    public void InputObjectHandling(MessageHolder message) throws IOException {
+    public void inputObjectHandling(MessageHolder message) throws IOException {
         ServerCore.getInstance().getController().appendInput(message.getMessageType());
         switch (message.getMessageType()) {
             case "register" -> register(message);
