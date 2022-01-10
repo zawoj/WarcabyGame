@@ -61,7 +61,7 @@ public class RegisteryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         avatarChoiceBox.setItems(avatarId);
-        avatarChoiceBox.setValue("Choice avatar");
+        avatarChoiceBox.setValue("Choose avatar");
         ClientCore.getInstance().setRegisteryController(this);
     }
 

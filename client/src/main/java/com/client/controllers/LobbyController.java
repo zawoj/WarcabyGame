@@ -207,8 +207,7 @@ public class LobbyController {
                 stage.show();
                 ClientCore.getInstance().getGameController().startGameView(count, number);
                 ClientCore.getInstance().ready();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (Exception ignored) {
             }
         });
     }

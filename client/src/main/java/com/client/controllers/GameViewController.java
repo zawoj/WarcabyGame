@@ -133,8 +133,7 @@ public class GameViewController {
                         group.getChildren().add(c);
                 }
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ignored) {
         }
         Platform.runLater(()->{
             String bip = null;
@@ -228,8 +227,6 @@ public class GameViewController {
      */
     public void setTurnArrow() {
         String currntTurPlayer = ClientCore.getInstance().currentPlayer;
-        System.out.println("Set arrow on player " + currntTurPlayer);
-        System.out.println(ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer));
 
         switch (ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer)) {
             case 0: {

@@ -27,10 +27,6 @@ public class StartViewControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    @Test
-    void checkWindowLoading() {
-        System.out.println(WindowMatchers.isShowing());
-    }
 
     @Test
     void checkExistConnectServerButton() {

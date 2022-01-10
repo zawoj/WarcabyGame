@@ -63,8 +63,7 @@ public class LoginIntoLauncherController implements Initializable {
             } else if (event.getSource() == RegisteryButton) {
                 LoadRegisteryScene();
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ignored) {
         }
 
     }
@@ -111,8 +110,8 @@ public class LoginIntoLauncherController implements Initializable {
                     scene.getStylesheets().add(Routes.styleRoute("app.css"));
                     stage.setScene(scene);
                     stage.show();
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                } catch (Exception ignored) {
+
                 }
             }
         });
