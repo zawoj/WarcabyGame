@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 public class AppTest
 {
 
+    //this test can't be run with other test because there are two tests that launch the javaFX app which causes an Exception
     @Test
     public void window()
     {

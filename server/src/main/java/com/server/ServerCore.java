@@ -133,7 +133,6 @@ public class ServerCore {
     public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
-            serverSocket.close();
 
             for (UserCommunicationThread UCT : userConnections) {
 
@@ -142,7 +141,9 @@ public class ServerCore {
             serverSocket.close();
             if (write)
                 terminalController.append("server closed");
+            isRunning = false;
         } catch (Exception e) {
+            e.printStackTrace();
             if (write)
                 terminalController.append("failed to close server");
         }
