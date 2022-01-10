@@ -273,8 +273,9 @@ public class ChineseCheckersBoard {
      * chcecks if game ended
      * @return number of player that won else 0
      */
-    public int checkIfGameEnded(){
+    public boolean[] checkIfGameEnded(){
         int[] countInTriangles = new int[6];
+        boolean[] won = new boolean[]{false, false, false, false, false, false};
         int trianglesize = 0;
         int goodPoint = width/2;
         for(int i = 1; i<size; i++){
@@ -296,9 +297,9 @@ public class ChineseCheckersBoard {
             goodPoint = goodPoint + 1;
         }
         for(int i = 0; i<6; i++){
-            if(countInTriangles[i]==trianglesize) return i+1;
+            won[i] = countInTriangles[i]==trianglesize;
         }
-        return 0;
+        return won;
     }
 }
 

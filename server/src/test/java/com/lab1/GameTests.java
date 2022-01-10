@@ -103,7 +103,7 @@ public class GameTests {
         lobby.game.move(9,3,10,4);
         Assertions.assertEquals(lobby.message.getMessageType(), "turn");
         lobby.game.endGame();
-        Assertions.assertEquals(lobby.message.getMessageType(), "game ended");
+        Assertions.assertEquals(lobby.message.getMessageType(), "LobbyInfo");
 
     }
 }

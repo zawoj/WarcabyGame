@@ -5,6 +5,7 @@ import com.board.ChineseCheckersBoardBuilder;
 import com.messages.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -16,6 +17,7 @@ public class Game {
     ChineseCheckersBoard board;
     int[] playerNumbers;
     int currentPlayer;
+    boolean[] won;
 
     /**
      * creates the game
@@ -27,6 +29,8 @@ public class Game {
         this.lobby = lobby;
         this.playerCount = playerCount;
         readyPlayers = 0;
+        won = new boolean[playerCount];
+        Arrays.fill(won, false);
         board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount).build();
         switch (playerCount) {
             case 2 -> playerNumbers = new int[] { 1, 4 };
@@ -66,7 +70,9 @@ public class Game {
      * goes to next player
      */
     public void skipMove() {
-        currentPlayer = (currentPlayer + 1) % playerCount;
+        do{
+            currentPlayer = (currentPlayer + 1) % playerCount;
+        }while(won[currentPlayer]);
         turn();
     }
 
@@ -81,7 +87,16 @@ public class Game {
         try {
             board.move(pawnX, pawnY, moveX, moveY);
             deliverMove(pawnX, pawnY, moveX, moveY);
-            int win = board.checkIfGameEnded(); // sprawdzałem działa
+            boolean[] end = board.checkIfGameEnded(); // sprawdzałem działa
+            boolean gameEnd = true;
+            for(int i = 0; i<playerCount; i++){
+                won[i] = end[playerNumbers[i]-1];
+                if(!won[i]) gameEnd = false;
+            }
+            if(gameEnd){
+                endGame();
+                return;
+            }
             skipMove();
         } catch (Exception e) {
             MessageHolder mh = new MessageHolder();
@@ -95,9 +110,7 @@ public class Game {
      * ends game
      */
     public void endGame() {
-        MessageHolder mh = new MessageHolder();
-        mh.setMessageType("game ended");
-        lobby.deliverMessages(mh);
+        lobby.sendLobbyInfo();
     }
 
     /**
