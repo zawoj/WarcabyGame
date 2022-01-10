@@ -47,6 +47,5 @@ public class BoardTest {
         l = b.setValidMoves(5,3);
         Assertions.assertEquals(1, l.getBoard()[5][7]);
         Assertions.assertEquals(0, l.getBoard()[6][8]);
-
     }
 }

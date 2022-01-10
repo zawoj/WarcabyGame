@@ -18,7 +18,7 @@ public class ServerCore {
     public ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     private final LinkedList<Lobby> serverLobbys;
-    boolean isRunning;
+    public boolean isRunning;
     private DataBaseManager dataBaseManager;
 
     /**
@@ -133,7 +133,10 @@ public class ServerCore {
     public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
-
+            if(serverSocket == null){
+                isRunning = false;
+                return;
+            }
             for (UserCommunicationThread UCT : userConnections) {
 
                 UCT.close();
