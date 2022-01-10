@@ -82,6 +82,18 @@ public class GameViewController {
     }
 
     /**
+     * Method which send to server information about that player exit game.
+     * And show dasboard of lobbys
+     */
+    @FXML
+    public void ExitGame() {
+        try {
+            ClientCore.getInstance().exitLobby();
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
      * Method which initialize game board in view
      * 
      * @return Group - game board
