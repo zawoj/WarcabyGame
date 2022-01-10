@@ -8,6 +8,10 @@ import com.client.game.ChineseCheckersBoardAdapter;
 import com.client.game.ChineseCheckersBoardBuilder;
 
 import com.client.game.MouseMoveHandler;
+import com.client.helpers.Routes;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -19,6 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * Class responsible for controlling the layout of the game and the
@@ -89,6 +94,13 @@ public class GameViewController {
     public void ExitGame() {
         try {
             ClientCore.getInstance().exitLobby();
+            ClientCore.getInstance().exitLobby();
+            Stage stage = (Stage) skipRound.getScene().getWindow();
+            Parent root = FXMLLoader.load(Routes.viewsRoute("DashboardView.fxml"));
+            Scene scene = new Scene(root, 1200, 800);
+            scene.getStylesheets().add(Routes.styleRoute("app.css"));
+            stage.setScene(scene);
+            stage.show();
         } catch (Exception ignored) {
         }
     }
