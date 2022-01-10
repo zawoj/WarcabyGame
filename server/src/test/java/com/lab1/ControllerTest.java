@@ -18,9 +18,18 @@ import org.testfx.framework.junit5.Start;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.concurrent.CountDownLatch;
 
 @ExtendWith(ApplicationExtension.class)
 public class ControllerTest extends ApplicationTest{
+
+
+
+
+    // If this test caused a failure please see AppTest for more info
+
+
+
     @Start
     void onStart(Stage stage) throws MalformedURLException, IOException {
         Scene scene = new Scene(FXMLLoader.load(Routes.viewsRoute("Terminal.fxml")));
@@ -29,17 +38,15 @@ public class ControllerTest extends ApplicationTest{
         stage.show();
     }
     @Test
-    public void appendTest(){
-        TerminalController t = ServerCore.getInstance().getController();
-        t.append("TEST");
-        Assertions.assertEquals("\nTEST", t.TerminalText.getText());
-        t.TerminalText.setText("");
-        t.appendInput("TESTIN");
-        Assertions.assertEquals("\n<- TESTIN", t.InOutTextArea.getText());
-        t.InOutTextArea.setText("");
-        t.appendOutput("TESTOUT");
-        Assertions.assertEquals("\n-> TESTOUT", t.InOutTextArea.getText());
+    public void appendTest() throws InterruptedException {
+        final TerminalController t = ServerCore.getInstance().getController();
         clickOn("#TerminalField").write("echo 123").press(KeyCode.ENTER);
-        Assertions.assertEquals("", t.TerminalField.getText());
+        t.appendInput("TESTIN");
+        t.appendOutput("TESTOUT");
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        Platform.runLater(countDownLatch::countDown);
+        countDownLatch.await();
+        Assertions.assertTrue(t.InOutTextArea.getText().contains("TESTIN"));
+        Assertions.assertTrue(t.InOutTextArea.getText().contains("TESTOUT"));
     }
 }

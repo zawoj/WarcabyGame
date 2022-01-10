@@ -18,6 +18,7 @@ public class UserDataBase implements Serializable {
 
     /**
      * adds a new user to the database
+     * 
      * @param userToAdd user to add
      */
     public void addUser(UserInformationPackage userToAdd) {
@@ -26,6 +27,7 @@ public class UserDataBase implements Serializable {
 
     /**
      * returns user information given his login
+     * 
      * @param login users login
      * @return user information
      */
@@ -40,6 +42,7 @@ public class UserDataBase implements Serializable {
 
     /**
      * checks if user is in database
+     * 
      * @param login users login
      * @return true if user in database false otherwise
      */
@@ -54,7 +57,8 @@ public class UserDataBase implements Serializable {
 
     /**
      * updates users password
-     * @param login users login
+     * 
+     * @param login       users login
      * @param newPassword users new password
      */
     public void updatePassword(String login, String newPassword) {
@@ -67,6 +71,7 @@ public class UserDataBase implements Serializable {
 
     /**
      * saves database
+     * 
      * @throws IOException
      */
     public void save() throws IOException {
@@ -112,7 +117,8 @@ public class UserDataBase implements Serializable {
 
     /**
      * changes users avatar
-     * @param login users login
+     * 
+     * @param login     users login
      * @param newAvatar users new avatar
      */
     public void changeAvatar(String login, int newAvatar) {

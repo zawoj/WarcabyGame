@@ -20,6 +20,7 @@ public class UserCommunicationThread extends Thread {
 
     /**
      * creates new user thread
+     * 
      * @param clientSocket users socket
      */
     public UserCommunicationThread(Socket clientSocket) {
@@ -28,20 +29,23 @@ public class UserCommunicationThread extends Thread {
 
     /**
      * sets player lobby
+     * 
      * @param lobby lobby
      */
-    public void setLobby(Lobby lobby){
+    public void setLobby(Lobby lobby) {
         myLobby = lobby;
     }
 
     /**
      * setups input and output
+     * 
      * @throws IOException throws if unable to set up
      */
     public void setInOut() throws Exception {
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new ObjectInputStream(clientSocket.getInputStream());
     }
+
     /**
      * Function reading input from client
      */
@@ -68,6 +72,7 @@ public class UserCommunicationThread extends Thread {
 
     /**
      * closes connection
+     * 
      * @throws IOException
      */
     public void close() throws IOException {
@@ -90,13 +95,14 @@ public class UserCommunicationThread extends Thread {
             case "Create Lobby" -> createLobby();
             case "join lobby" -> joinLobby(message);
             case "exit lobby" -> exitLobby();
-            case  "StartGame" -> startGame();
+            case "StartGame" -> startGame();
             case "move" -> move(message);
-            case "skip turn" ->skipTurn();
+            case "skip turn" -> skipTurn();
             case "change name" -> changeLobbyName(message);
             case "ready" -> ready();
         }
     }
+
     private void register(MessageHolder message) throws IOException {
         RegisterMessage rm = (RegisterMessage) message;
         MessageHolder ms = new MessageHolder();
@@ -110,7 +116,8 @@ public class UserCommunicationThread extends Thread {
         out.writeObject(ms);
         ServerCore.getInstance().getController().appendOutput(ms.getMessageType());
     }
-    private void login(MessageHolder message) throws IOException{
+
+    private void login(MessageHolder message) throws IOException {
         LoginMessage lm = (LoginMessage) message;
         RegisterMessage rm = new RegisterMessage();
         if (ServerCore.getInstance().getDataBaseManager().checkIfUserInDatabase(lm.getLogin())) {
@@ -131,42 +138,57 @@ public class UserCommunicationThread extends Thread {
         out.writeObject(rm);
         ServerCore.getInstance().getController().appendOutput(rm.getMessageType());
     }
-    private void getLobbyInfo() throws IOException{
+
+    private void getLobbyInfo() throws IOException {
         LobbyListMessage llm = new LobbyListMessage();
         llm.setMessageType("lobby list info");
         llm.setLobbys(ServerCore.getInstance().getLobbysInfo());
         out.writeObject(llm);
         ServerCore.getInstance().getController().appendOutput(llm.getMessageType());
     }
-    private void createLobby(){
+
+    private void createLobby() {
         Lobby lobby = new Lobby();
         lobby.addPlayer(this);
         ServerCore.getInstance().getLobbys().add(lobby);
     }
-    private void joinLobby(MessageHolder message){
+
+    private void joinLobby(MessageHolder message) {
         joinLobbyMessage jlm = (joinLobbyMessage) message;
         Lobby lobby = ServerCore.getInstance().getLobbybyHost(jlm.getHostName());
-        if(lobby != null) lobby.addPlayer(this);
+        if (lobby != null)
+            lobby.addPlayer(this);
     }
-    private void exitLobby(){
-        if(myLobby != null) myLobby.removePlayer(this);
+
+    private void exitLobby() {
+        if (myLobby != null)
+            myLobby.removePlayer(this);
         myLobby = null;
     }
-    public void changeLobbyName(MessageHolder message){
+
+    public void changeLobbyName(MessageHolder message) {
         joinLobbyMessage jm = (joinLobbyMessage) message;
-        if(myLobby != null) myLobby.setName(jm.getHostName());
+        if (myLobby != null)
+            myLobby.setName(jm.getHostName());
     }
-    private void startGame(){
-        if(myLobby != null) myLobby.start();
+
+    private void startGame() {
+        if (myLobby != null)
+            myLobby.start();
     }
-    private void move(MessageHolder message){
+
+    private void move(MessageHolder message) {
         MoveMessage mm = (MoveMessage) message;
-        if(myLobby != null) myLobby.game.move(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
+        if (myLobby != null)
+            myLobby.game.move(mm.getPawnX(), mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
     }
-    private void skipTurn(){
+
+    private void skipTurn() {
         myLobby.game.skipMove();
     }
-    private void ready(){
-        if(myLobby != null) myLobby.game.ready();
+
+    private void ready() {
+        if (myLobby != null)
+            myLobby.game.ready();
     }
 }

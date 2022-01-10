@@ -20,6 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for controlling the layout of the login screen and the
+ * functionality.
+ */
 public class LoginIntoLauncherController implements Initializable {
 
     @FXML
@@ -34,6 +38,23 @@ public class LoginIntoLauncherController implements Initializable {
     private static Stage stage;
     private static Parent root;
 
+    /**
+     * Method for initialize controller and send it to server
+     * 
+     * @param url            users url
+     * @param resourceBundle users resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ClientCore.getInstance().setLoginIntoLauncherController(this);
+    }
+
+    /**
+     * Method which is responsible for loading the login screen or register screen
+     * 
+     * @param event what event
+     * @throws Exception
+     */
     @FXML
     private void LoginLauncherControllerButtons(ActionEvent event) throws Exception {
         try {
@@ -48,6 +69,13 @@ public class LoginIntoLauncherController implements Initializable {
 
     }
 
+    /**
+     * Method which is responsible for close error notification after click X on
+     * error pane.
+     * Also invokes animation
+     * 
+     * @param e keyEvent
+     */
     @FXML
     private void errorButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -56,6 +84,9 @@ public class LoginIntoLauncherController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method which invokes error pane, and animation
+     */
     public void ErrorNotification() {
         TranslateTransition transition = new TranslateTransition();
         ErrorPane.setVisible(true);
@@ -64,6 +95,10 @@ public class LoginIntoLauncherController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method responsible for loade the dasboard view scene
+     * 
+     */
     public void LoadDashboardScene() {
         Platform.runLater(new Runnable() {
             @Override
@@ -83,6 +118,11 @@ public class LoginIntoLauncherController implements Initializable {
         });
     }
 
+    /**
+     * Method responsible for loading the register view scene
+     * 
+     * @throws IOException throws if an error occurs
+     */
     private void LoadRegisteryScene() throws IOException {
         stage = (Stage) RegisteryButton.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("RegisterView.fxml"));
@@ -92,8 +132,4 @@ public class LoginIntoLauncherController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        ClientCore.getInstance().setLoginIntoLauncherController(this);
-    }
 }

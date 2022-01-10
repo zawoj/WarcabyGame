@@ -12,9 +12,10 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * creates information
-     * @param login users login
+     * 
+     * @param login    users login
      * @param password users password
-     * @param avatar users avatar
+     * @param avatar   users avatar
      */
     public UserInformationPackage(String login, String password, int avatar) {
         this.login = login;
@@ -24,6 +25,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * return login
+     * 
      * @return login
      */
     public String getLogin() {
@@ -32,6 +34,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * sets login
+     * 
      * @param login login
      */
     public void setLogin(String login) {
@@ -40,6 +43,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * returns password
+     * 
      * @return password
      */
     public String getPassword() {
@@ -48,6 +52,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * sets password
+     * 
      * @param password password
      */
     public void setPassword(String password) {
@@ -56,6 +61,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * returns avatar
+     * 
      * @return avatar number
      */
     public int getAvatarNbr() {
@@ -64,6 +70,7 @@ public class UserInformationPackage implements Serializable {
 
     /**
      * sets avatar
+     * 
      * @param avatarNbr avatar number
      */
     public void setAvatarNbr(int avatarNbr) {

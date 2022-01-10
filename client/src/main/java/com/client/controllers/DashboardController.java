@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
-// import com.jfoenix.controls.cells.editors.TextFieldEditorBase;
 
 import com.messages.dummyLobbyClass;
 import javafx.application.Platform;
@@ -25,6 +24,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for controlling the layout of the dasboard and the
+ * functionality.
+ */
 public class DashboardController {
     @FXML
     public Text NickName, paginationPosition;
@@ -44,6 +47,12 @@ public class DashboardController {
     // Varible for help which card games we schuld load
     private Integer paginationIndex = 0;
 
+    /**
+     * This method initialize DashboardController by settings nickName and avatar.
+     * Also send to server instane of this controller.
+     * 
+     * @throws IOException if send looby list request fails
+     */
     @FXML
     public void initialize() throws IOException {
         displayNickName(ClientCore.getInstance().getLogin());
@@ -57,6 +66,9 @@ public class DashboardController {
 
     }
 
+    /**
+     * Method which invokes method which is responsible for loading the lobby;
+     */
     @FXML
     public void createLooby() {
         try {
@@ -67,9 +79,11 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Method which send request to server for get lobbyList again
+     */
     @FXML
     public void refreshAction() {
-        // TODO nice animation
         try {
             ClientCore.getInstance().sendLobbyListRequest();
             lobbyList();
@@ -77,6 +91,11 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Method which logout you form your dasboard (account). And show login launcher
+     * 
+     * @throws IOException if can't find loginIntoLauncher.fxml
+     */
     @FXML
     public void logout() throws IOException {
         Stage stage;
@@ -91,6 +110,11 @@ public class DashboardController {
         stage.show();
     }
 
+    /**
+     * Method which load next five loobies
+     * 
+     * @throws IOException
+     */
     @FXML
     public void loadNext() throws IOException {
         GamesCardsPane.getChildren().clear();
@@ -99,6 +123,11 @@ public class DashboardController {
 
     }
 
+    /**
+     * Method which load previoues five loobies
+     * 
+     * @throws IOException
+     */
     @FXML
     public void loadPrev() throws IOException {
         GamesCardsPane.getChildren().clear();
@@ -106,6 +135,10 @@ public class DashboardController {
         lobbyList();
     }
 
+    /**
+     * Method which load all loobies and init dasboard gamesCardsPanes
+     * And sett pagination options
+     */
     public void lobbyList() {
         // Send link list off lobbys init dasboard
         initDashboardGames();
@@ -125,7 +158,9 @@ public class DashboardController {
         }
     }
 
-    // Load game list from linkList and create them
+    /**
+     * Method which load game list from linkList and create them
+     */
     public void initDashboardGames() {
         Platform.runLater(new Runnable() {
             @Override
@@ -143,21 +178,44 @@ public class DashboardController {
         });
     }
 
+    /**
+     * Method for creating a new game card and adding it to the list of cards
+     * 
+     * @param newList new created list
+     */
     public void changeLobbyList(final LinkedList<dummyLobbyClass> newList) {
         lobbyLinkedList.clear();
         lobbyLinkedList.addAll(newList);
     }
 
+    /**
+     * Method which set players login in dasboard
+     * 
+     * @param nickName users nickName
+     */
     public void displayNickName(String nickName) {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
     }
 
+    /**
+     * Method which load user avatar and set him on dasboard
+     * 
+     * @param avatarNumber users avatar
+     */
     public void displayAvatar(Integer avatarNumber) {
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
         avatarImage.setImage(avatarImagePreview);
     }
 
+    /**
+     * Method which create a new game card and set it on dasboard lobbies list
+     * 
+     * @param gameName       the name of game which is visible on game card
+     * @param playersInLobby information about players in the lobby
+     * @param hostName       show who is hosting the game
+     * @return gameCardHBox new game cards list
+     */
     // Create new card gamer
     // TODO better styles
     public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName) {
@@ -188,6 +246,9 @@ public class DashboardController {
         return gameCardHBox;
     }
 
+    /**
+     * Method which load new lobby scene and send information about it to the server
+     */
     public void LoadLobby() {
         Platform.runLater(new Runnable() {
             @Override

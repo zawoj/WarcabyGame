@@ -27,6 +27,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for controlling the layout of the login screen and the
+ * functionality.
+ */
 public class RegisteryController implements Initializable {
 
     @FXML
@@ -42,19 +46,40 @@ public class RegisteryController implements Initializable {
 
     private static Stage stage;
     private static Parent root;
-    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Choiceavatar", "Avatar 1",
+    private static final ObservableList<String> avatarId = FXCollections.observableArrayList("Avatar 1",
             "Avatar 2",
             "Avatar 3", "Avatar 4", "Avatar 5", "Avatar 6", "Avatar 7", "Avatar 8", "Avatar 9", "Avatar 10",
             "Avatar 11", "Avatar 12", "Avatar 13", "Avatar 14", "Avatar 15", "Avatar 16", "Avatar 17", "Avatar 18",
             "Avatar 19", "Avatar 20", "Avatar 21", "Avatar 22", "Avatar 23", "Avatar 24");
 
+    /**
+     * Method for initialize controller and send it to server
+     * 
+     * @param url            users url
+     * @param resourceBundle users resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        avatarChoiceBox.setItems(avatarId);
+        avatarChoiceBox.setValue("Choice avatar");
+        ClientCore.getInstance().setRegisteryController(this);
+    }
+
+    /**
+     * Method which controlling registration of new users.
+     * Checking if user is already registered
+     * Checking if possword is enough length and checkNewPassword
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void CreateAccountButtonController(ActionEvent e) {
         try {
             if (e.getSource() == buttonCreateAccount) {
 
                 if (passwordValidation(newPassword.getText())) {
-                    if (passwordCheckValidation(newPassword.toString(), checkNewPassword.toString())) {
+                    if (passwordCheckValidation(newPassword.getText().toString(),
+                            checkNewPassword.getText().toString())) {
                         ClientCore.getInstance().reqCreateNewAccount(newLogin.getText(), newPassword.getText(),
                                 Integer.parseInt(avatarChoiceBox.getValue().split(" ")[1]));
 
@@ -86,6 +111,11 @@ public class RegisteryController implements Initializable {
         }
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void errorPaneLoginExistButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -94,6 +124,11 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void errorPanePasswordButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -102,6 +137,11 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void accountCreatedSuccesfullyButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -111,6 +151,11 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void errorPasswordValidtionButtonController(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -119,18 +164,22 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     * @throws IOException throws if an error occurs
+     */
     @FXML
     private void backButtonController(ActionEvent e) throws IOException {
         LoadLoingLauncher();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        avatarChoiceBox.setItems(avatarId);
-        avatarChoiceBox.setValue("Choice avatar");
-        ClientCore.getInstance().setRegisteryController(this);
-    }
-
+    /**
+     * Method which show which avatar is selected
+     * 
+     * @throws FileNotFoundException throws if an error occurs
+     */
     @FXML
     private void changeAvatarPreview() throws FileNotFoundException {
         Image avatarImagePreview = new Image(Routes.imageRoute(
@@ -140,6 +189,9 @@ public class RegisteryController implements Initializable {
 
     }
 
+    /**
+     * Method is invokes when account is creat succesfully
+     */
     public void accountCreatedSuccesfullyNotification() {
         TranslateTransition transition = new TranslateTransition();
         accountCreatedSuccesfully.setVisible(true);
@@ -148,6 +200,9 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method which invokes when any error
+     */
     public void errorNotification() {
         TranslateTransition transition = new TranslateTransition();
         accountCreatedSuccesfully.setVisible(true);
@@ -156,6 +211,11 @@ public class RegisteryController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method which load Login view
+     * 
+     * @throws IOException throws if an error occurs
+     */
     private void LoadLoingLauncher() throws IOException {
         stage = (Stage) buttonCreateAccount.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("LoginIntoLauncher.fxml"));
@@ -165,6 +225,12 @@ public class RegisteryController implements Initializable {
         stage.show();
     }
 
+    /**
+     * @param password users new password
+     * @return Boolean true when password is longer than 4
+     * @throws StringLengthException throws if password is length isn't 4 length at
+     *                               least
+     */
     public boolean passwordValidation(String password) throws StringLengthException {
         if (password.length() > 4) {
             return true;
@@ -173,6 +239,12 @@ public class RegisteryController implements Initializable {
         }
     }
 
+    /**
+     * @param password      users new password
+     * @param checkPassword users new password check
+     * @return boolean true when passwords is same
+     * @throws StringSameValidation throws if passwords isn't the same
+     */
     public boolean passwordCheckValidation(String password, String checkPassword) throws StringSameValidation {
         if (password.equals(checkPassword)) {
             return true;

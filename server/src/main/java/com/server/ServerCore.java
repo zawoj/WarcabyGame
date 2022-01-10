@@ -18,7 +18,7 @@ public class ServerCore {
     public ServerSocket serverSocket;
     private final LinkedList<UserCommunicationThread> userConnections;
     private final LinkedList<Lobby> serverLobbys;
-    boolean isRunning;
+    public boolean isRunning;
     private DataBaseManager dataBaseManager;
 
     /**
@@ -73,6 +73,7 @@ public class ServerCore {
 
     /**
      * returns database manager
+     * 
      * @return database manager
      */
     public DataBaseManager getDataBaseManager() {
@@ -132,16 +133,22 @@ public class ServerCore {
     public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
-            serverSocket.close();
-
+            if(serverSocket == null){
+                isRunning = false;
+                return;
+            }
             for (UserCommunicationThread UCT : userConnections) {
 
                 UCT.close();
             }
             serverSocket.close();
-            if(write) terminalController.append("server closed");
+            if (write)
+                terminalController.append("server closed");
+            isRunning = false;
         } catch (Exception e) {
-            if(write) terminalController.append("failed to close server");
+            e.printStackTrace();
+            if (write)
+                terminalController.append("failed to close server");
         }
     }
 
@@ -156,15 +163,16 @@ public class ServerCore {
 
     /**
      * returns the list of lobbys
+     * 
      * @return list of lobbys
      */
     public LinkedList<Lobby> getLobbys() {
         return serverLobbys;
     }
 
-    public Lobby getLobbybyHost(String host){
-        for(Lobby lobby : serverLobbys){
-            if(Objects.equals(lobby.getHost(), host)){
+    public Lobby getLobbybyHost(String host) {
+        for (Lobby lobby : serverLobbys) {
+            if (Objects.equals(lobby.getHost(), host)) {
                 return lobby;
             }
         }
@@ -173,13 +181,14 @@ public class ServerCore {
 
     /**
      * returns info about lobbys
+     * 
      * @return
      */
-    public LinkedList<dummyLobbyClass> getLobbysInfo(){
+    public LinkedList<dummyLobbyClass> getLobbysInfo() {
         LinkedList<dummyLobbyClass> info = new LinkedList<>();
-        for(int i = 0; i < serverLobbys.size(); i++){
+        for (int i = 0; i < serverLobbys.size(); i++) {
             Lobby lobby = serverLobbys.get(i);
-            info.add(i, new dummyLobbyClass(lobby.getName(),lobby.getNumberOfPlayers(),lobby.getHost()));
+            info.add(i, new dummyLobbyClass(lobby.getName(), lobby.getNumberOfPlayers(), lobby.getHost()));
         }
         return info;
     }

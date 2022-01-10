@@ -1,18 +1,30 @@
 package com.client;
 
+import com.client.controllers.GameViewController;
+import com.client.helpers.Routes;
 import com.messages.*;
+
+import java.io.File;
+
+import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Objects;
 
+/**
+ * Class for read information from a server and intepreated information
+ */
 public class ConnectionListener extends Thread {
-    ObjectInputStream in;
-    ObjectOutputStream out;
-    MessageHolder currentMessage;
+    public ObjectInputStream in;
+    public ObjectOutputStream out;
+    public MessageHolder currentMessage;
     public boolean creatingGame = false;
 
     public ConnectionListener(Socket clientSocket) throws Exception {
@@ -20,6 +32,15 @@ public class ConnectionListener extends Thread {
         in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
+    /**
+     * Constructor for tests
+     */
+    public ConnectionListener() {
+    }
+
+    /**
+     * Start connection listener
+     */
     @Override
     public void run() {
         while (true) {
@@ -32,6 +53,9 @@ public class ConnectionListener extends Thread {
         }
     }
 
+    /**
+     * Close connection listener
+     */
     public void close() {
         try {
             out.close();
@@ -41,7 +65,14 @@ public class ConnectionListener extends Thread {
         }
     }
 
-    private void messageHandler(MessageHolder message) {
+    /**
+     * Method calling appropriate methods depending on the message received from the
+     * server
+     * 
+     * @param message message from server
+     * @throws MalformedURLException
+     */
+    public void messageHandler(MessageHolder message) throws MalformedURLException {
         switch (message.getMessageType()) {
             case "Registered" -> ClientCore.getInstance().getRegisteryController()
                     .accountCreatedSuccesfullyNotification();
@@ -57,6 +88,8 @@ public class ConnectionListener extends Thread {
                 LobbyInfoMessage lm = (LobbyInfoMessage) message;
                 ClientCore.getInstance().setLobbyInfo(lm);
                 ClientCore.getInstance().getDashboardController().LoadLobby();
+                GameViewController x = ClientCore.getInstance().getGameController();
+                if(x!=null) x.musik.stop();
             }
             case "lobby list info" -> {
                 LobbyListMessage llm = (LobbyListMessage) message;
@@ -75,15 +108,25 @@ public class ConnectionListener extends Thread {
                 }
             }
             case "invalid move" -> {
-                ClientCore.getInstance().myTurn = true; // jakaś wiadomość że ruch niepoprawny by się przydała
+                ClientCore.getInstance().myTurn = true;
             }
             case "turn" -> {
                 joinLobbyMessage jlm = (joinLobbyMessage) message;
-                // Hostname but thhi is player which is actually turn
                 if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
+                    Platform.runLater(()->{
+                        String bip = null;
+                        try {
+                            bip = Routes.styleRoute("mixkit-falling-male-scream-391.wav");
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        Media hit = new Media(bip);
+                        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                        mediaPlayer.play();
+                    });
+
                 }
-                // TODO This broke when is next turn
                 ClientCore.getInstance().currentPlayer = jlm.getHostName();
                 ClientCore.getInstance().getGameController().setTurnArrow();
 
@@ -96,6 +139,9 @@ public class ConnectionListener extends Thread {
         }
     }
 
+    /**
+     * @return ObjectOutputStream
+     */
     public ObjectOutputStream getOut() {
         return out;
     }

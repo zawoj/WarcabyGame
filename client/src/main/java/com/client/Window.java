@@ -3,13 +3,12 @@ package com.client;
 import com.client.helpers.Routes;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class Window extends Application {
 
@@ -17,9 +16,12 @@ public class Window extends Application {
         launch();
     }
 
+    /**
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         // Stage stage = new Stage();
         ClientCore.getInstance().programStage = primaryStage;
         // FXML loader
@@ -34,12 +36,7 @@ public class Window extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("WarcabyGame");
         primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                ClientCore.getInstance().close();
-            }
-        });
+        primaryStage.setOnCloseRequest(windowEvent -> ClientCore.getInstance().close());
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();

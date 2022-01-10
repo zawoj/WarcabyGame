@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
-import com.client.helpers.exceptions.StringLengthException;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -20,6 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for controlling the layout of the login screen and the
+ * functionality.
+ */
 public class StartViewController implements Initializable {
 
     @FXML
@@ -30,11 +33,22 @@ public class StartViewController implements Initializable {
     @FXML
     private Pane ErrorPane;
 
+    /**
+     * Method for initialize controller and send it to server
+     * 
+     * @param url            users url
+     * @param resourceBundle users resourceBundle
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ClientCore.getInstance().setStartViewController(this);
     }
 
+    /**
+     * Method for initialize try to connect to server
+     * 
+     * @param event users event
+     */
     @FXML
     private void StartViewControllerButtons(ActionEvent event) {
         try {
@@ -45,6 +59,11 @@ public class StartViewController implements Initializable {
         }
     }
 
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
     @FXML
     private void errorButton(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
@@ -53,6 +72,9 @@ public class StartViewController implements Initializable {
         transition.play();
     }
 
+    /**
+     * Method to show the error pane when any error occurs
+     */
     public void showError() {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(ErrorPane);
@@ -60,7 +82,12 @@ public class StartViewController implements Initializable {
         transition.play();
     }
 
-    public void LoadNewScene() throws IOException, StringLengthException {
+    /**
+     * Method which load the Login and Registery view
+     * 
+     * @throws IOException throws if an error occurs
+     */
+    public void LoadNewScene() throws IOException {
         Stage stage;
         Parent root;
 
@@ -75,6 +102,11 @@ public class StartViewController implements Initializable {
 
     }
 
+    /**
+     * Getter for the IP
+     * 
+     * @return String IP which put users
+     */
     public String getIP() {
         return this.IP.getText();
     }
