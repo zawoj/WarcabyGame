@@ -55,7 +55,6 @@ public class ChineseCheckersBoardBuilder {
         checkersBoard.setBoard(board, size);
         return checkersBoard;
     }
-
     private void setLegal(int[][] board) {
         int goodPoint = width / 2;
         for (int i = 1; i < size; i++) {

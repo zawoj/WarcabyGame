@@ -1,5 +1,6 @@
 package com.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -41,7 +42,8 @@ public class TerminalController implements Initializable {
      * @param text text to add
      */
     public void append(String text) {
-        TerminalText.setText(TerminalText.getText() + "\n" + text);
+        Platform.runLater(()->TerminalText.setText(TerminalText.getText() + "\n" + text));
+
     }
 
     /**
@@ -58,7 +60,7 @@ public class TerminalController implements Initializable {
      * @param text text to add
      */
     public void appendInput(String text) {
-        InOutTextArea.setText(InOutTextArea.getText() + "\n<- " + text);
+        Platform.runLater(()->InOutTextArea.setText(InOutTextArea.getText() + "\n<- " + text));
     }
 
     /**
@@ -66,6 +68,6 @@ public class TerminalController implements Initializable {
      * @param text text to add
      */
     public void appendOutput(String text) {
-        InOutTextArea.setText(InOutTextArea.getText() + "\n-> " + text);
+        Platform.runLater(()->InOutTextArea.setText(InOutTextArea.getText() + "\n-> " + text));
     }
 }

@@ -21,6 +21,14 @@ import java.net.MalformedURLException;
 
 @ExtendWith(ApplicationExtension.class)
 public class ControllerTest extends ApplicationTest{
+
+
+
+
+    // If this test caused a failure please see AppTest for more info
+
+
+
     @Start
     void onStart(Stage stage) throws MalformedURLException, IOException {
         Scene scene = new Scene(FXMLLoader.load(Routes.viewsRoute("Terminal.fxml")));

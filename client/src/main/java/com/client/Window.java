@@ -38,12 +38,7 @@ public class Window extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("WarcabyGame");
         primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                ClientCore.getInstance().close();
-            }
-        });
+        primaryStage.setOnCloseRequest(windowEvent -> ClientCore.getInstance().close());
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();

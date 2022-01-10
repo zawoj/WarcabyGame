@@ -320,7 +320,7 @@ public class ChineseCheckersBoard {
     /**
      * chcecks if game ended
      * 
-     * @return number of player that won else 0
+     * @return array of who won
      */
 
     public boolean[] checkIfGameEnded() {
