@@ -17,6 +17,10 @@ public class Window extends Application {
         launch();
     }
 
+    /**
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 

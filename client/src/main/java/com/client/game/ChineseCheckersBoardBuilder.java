@@ -1,14 +1,7 @@
 package com.client.game;
 
 /**
- * -1 pole nielegalne
- * 0 pole puste
- * 1-6 pole z pionkiem gracza
- *
- * [x][y]
- * x - wysokosc
- * y - szerokosc
- * wiem ze dziwnie ale tak mi na razie wygodniej w kodzie
+ * checkers board builder
  */
 public class ChineseCheckersBoardBuilder {
     int size;
@@ -16,16 +9,34 @@ public class ChineseCheckersBoardBuilder {
     int height;
     int width;
 
+    /**
+     * sets the number of players
+     * 
+     * @param numberOfPlayers number of players
+     * @return this builder
+     */
     public ChineseCheckersBoardBuilder setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         return this;
     }
 
+    /**
+     * sets the board size
+     * 
+     * @param size size
+     * @return this builder
+     */
     public ChineseCheckersBoardBuilder setSize(int size) {
         this.size = size;
         return this;
     }
 
+    /**
+     * builds the board
+     * 
+     * @return built board
+     * @throws Exception throws if size or number of players if wrongly set
+     */
     public ChineseCheckersBoard build() throws Exception {
         if (size < 1 || numberOfPlayers < 0 || numberOfPlayers == 1 || numberOfPlayers == 5 || numberOfPlayers > 6)
             throw new Exception("wrong build parameters");
@@ -46,6 +57,9 @@ public class ChineseCheckersBoardBuilder {
         return checkersBoard;
     }
 
+    /**
+     * @param board
+     */
     private void setLegal(int[][] board) {
         int goodPoint = width / 2;
         for (int i = 1; i < size; i++) {
@@ -65,6 +79,9 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 
+    /**
+     * @param board
+     */
     private void setPlayers(int[][] board) {
         switch (numberOfPlayers) {
             case 2 -> set2Players(board);
@@ -74,6 +91,9 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 
+    /**
+     * @param board
+     */
     private void set2Players(int[][] board) {
         int goodPoint = width / 2;
         for (int i = 1; i < size; i++) {
@@ -85,6 +105,9 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 
+    /**
+     * @param board
+     */
     private void set3Players(int[][] board) {
         int goodPoint = width / 2;
         for (int i = 1; i < size; i++) {
@@ -103,6 +126,9 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 
+    /**
+     * @param board
+     */
     private void set4Players(int[][] board) {
         int goodPoint = 0;
         for (int i = size; i < 2 * size - 1; i++) {
@@ -116,6 +142,9 @@ public class ChineseCheckersBoardBuilder {
         }
     }
 
+    /**
+     * @param board
+     */
     private void set6Players(int[][] board) {
         int goodPoint = width / 2;
         for (int i = 1; i < size; i++) {

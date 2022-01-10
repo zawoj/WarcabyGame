@@ -47,6 +47,9 @@ public class ConnectionListener extends Thread {
         }
     }
 
+    /**
+     * @param message
+     */
     public void messageHandler(MessageHolder message) {
         switch (message.getMessageType()) {
             case "Registered" -> ClientCore.getInstance().getRegisteryController()
@@ -81,11 +84,10 @@ public class ConnectionListener extends Thread {
                 }
             }
             case "invalid move" -> {
-                ClientCore.getInstance().myTurn = true; // jakaś wiadomość że ruch niepoprawny by się przydała
+                ClientCore.getInstance().myTurn = true;
             }
             case "turn" -> {
                 joinLobbyMessage jlm = (joinLobbyMessage) message;
-                // Hostname but thhi is player which is actually turn
                 if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
                 }
@@ -101,6 +103,9 @@ public class ConnectionListener extends Thread {
         }
     }
 
+    /**
+     * @return ObjectOutputStream
+     */
     public ObjectOutputStream getOut() {
         return out;
     }

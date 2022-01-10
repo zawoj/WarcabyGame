@@ -50,7 +50,6 @@ public class ChineseCheckersBoardBuilder {
                 board[i][j] = -1;
             }
         }
-        // tworzenie planszy (zaznaczanie kształtu na 0)
         setLegal(board);
         setPlayers(board);
         checkersBoard.setBoard(board, size);

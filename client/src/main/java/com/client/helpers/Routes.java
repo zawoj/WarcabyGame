@@ -5,7 +5,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Routes {
-    // TODO reapeir loader for more abosule situations
+
+    /**
+     * @param imgName name of the image
+     * @return String path to image
+     */
     public static String imageRoute(String imgName) {
         if (imgName == null || imgName.trim().length() == 0) {
             throw new NullPointerException(
@@ -17,6 +21,11 @@ public class Routes {
 
     }
 
+    /**
+     * @param styleFileName name of the style file
+     * @return String path to style file
+     * @throws MalformedURLException throws if style file is not found
+     */
     public static String styleRoute(String styleFileName) throws MalformedURLException {
         if (styleFileName == null || styleFileName.trim().length() == 0) {
             throw new NullPointerException(
@@ -27,6 +36,11 @@ public class Routes {
 
     }
 
+    /**
+     * @param viewName name of the view file
+     * @return URL path to view file
+     * @throws MalformedURLException throws if view file is not found
+     */
     public static URL viewsRoute(String viewName) throws MalformedURLException {
         if (viewName == null || viewName.trim().length() == 0) {
             throw new NullPointerException(
