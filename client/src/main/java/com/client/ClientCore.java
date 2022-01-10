@@ -197,9 +197,11 @@ public class ClientCore {
     }
 
     /**
-     * @param ip
-     * @param port
-     * @throws Exception
+     * Request to server information about to which port and ip we want to connect
+     * 
+     * @param ip   ip to connect
+     * @param port port to connect
+     * @throws Exception if an error occurs
      */
     public void reqServerConnection(String ip, String port) throws Exception {
         Socket client = new Socket(ip, Integer.parseInt(port));
@@ -208,9 +210,11 @@ public class ClientCore {
     }
 
     /**
-     * @param login
-     * @param password
-     * @throws Exception
+     * Request to server information about account which we want to login in
+     * 
+     * @param login    users login
+     * @param password users password
+     * @throws Exception throws if an error occurs
      */
     public void reqLogin(String login, String password) throws Exception {
         LoginMessage lm = new LoginMessage();
@@ -221,10 +225,12 @@ public class ClientCore {
     }
 
     /**
-     * @param newLogin
-     * @param newPassword
-     * @param chosenAvatar
-     * @throws Exception
+     * Request to server information about account which we want to create
+     * 
+     * @param newLogin     name of the new login
+     * @param newPassword  users new password
+     * @param chosenAvatar id of chosen avatar
+     * @throws Exception throws if something error occurs
      */
     public void reqCreateNewAccount(String newLogin, String newPassword, int chosenAvatar) throws Exception {
         RegisterMessage rm = new RegisterMessage();
@@ -235,6 +241,9 @@ public class ClientCore {
         conlis.getOut().writeObject(rm);
     }
 
+    /**
+     * Method which cloase connection with server
+     */
     public void close() {
         try {
             exitLobby();
@@ -245,7 +254,9 @@ public class ClientCore {
     }
 
     /**
-     * @throws Exception
+     * Request to server for get information about list of lobbys
+     * 
+     * @throws Exception throws if an error occurs
      */
     public void sendLobbyListRequest() throws Exception {
         MessageHolder mh = new MessageHolder();
@@ -254,7 +265,9 @@ public class ClientCore {
     }
 
     /**
-     * @throws Exception
+     * Send to server information about new lobby created
+     * 
+     * @throws Exception throws if an error occurs
      */
     public void createLobby() throws Exception {
         MessageHolder mh = new MessageHolder();
@@ -263,8 +276,11 @@ public class ClientCore {
     }
 
     /**
-     * @param hostName
-     * @throws Exception
+     * Method for connect to lobby
+     * 
+     * @param hostName this is not host name, this is information about which user
+     *                 want to connect to lobby
+     * @throws Exception throws if an error occurs
      */
     public void joinLobby(String hostName) throws Exception {
         joinLobbyMessage mh = new joinLobbyMessage();
@@ -274,7 +290,9 @@ public class ClientCore {
     }
 
     /**
-     * @throws IOException
+     * Method to exit from the lobby
+     * 
+     * @throws IOException throws if an error occurs
      */
     public void exitLobby() throws IOException {
         joinLobbyMessage mh = new joinLobbyMessage();
@@ -284,21 +302,27 @@ public class ClientCore {
     }
 
     /**
-     * @param lobbyInfo
+     * Setter for lobbyInfo
+     * 
+     * @param lobbyInfo lobbyInfo
      */
     public void setLobbyInfo(LobbyInfoMessage lobbyInfo) {
         this.lobbyInfo = lobbyInfo;
     }
 
     /**
-     * @return LobbyInfoMessage
+     * Getter of the lobbyInfo
+     * 
+     * @return LobbyInfoMessage lobbyInfo
      */
     public LobbyInfoMessage getLobbyInfo() {
         return lobbyInfo;
     }
 
     /**
-     * @param name
+     * Method which change the lobby name and send it to the server
+     * 
+     * @param name new name of lobby
      */
     public void changeLobbyName(String name) {
         joinLobbyMessage message = new joinLobbyMessage();
@@ -311,7 +335,10 @@ public class ClientCore {
     }
 
     /**
-     * @throws IOException
+     * Method which send to server information about that game have started and then
+     * (on server) send it to all users.
+     * 
+     * @throws IOException throws if an error occurs
      */
     public void startGame() throws IOException {
         MessageHolder mh = new MessageHolder();
@@ -320,11 +347,13 @@ public class ClientCore {
     }
 
     /**
-     * @param pawnX
-     * @param pawnY
-     * @param moveX
-     * @param moveY
-     * @throws IOException
+     * Method send to server information about player's move
+     * 
+     * @param pawnX pawn position X
+     * @param pawnY pawn position Y
+     * @param moveX move position X
+     * @param moveY move position Y
+     * @throws IOException throws if an error occurs
      */
     public void sendMove(int pawnX, int pawnY, int moveX, int moveY) throws IOException {
         MoveMessage mm = new MoveMessage();
@@ -334,7 +363,9 @@ public class ClientCore {
     }
 
     /**
-     * @throws IOException
+     * Method send to server information about that player skip round
+     * 
+     * @throws IOException throws if an error occurs
      */
     public void skipRound() throws IOException {
         if (myTurn) {
@@ -345,6 +376,10 @@ public class ClientCore {
         }
     }
 
+    /**
+     * Method send to server information about that player are ready to start
+     * playing
+     */
     public void ready() {
         try {
             MessageHolder mh = new MessageHolder();
