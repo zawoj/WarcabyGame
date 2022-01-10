@@ -1,5 +1,6 @@
 package com.client.controllers;
 
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 
 import com.client.ClientCore;
@@ -9,9 +10,12 @@ import com.client.game.ChineseCheckersBoardBuilder;
 
 import com.client.game.MouseMoveHandler;
 import com.client.helpers.Routes;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -24,6 +28,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Class responsible for controlling the layout of the game and the
@@ -41,6 +46,8 @@ public class GameViewController {
     public Rectangle Color1, Color2, Color3, Color4, Color5, Color6;
     @FXML
     public Pane arrow;
+
+    public MediaPlayer musik;
 
     LinkedList<String> playersNicknames;
     int playerCount;
@@ -93,6 +100,7 @@ public class GameViewController {
     @FXML
     public void ExitGame() {
         try {
+            musik.stop();
             ClientCore.getInstance().exitLobby();
             ClientCore.getInstance().exitLobby();
             Stage stage = (Stage) skipRound.getScene().getWindow();
@@ -128,6 +136,21 @@ public class GameViewController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        Platform.runLater(()->{
+            String bip = null;
+            try {
+                bip = Routes.styleRoute("song.mp3");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            Media hit = new Media(bip);
+            musik = new MediaPlayer(hit);
+            musik.play();
+            musik.setOnEndOfMedia(()->{
+                musik.seek(Duration.ZERO);
+                musik.play();
+            });
+        });
         return group;
     }
 

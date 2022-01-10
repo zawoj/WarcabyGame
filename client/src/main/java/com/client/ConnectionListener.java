@@ -1,9 +1,12 @@
 package com.client;
 
+import com.client.controllers.GameViewController;
 import com.client.helpers.Routes;
 import com.messages.*;
 
 import java.io.File;
+
+import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -85,6 +88,8 @@ public class ConnectionListener extends Thread {
                 LobbyInfoMessage lm = (LobbyInfoMessage) message;
                 ClientCore.getInstance().setLobbyInfo(lm);
                 ClientCore.getInstance().getDashboardController().LoadLobby();
+                GameViewController x = ClientCore.getInstance().getGameController();
+                if(x!=null) x.musik.stop();
             }
             case "lobby list info" -> {
                 LobbyListMessage llm = (LobbyListMessage) message;
@@ -109,13 +114,21 @@ public class ConnectionListener extends Thread {
                 joinLobbyMessage jlm = (joinLobbyMessage) message;
                 if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
+                    Platform.runLater(()->{
+                        String bip = null;
+                        try {
+                            bip = Routes.styleRoute("mixkit-falling-male-scream-391.wav");
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        Media hit = new Media(bip);
+                        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                        mediaPlayer.play();
+                    });
+
                 }
                 ClientCore.getInstance().currentPlayer = jlm.getHostName();
                 ClientCore.getInstance().getGameController().setTurnArrow();
-                String bip = Routes.styleRoute("mixkit-falling-male-scream-391.wav");
-                Media hit = new Media(new File(bip).toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                mediaPlayer.play();
 
             }
             case "move" -> {
