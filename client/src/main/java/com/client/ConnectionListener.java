@@ -1,14 +1,23 @@
 package com.client;
 
+import com.client.helpers.Routes;
 import com.messages.*;
+
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Objects;
 
+/**
+ * Class for read information from a server and intepreated information
+ */
 public class ConnectionListener extends Thread {
     public ObjectInputStream in;
     public ObjectOutputStream out;
@@ -21,11 +30,14 @@ public class ConnectionListener extends Thread {
     }
 
     /**
-     * For tests
+     * Constructor for tests
      */
     public ConnectionListener() {
     }
 
+    /**
+     * Start connection listener
+     */
     @Override
     public void run() {
         while (true) {
@@ -38,6 +50,9 @@ public class ConnectionListener extends Thread {
         }
     }
 
+    /**
+     * Close connection listener
+     */
     public void close() {
         try {
             out.close();
@@ -48,9 +63,13 @@ public class ConnectionListener extends Thread {
     }
 
     /**
-     * @param message
+     * Method calling appropriate methods depending on the message received from the
+     * server
+     * 
+     * @param message message from server
+     * @throws MalformedURLException
      */
-    public void messageHandler(MessageHolder message) {
+    public void messageHandler(MessageHolder message) throws MalformedURLException {
         switch (message.getMessageType()) {
             case "Registered" -> ClientCore.getInstance().getRegisteryController()
                     .accountCreatedSuccesfullyNotification();
@@ -93,6 +112,10 @@ public class ConnectionListener extends Thread {
                 }
                 ClientCore.getInstance().currentPlayer = jlm.getHostName();
                 ClientCore.getInstance().getGameController().setTurnArrow();
+                String bip = Routes.styleRoute("mixkit-falling-male-scream-391.wav");
+                Media hit = new Media(new File(bip).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                mediaPlayer.play();
 
             }
             case "move" -> {

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+
 import javafx.stage.Stage;
 
 public class Window extends Application {
@@ -21,7 +22,6 @@ public class Window extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         // Stage stage = new Stage();
         ClientCore.getInstance().programStage = primaryStage;
         // FXML loader
