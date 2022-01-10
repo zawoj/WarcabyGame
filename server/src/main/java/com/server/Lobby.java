@@ -24,6 +24,7 @@ public class Lobby {
 
     /**
      * adds a player to lobby
+     * 
      * @param newPlayer player to add
      */
     public void addPlayer(UserCommunicationThread newPlayer) {
@@ -41,6 +42,7 @@ public class Lobby {
 
     /**
      * removes a player from lobby
+     * 
      * @param playerToRemove player to remove
      */
     public void removePlayer(UserCommunicationThread playerToRemove) {
@@ -89,6 +91,7 @@ public class Lobby {
 
     /**
      * delivers message to all players in lobby
+     * 
      * @param mh message to send
      */
     public void deliverMessages(MessageHolder mh) {
@@ -103,6 +106,7 @@ public class Lobby {
 
     /**
      * return hosts login
+     * 
      * @return hosts login
      */
     public String getHost() {
@@ -111,7 +115,8 @@ public class Lobby {
 
     /**
      * returns lobbys name
-     * @return  lobbys name
+     * 
+     * @return lobbys name
      */
     public String getName() {
         return name;
@@ -119,6 +124,7 @@ public class Lobby {
 
     /**
      * sets lobbys name
+     * 
      * @param name new name
      */
     public void setName(String name) {
@@ -131,6 +137,7 @@ public class Lobby {
 
     /**
      * returns number of players int the lobby
+     * 
      * @return number of players
      */
     public int getNumberOfPlayers() {
@@ -139,6 +146,7 @@ public class Lobby {
 
     /**
      * returns players list
+     * 
      * @return players list
      */
     public LinkedList<UserCommunicationThread> getPlayers() {

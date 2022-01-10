@@ -19,6 +19,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for controlling the layout of the lobby and the
+ * functionality.
+ */
 public class LobbyController {
     @FXML
     public Text NickName, HostName, Player1Nick, Player2Nick, Player3Nick, Player4Nick, Player5Nick;
@@ -34,15 +38,25 @@ public class LobbyController {
     private static Stage stage;
     private static Parent root;
 
+    /**
+     * This method initialize LobbyController by settings nickName and avatar.
+     * Also send to server instane of this controller.
+     * 
+     */
     @FXML
     public void initialize() {
         ClientCore.getInstance().setLobbyController(this);
         displayNickName(ClientCore.getInstance().getLogin());
         displayAvatar(ClientCore.getInstance().getAvatar());
         gameName.setPromptText(ClientCore.getInstance().getLobbyInfo().getGameName());
+        gameName.setDisable(true);
         checkPrivilages();
     }
 
+    /**
+     * Method for change game name.
+     * Valible only for host
+     */
     @FXML
     public void saveEdit() {
         saveMode = !saveMode;
@@ -61,6 +75,11 @@ public class LobbyController {
         }
     }
 
+    /**
+     * Method for go Out from lobby
+     * 
+     * @throws IOException
+     */
     @FXML
     private void goOut() throws IOException {
         ClientCore.getInstance().exitLobby();
@@ -74,18 +93,29 @@ public class LobbyController {
         gameName.setText("Game Name");
     }
 
+    /**
+     * Method for invokes game.
+     * Valible only for host
+     * 
+     * @throws IOException
+     */
     @FXML
     public void startGame() throws IOException {
         ClientCore.getInstance().startGame();
 
     }
 
+    /**
+     * Method which refresh lobby and set users again and thiers privilages
+     */
     public void refreshLobbyData() {
         setUsers();
         checkPrivilages();
     }
 
-    // Set for useers theirs privileges
+    /**
+     * Method which set users thier privilages
+     */
     private void checkPrivilages() {
         if (isHost(ClientCore.getInstance().getLogin())
                 && ClientCore.getInstance().getLobbyInfo().getPlayernames().size() > 1
@@ -104,7 +134,12 @@ public class LobbyController {
         }
     }
 
-    // Helper function to check that you are host
+    /**
+     * Method which is chaking that you are host
+     * 
+     * @param playerName checking name
+     * @return Boolean true - host, false - normal user
+     */
     private Boolean isHost(String playerName) {
         return Objects.equals(playerName, ClientCore.getInstance().getLobbyInfo().getPlayernames().get(0));
     }
@@ -151,6 +186,13 @@ public class LobbyController {
                     "avatars\\avatar" + ClientCore.getInstance().getLobbyInfo().getPlayerimages().get(5) + ".png")));
     }
 
+    /**
+     * Method which load game view
+     * 
+     * @param playerCount  number of players in lobby
+     * @param playerNumber client number
+     * @throws Exception
+     */
     public void loadGameScene(int playerCount, int playerNumber) throws Exception {
         final int count = playerCount;
         final int number = playerNumber;
@@ -171,11 +213,21 @@ public class LobbyController {
         });
     }
 
+    /**
+     * Method which set user nickName
+     * 
+     * @param nickName users nickName
+     */
     private void displayNickName(String nickName) {
         NickName.setTextAlignment(TextAlignment.CENTER);
         NickName.setText(nickName);
     }
 
+    /**
+     * Method which set user avatar
+     * 
+     * @param avatarNumber
+     */
     public void displayAvatar(Integer avatarNumber) {
         Image avatarImagePreview = new Image(Routes.imageRoute("avatars\\avatar" + avatarNumber + ".png"));
         avatarImage.setImage(avatarImagePreview);

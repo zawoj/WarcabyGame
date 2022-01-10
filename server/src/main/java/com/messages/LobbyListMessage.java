@@ -2,7 +2,7 @@ package com.messages;
 
 import java.util.LinkedList;
 
-public class LobbyListMessage extends MessageHolder{
+public class LobbyListMessage extends MessageHolder {
     private LinkedList<dummyLobbyClass> lobbys = new LinkedList<>();
 
     public LinkedList<dummyLobbyClass> getLobbys() {

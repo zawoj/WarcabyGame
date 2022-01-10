@@ -1,6 +1,6 @@
 package com.messages;
 
-public class RegisterMessage extends MessageHolder{
+public class RegisterMessage extends MessageHolder {
     String login, password;
     int avatar;
 

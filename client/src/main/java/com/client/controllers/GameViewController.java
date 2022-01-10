@@ -20,6 +20,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * Class responsible for controlling the layout of the game and the
+ * functionality.
+ */
 public class GameViewController {
 
     @FXML
@@ -41,13 +45,21 @@ public class GameViewController {
 
     private MouseMoveHandler mmh;
 
+    /**
+     * This method initialize Game View.
+     * Also send to server instane of this controller.
+     * 
+     */
     @FXML
     public void initialize() {
         ClientCore.getInstance().setGameController(this);
-        // setTurnArrow();
 
     }
 
+    /**
+     * @param playerCount  number of players
+     * @param playerNumber number of client number
+     */
     public void startGameView(int playerCount, int playerNumber) {
         this.playerCount = playerCount;
         this.playerNumber = playerNumber;
@@ -58,6 +70,9 @@ public class GameViewController {
 
     }
 
+    /**
+     * Method which send to server information about that player skip round
+     */
     @FXML
     public void skipRound() {
         try {
@@ -66,6 +81,11 @@ public class GameViewController {
         }
     }
 
+    /**
+     * Method which initialize game board in view
+     * 
+     * @return Group - game board
+     */
     public Group gameBoardLoader() {
         try {
             ChineseCheckersBoard board = new ChineseCheckersBoardBuilder().setSize(5).setNumberOfPlayers(playerCount)
@@ -87,6 +107,9 @@ public class GameViewController {
         return group;
     }
 
+    /**
+     * @return MouseMoveHandler - the MouseMoveHandler
+     */
     public MouseMoveHandler getMouseMoveHandler() {
         return mmh;
     }
@@ -152,11 +175,15 @@ public class GameViewController {
         return returnCOLOR;
     }
 
+    /**
+     * Method which inform the players about which player have round.
+     * And disaply this on view
+     */
     public void setTurnArrow() {
         String currntTurPlayer = ClientCore.getInstance().currentPlayer;
         System.out.println("Set arrow on player " + currntTurPlayer);
         System.out.println(ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer));
-        // TODO repair setToY bsc isn'y good
+
         switch (ClientCore.getInstance().getLobbyInfo().getPlayernames().indexOf(currntTurPlayer)) {
             case 0: {
                 TranslateTransition transition = new TranslateTransition();

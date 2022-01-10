@@ -10,14 +10,20 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class ConnectionListener extends Thread {
-    ObjectInputStream in;
-    ObjectOutputStream out;
-    MessageHolder currentMessage;
+    public ObjectInputStream in;
+    public ObjectOutputStream out;
+    public MessageHolder currentMessage;
     public boolean creatingGame = false;
 
     public ConnectionListener(Socket clientSocket) throws Exception {
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new ObjectInputStream(clientSocket.getInputStream());
+    }
+
+    /**
+     * For tests
+     */
+    public ConnectionListener() {
     }
 
     @Override
@@ -41,7 +47,7 @@ public class ConnectionListener extends Thread {
         }
     }
 
-    private void messageHandler(MessageHolder message) {
+    public void messageHandler(MessageHolder message) {
         switch (message.getMessageType()) {
             case "Registered" -> ClientCore.getInstance().getRegisteryController()
                     .accountCreatedSuccesfullyNotification();

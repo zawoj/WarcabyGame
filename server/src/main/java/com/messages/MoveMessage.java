@@ -1,9 +1,9 @@
 package com.messages;
 
-public class MoveMessage extends MessageHolder{
+public class MoveMessage extends MessageHolder {
     int pawnX, pawnY, moveX, moveY;
 
-    public void setAll(int pawnX, int pawnY, int moveX, int moveY){
+    public void setAll(int pawnX, int pawnY, int moveX, int moveY) {
         this.pawnX = pawnX;
         this.pawnY = pawnY;
         this.moveX = moveX;

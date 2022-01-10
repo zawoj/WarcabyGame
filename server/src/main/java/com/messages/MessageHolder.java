@@ -8,10 +8,11 @@ import java.io.Serializable;
 public class MessageHolder implements Serializable {
     private String messageType;
 
-    public void setMessageType(String messageType){
-        this.messageType=messageType;
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
-    public String getMessageType(){
+
+    public String getMessageType() {
         return messageType;
     }
 }

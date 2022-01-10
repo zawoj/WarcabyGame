@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Routes {
-
+    // TODO reapeir loader for more abosule situations
     public static String imageRoute(String imgName) {
         if (imgName == null || imgName.trim().length() == 0) {
             throw new NullPointerException(
