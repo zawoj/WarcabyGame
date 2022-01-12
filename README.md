@@ -63,15 +63,15 @@ _Below is an example of how you can run this game._
    ```
        Directory: YourDisk:\YourPath\server
        
-        Mode                 LastWriteTime         Length Name
-        ----                 -------------         ------ ----
-        d-----        12/11/2021   9:09 PM                .vscode
-        d-----         1/11/2022   9:23 AM                DB
-        d-----        12/11/2021   9:29 PM                src
-        d-----        12/20/2021   9:10 PM                target
-        -a----        12/11/2021   9:08 PM             68 .gitattributes
-        -a----         1/10/2022   2:53 AM           4764 pom.xml
-        -a----        12/11/2021   9:08 PM             32 README.md
+                       LastWriteTime         Length Name
+                       -------------         ------ ----
+                12/11/2021   9:09 PM                .vscode
+                 1/11/2022   9:23 AM                DB
+                12/11/2021   9:29 PM                src
+                12/20/2021   9:10 PM                target
+                12/11/2021   9:08 PM             68 .gitattributes
+                 1/10/2022   2:53 AM           4764 pom.xml
+                12/11/2021   9:08 PM             32 README.md
     ```
     <br>
     Example of client:
@@ -79,14 +79,14 @@ _Below is an example of how you can run this game._
     ``` 
         Directory: YourDisk:\YourPath\client
         
-        Mode                 LastWriteTime         Length Name
-        ----                 -------------         ------ ----
-        d-----        12/11/2021   9:02 PM                .vscode
-        d-----        12/14/2021   3:09 PM                src
-        d-----          1/9/2022  12:30 PM                target
-        -a----        12/11/2021   9:08 PM             68 .gitattributes
-        -a----         1/10/2022   4:44 PM           5758 pom.xml
-        -a----        12/11/2021   9:08 PM             32 README.md
+                       LastWriteTime         Length Name
+                       -------------         ------ ----
+                12/11/2021   9:02 PM                .vscode
+                12/14/2021   3:09 PM                src
+                  1/9/2022  12:30 PM                target
+                12/11/2021   9:08 PM             68 .gitattributes
+                 1/10/2022   4:44 PM           5758 pom.xml
+                12/11/2021   9:08 PM             32 README.md
     ```
    
 3. So when if you are in correct path you can run both by typing in terminal
