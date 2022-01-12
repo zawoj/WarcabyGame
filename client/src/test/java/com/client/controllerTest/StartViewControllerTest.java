@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
-import org.testfx.matcher.base.WindowMatchers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,7 +25,6 @@ public class StartViewControllerTest extends ApplicationTest {
         stage.setScene(new Scene(FXMLLoader.load(Routes.viewsRoute("StartView.fxml"))));
         stage.show();
     }
-
 
     @Test
     void checkExistConnectServerButton() {

@@ -1,7 +1,6 @@
 package com.client.controllerTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,8 +51,7 @@ public class RegisteryControllerTest extends ApplicationTest {
     @Test
     @DisplayName("Checking: Throw exception password length validation")
     void testThrowExceptionPasswordLength() throws StringLengthException {
-        Throwable exception = assertThrows(StringLengthException.class, () -> instance.passwordValidation("123"));
-        assertEquals("Password must be at least 4 characters", exception.getMessage());
+        assertEquals(false, instance.passwordValidation("123"));
     }
 
     @Test
@@ -65,9 +63,7 @@ public class RegisteryControllerTest extends ApplicationTest {
     @Test
     @DisplayName("Checking: Throw exception password length validation")
     void testThrowExceptionPasswordCheckPassword() throws StringSameValidation {
-        Throwable exception = assertThrows(StringSameValidation.class,
-                () -> instance.passwordCheckValidation("12345", "123"));
-        assertEquals("Password are not same", exception.getMessage());
+        assertEquals(false, instance.passwordCheckValidation("12345", "123"));
     }
 
     @Test

@@ -86,7 +86,10 @@
 #ErrorPane,
 #errorRegisteryNewAccount,
 #errorPanePassword,
-#errorPanePasswordValidation {
+#errorPanePasswordValidation,
+#avatarError,
+#errorSomethinkWrong,
+#errorrThisLoginIsToShort {
   -fx-background-color: #d65745;
   -fx-background-radius: 10;
   -fx-effect: dropshadow(three-pass-box, rgba(86, 86, 86, 0.157), 5, 0, 0, 0);

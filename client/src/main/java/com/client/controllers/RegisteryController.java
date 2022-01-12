@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import com.client.ClientCore;
 import com.client.helpers.Routes;
@@ -38,7 +39,8 @@ public class RegisteryController implements Initializable {
     @FXML
     private TextField newLogin, newPassword, checkNewPassword;
     @FXML
-    Pane errorRegisteryNewAccount, errorPanePassword, accountCreatedSuccesfully, errorPanePasswordValidation;
+    Pane errorRegisteryNewAccount, errorPanePassword, accountCreatedSuccesfully, errorPanePasswordValidation,
+            avatarError, errorSomethinkWrong, errorrThisLoginIsToShort;
     @FXML
     private ComboBox<String> avatarChoiceBox;
     @FXML
@@ -65,50 +67,48 @@ public class RegisteryController implements Initializable {
         ClientCore.getInstance().setRegisteryController(this);
     }
 
+    private boolean allCorect = false;
+
     /**
      * Method which controlling registration of new users.
      * Checking if user is already registered
      * Checking if possword is enough length and checkNewPassword
+     * Checking if user login length is enough
+     * Checking if user choose any avatar
+     * TimeUnit is needed to wait for server respond
      * 
      * @param e users actionEvent
+     * @throws Exception
+     * @throws StringSameValidation
+     * @throws NumberFormatException
      */
     @FXML
-    private void CreateAccountButtonController(ActionEvent e) {
-        try {
-            if (e.getSource() == buttonCreateAccount) {
+    private void CreateAccountButtonController(ActionEvent e)
+            throws NumberFormatException, StringSameValidation, Exception {
 
+        if (e.getSource() == buttonCreateAccount) {
+            if (loginValidation(newLogin.getText().toString())) {
                 if (passwordValidation(newPassword.getText())) {
                     if (passwordCheckValidation(newPassword.getText().toString(),
                             checkNewPassword.getText().toString())) {
-                        ClientCore.getInstance().reqCreateNewAccount(newLogin.getText(), newPassword.getText(),
-                                Integer.parseInt(avatarChoiceBox.getValue().split(" ")[1]));
-
-                        newLogin.setText("");
-                        newPassword.setText("");
-                        checkNewPassword.setText("");
-                        avatarChoiceBox.setValue("Choose avatar");
-                    } else {
-                        TranslateTransition transition = new TranslateTransition();
-                        transition.setNode(errorPanePassword);
-                        transition.setToX(-300);
-                        transition.play();
+                        if (avatatValidation(avatarChoiceBox.getValue())) {
+                            ClientCore.getInstance().reqCreateNewAccount(newLogin.getText(), newPassword.getText(),
+                                    Integer.parseInt(avatarChoiceBox.getValue().split(" ")[1]));
+                            TimeUnit.MILLISECONDS.sleep(20);
+                            if (getAllCorrect()) {
+                                cleanForm();
+                            }
+                        }
                     }
-                } else {
-                    TranslateTransition transition = new TranslateTransition();
-                    transition.setNode(errorPanePasswordValidation);
-                    transition.setToX(-300);
-                    transition.play();
                 }
-
             }
 
             if (e.getSource() == btnBack) {
                 LoadLoingLauncher();
             }
 
-        } catch (Exception er) {
-            errorNotification();
         }
+
     }
 
     /**
@@ -157,9 +157,49 @@ public class RegisteryController implements Initializable {
      * @param e users actionEvent
      */
     @FXML
+    private void errorLoginValidation(ActionEvent e) {
+        TranslateTransition transition = new TranslateTransition();
+        accountCreatedSuccesfully.setVisible(false);
+        transition.setNode(errorrThisLoginIsToShort);
+        transition.setToX(0);
+        transition.play();
+    }
+
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
+    @FXML
     private void errorPasswordValidtionButtonController(ActionEvent e) {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(errorPanePasswordValidation);
+        transition.setToX(0);
+        transition.play();
+    }
+
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
+    @FXML
+    private void errorSomethinkWrongButton(ActionEvent e) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(errorSomethinkWrong);
+        transition.setToX(0);
+        transition.play();
+    }
+
+    /**
+     * Method to close the error pane
+     * 
+     * @param e users actionEvent
+     */
+    @FXML
+    private void errorAvaratValidtionButtonController(ActionEvent e) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(avatarError);
         transition.setToX(0);
         transition.play();
     }
@@ -190,7 +230,9 @@ public class RegisteryController implements Initializable {
     }
 
     /**
-     * Method is invokes when account is creat succesfully
+     * Method is invokes when account is creat succesfully, and clean the form
+     * 
+     * 
      */
     public void accountCreatedSuccesfullyNotification() {
         TranslateTransition transition = new TranslateTransition();
@@ -198,15 +240,39 @@ public class RegisteryController implements Initializable {
         transition.setNode(accountCreatedSuccesfully);
         transition.setToX(-300);
         transition.play();
+
     }
 
     /**
-     * Method which invokes when any error
+     * Method clean the form
+     * 
+     * 
+     */
+    private void cleanForm() {
+        newLogin.setText("");
+        newPassword.setText("");
+        checkNewPassword.setText("");
+        avatarChoiceBox.setValue("Choose avatar");
+    }
+
+    /**
+     * Method which invokes when login is taken
      */
     public void errorNotification() {
         TranslateTransition transition = new TranslateTransition();
         accountCreatedSuccesfully.setVisible(true);
         transition.setNode(errorRegisteryNewAccount);
+        transition.setToX(-300);
+        transition.play();
+    }
+
+    /**
+     * Method which invokes when any error
+     */
+    public void errorSomethinkWrong() {
+        TranslateTransition transition = new TranslateTransition();
+        accountCreatedSuccesfully.setVisible(true);
+        transition.setNode(errorSomethinkWrong);
         transition.setToX(-300);
         transition.play();
     }
@@ -226,6 +292,8 @@ public class RegisteryController implements Initializable {
     }
 
     /**
+     * Method also invokes the error informationS
+     * 
      * @param password users new password
      * @return Boolean true when password is longer than 4
      * @throws StringLengthException throws if password is length isn't 4 length at
@@ -235,11 +303,17 @@ public class RegisteryController implements Initializable {
         if (password.length() > 4) {
             return true;
         } else {
-            throw new StringLengthException("Password must be at least 4 characters");
+            TranslateTransition transition = new TranslateTransition();
+            transition.setNode(errorPanePasswordValidation);
+            transition.setToX(-300);
+            transition.play();
+            return false;
         }
     }
 
     /**
+     * Method also invokes the error information
+     * 
      * @param password      users new password
      * @param checkPassword users new password check
      * @return boolean true when passwords is same
@@ -249,8 +323,65 @@ public class RegisteryController implements Initializable {
         if (password.equals(checkPassword)) {
             return true;
         } else {
-            throw new StringSameValidation("Password are not same");
+            TranslateTransition transition = new TranslateTransition();
+            transition.setNode(errorPanePassword);
+            transition.setToX(-300);
+            transition.play();
+            return false;
         }
+    }
+
+    /**
+     * Method also invokes the error information
+     * 
+     * @param string name of the avatar
+     * @return boolean true when avatar is choosen
+     */
+    private boolean avatatValidation(String string) {
+        if (string != "Choose avatar") {
+            return true;
+        } else {
+            TranslateTransition transition = new TranslateTransition();
+            transition.setNode(avatarError);
+            transition.setToX(-300);
+            transition.play();
+            return false;
+        }
+    }
+
+    /**
+     * Method also invokes the error information
+     * 
+     * @param string name of the lgoin
+     * @return boolean true when password is longer than zero length
+     */
+    private boolean loginValidation(String string) {
+
+        if (string.length() > 0) {
+            return true;
+        } else {
+            TranslateTransition transition = new TranslateTransition();
+            transition.setNode(errorrThisLoginIsToShort);
+            transition.setToX(-300);
+            transition.play();
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * Setter for that is user created succesfully or not
+     */
+    public void setAllCorrect(boolean userIsCreated) {
+        allCorect = userIsCreated;
+    }
+
+    /**
+     * 
+     * Getter for that is user created succesfully or not
+     */
+    private boolean getAllCorrect() {
+        return allCorect;
     }
 
 }

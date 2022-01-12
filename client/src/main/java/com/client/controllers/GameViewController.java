@@ -135,7 +135,7 @@ public class GameViewController {
             }
         } catch (Exception ignored) {
         }
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             String bip = null;
             try {
                 bip = Routes.styleRoute("song.mp3");
@@ -145,10 +145,11 @@ public class GameViewController {
             Media hit = new Media(bip);
             musik = new MediaPlayer(hit);
             musik.play();
-            musik.setOnEndOfMedia(()->{
+            musik.setOnEndOfMedia(() -> {
                 musik.seek(Duration.ZERO);
                 musik.play();
             });
+            musik.setVolume(0.2);
         });
         return group;
     }

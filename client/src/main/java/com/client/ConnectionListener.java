@@ -4,12 +4,11 @@ import com.client.controllers.GameViewController;
 import com.client.helpers.Routes;
 import com.messages.*;
 
-import java.io.File;
-
 import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -71,12 +70,19 @@ public class ConnectionListener extends Thread {
      * 
      * @param message message from server
      * @throws MalformedURLException
+     * @throws FileNotFoundException
      */
     public void messageHandler(MessageHolder message) throws MalformedURLException {
         switch (message.getMessageType()) {
-            case "Registered" -> ClientCore.getInstance().getRegisteryController()
-                    .accountCreatedSuccesfullyNotification();
-            case "Register failed" -> ClientCore.getInstance().getRegisteryController().errorNotification();
+            case "Registered" -> {
+                ClientCore.getInstance().getRegisteryController()
+                        .accountCreatedSuccesfullyNotification();
+                ClientCore.getInstance().getRegisteryController().setAllCorrect(true);
+            }
+            case "Register failed" -> {
+                ClientCore.getInstance().getRegisteryController().errorNotification();
+                ClientCore.getInstance().getRegisteryController().setAllCorrect(false);
+            }
             case "Logged in" -> {
                 RegisterMessage rm = (RegisterMessage) message;
                 ClientCore.getInstance().setLogin(rm.getLogin());
@@ -89,7 +95,8 @@ public class ConnectionListener extends Thread {
                 ClientCore.getInstance().setLobbyInfo(lm);
                 ClientCore.getInstance().getDashboardController().LoadLobby();
                 GameViewController x = ClientCore.getInstance().getGameController();
-                if(x!=null) x.musik.stop();
+                if (x != null)
+                    x.musik.stop();
             }
             case "lobby list info" -> {
                 LobbyListMessage llm = (LobbyListMessage) message;
@@ -114,17 +121,6 @@ public class ConnectionListener extends Thread {
                 joinLobbyMessage jlm = (joinLobbyMessage) message;
                 if (Objects.equals(jlm.getHostName(), ClientCore.getInstance().getLogin())) {
                     ClientCore.getInstance().myTurn = true;
-                    Platform.runLater(()->{
-                        String bip = null;
-                        try {
-                            bip = Routes.styleRoute("mixkit-falling-male-scream-391.wav");
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
-                        Media hit = new Media(bip);
-                        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                        mediaPlayer.play();
-                    });
 
                 }
                 ClientCore.getInstance().currentPlayer = jlm.getHostName();
