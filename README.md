@@ -15,7 +15,7 @@
 This is a project created with heart by Vipo and Zawoj. It is a game created for classes. <br>
 
 The goal was to master:
-- creating a server-client connection based on sokets
+- creating a server-client connection based on sockets
 - implementing Chinese checkers gameplay
 - creating unit tests
 - teamwork
