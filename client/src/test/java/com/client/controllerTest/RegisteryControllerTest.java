@@ -72,7 +72,6 @@ public class RegisteryControllerTest extends ApplicationTest {
         clickOn("#newPassword").write("12345");
         clickOn("#checkNewPassword").write("12345");
         clickOn("#avatarChoiceBox").clickOn("Avatar 4");
-        clickOn("#buttonCreateAccount");
         verifyThat("#accountCreatedSuccesfully", isVisible());
 
     }
