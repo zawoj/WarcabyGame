@@ -1,12 +1,7 @@
 package com.client;
 
 import com.client.controllers.GameViewController;
-import com.client.helpers.Routes;
 import com.messages.*;
-
-import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

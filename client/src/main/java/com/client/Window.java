@@ -1,6 +1,9 @@
 package com.client;
 
 import com.client.helpers.Routes;
+import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.dependency.JavaScript;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +13,13 @@ import javafx.scene.image.Image;
 
 import javafx.stage.Stage;
 
+@Route
+@JavaScript("frontend://index.js")
 public class Window extends Application {
 
     public void createWindow() {
         launch();
+
     }
 
     /**
