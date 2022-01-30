@@ -299,6 +299,7 @@ public class ClientCore {
         mh.setMessageType("exit lobby");
         mh.setHostName(lobbyInfo.getPlayernames().get(0));
         conlis.getOut().writeObject(mh);
+        myTurn = false;
     }
 
     /**

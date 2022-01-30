@@ -8,8 +8,11 @@ import java.io.IOException;
 /**
  * class that manages the player database
  */
+
+
 public class DataBaseManager {
     public UserDataBase dataBase;
+
 
     /**
      * creates manager and loads database
@@ -80,4 +83,5 @@ public class DataBaseManager {
     public void changeAvatar(String login, int newAvatar) {
         dataBase.changeAvatar(login, newAvatar);
     }
+
 }

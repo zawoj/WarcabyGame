@@ -59,8 +59,7 @@ public class ConnectionListener extends Thread {
         try {
             out.close();
             in.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
