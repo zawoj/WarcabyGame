@@ -77,6 +77,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="gameHistory" layoutX="1056.0" layoutY="246.0" mnemonicParsing="false" onAction="#gameHistoryAction" prefHeight="27.0" prefWidth="86.0" text="Games History" />
+      <Button fx:id="gameHistory" layoutX="1034.0" layoutY="245.0" mnemonicParsing="false" onAction="#gameHistoryAction" prefHeight="27.0" prefWidth="129.0" text="Games History" />
    </children>
 </Pane>

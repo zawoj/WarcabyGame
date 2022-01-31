@@ -15,7 +15,7 @@
             <Image url="@../img/LOGO.png" />
          </image>
       </ImageView>
-      <Button fx:id="backToDashboard" layoutX="584.0" layoutY="212.0" mnemonicParsing="false" onAction="#backToDashboardAction" prefHeight="34.0" prefWidth="129.0" text="Back to dashboard" />
+      <Button fx:id="backToDashboard" layoutX="548.0" layoutY="204.0" mnemonicParsing="false" onAction="#backToDashboardAction" prefHeight="34.0" prefWidth="206.0" text="Back to dashboard" />
       <Pane fx:id="paginationPane" layoutX="549.0" layoutY="695.0" prefHeight="34.0" prefWidth="200.0">
          <children>
             <Button fx:id="paginationButtonPrev" layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#loadPrev">
@@ -39,6 +39,6 @@
             <Text fx:id="paginationPosition" layoutX="115.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 of 5" />
          </children>
       </Pane>
-      <VBox fx:id="GamesCardsPane" layoutX="489.0" layoutY="405.0" prefHeight="290.0" prefWidth="300.0" />
+      <VBox fx:id="GamesCardsPane" layoutX="492.0" layoutY="294.0" prefHeight="290.0" prefWidth="300.0" />
    </children>
 </Pane>

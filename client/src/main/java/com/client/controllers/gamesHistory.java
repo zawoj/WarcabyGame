@@ -47,28 +47,22 @@ public class gamesHistory {
         logins.add("Vipo");
         List<Integer> moveX = new ArrayList<>();
         moveX.add(10);
-        moveX.add(8);
-        moveX.add(7);
-        moveX.add(9);
-        moveX.add(8);
         moveX.add(10);
-        moveX.add(12);
         moveX.add(11);
-        moveX.add(9);
-        moveX.add(10);
-        moveX.add(9);
+        moveX.add(11);
+        moveX.add(12);
+        moveX.add(12);
+        moveX.add(13);
+
         List<Integer> moveY = new ArrayList<>();
-        moveY.add(4);
         moveY.add(12);
-        moveY.add(5);
-        moveY.add(11);
         moveY.add(4);
+        moveY.add(11);
+        moveY.add(5);
         moveY.add(10);
         moveY.add(6);
         moveY.add(9);
-        moveY.add(7);
-        moveY.add(8);
-        moveY.add(9);
+
         List<Integer> pawnX = new ArrayList<>();
         pawnX.add(9);
         pawnX.add(9);
@@ -76,24 +70,18 @@ public class gamesHistory {
         pawnX.add(10);
         pawnX.add(11);
         pawnX.add(11);
-        pawnX.add(9);
-        pawnX.add(10);
-        pawnX.add(8);
-        pawnX.add(9);
-        pawnX.add(7);
+        pawnX.add(12);
+
         List<Integer> pawnY = new ArrayList<>();
-        pawnY.add(3);
         pawnY.add(13);
-        pawnY.add(4);
-        pawnY.add(12);
         pawnY.add(3);
+        pawnY.add(12);
+        pawnY.add(4);
         pawnY.add(11);
         pawnY.add(5);
         pawnY.add(10);
-        pawnY.add(6);
-        pawnY.add(9);
-        pawnY.add(7);
-        long id = 1;
+
+        long id = 2;
         historyLinkedList.add(new gameHistory(logins, moveX, moveY, pawnX, pawnY, id));
 
     }
@@ -168,6 +156,10 @@ public class gamesHistory {
 
         HBox gameCardHBox = new HBox();
         gameCardHBox.setId("gameCardHBox");
+        System.out.println(moveY);
+        System.out.println(moveX);
+        System.out.println(pawnX);
+        System.out.println(pawnY);
 
         Button playButton = new Button();
 

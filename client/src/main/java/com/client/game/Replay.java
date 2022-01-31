@@ -4,7 +4,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Replay {
@@ -50,18 +49,26 @@ public class Replay {
         stage.setScene(scene);
         stage.setTitle("Game between: " + bob);
         stage.show();
+        System.out.println(pawnX.size());
+        System.out.println(pawnX.size() - 1);
+        System.out.println(pawnX.get(3));
+
         scene.setOnKeyPressed((keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
                 if (currentMove != pawnX.size() - 1) {
+                    System.out.println(currentMove);
+
                     try {
                         adapter.move(pawnX.get(currentMove), pawnY.get(currentMove), moveX.get(currentMove),
                                 moveY.get(currentMove));
                         currentMove++;
-                    } catch (Exception ignored) {
+                    } catch (Exception err) {
+                        System.out.println(err);
                     }
                 }
             } else if (keyEvent.getCode().equals(KeyCode.LEFT)) {
                 if (currentMove != 0) {
+                    System.out.println(currentMove);
                     try {
                         currentMove--;
                         adapter.move(moveX.get(currentMove), moveY.get(currentMove), pawnX.get(currentMove),
