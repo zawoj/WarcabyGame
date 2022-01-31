@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameHistory implements Serializable {
-    public List<String> logins = new ArrayList<>();
-    public List<Integer> moveX = new ArrayList<>();
-    public List<Integer> moveY = new ArrayList<>();
-    public List<Integer> pawnX = new ArrayList<>();
-    public List<Integer> pawnY = new ArrayList<>();
+public class History implements Serializable {
+    public ArrayList<String> logins = new ArrayList<>();
+    public ArrayList<Integer> moveX = new ArrayList<>();
+    public ArrayList<Integer> moveY = new ArrayList<>();
+    public ArrayList<Integer> pawnX = new ArrayList<>();
+    public ArrayList<Integer> pawnY = new ArrayList<>();
     private long id;
 
-    public gameHistory(List<String> logins, List<Integer> moveX, List<Integer> moveY, List<Integer> pawnX,
-            List<Integer> pawnY, long id) {
+    public History(ArrayList<String> logins, ArrayList<Integer> moveX, ArrayList<Integer> moveY, ArrayList<Integer> pawnX,
+                   ArrayList<Integer> pawnY, long id) {
         this.logins = logins;
         this.moveX = moveX;
         this.moveY = moveY;

@@ -25,7 +25,6 @@ public class ServerCore {
     private final LinkedList<Lobby> serverLobbys;
     public boolean isRunning;
     private DataBaseManager dataBaseManager;
-    @Autowired
     public GameHistoryRepository gameHistoryRepository;
 
     /**
@@ -158,7 +157,7 @@ public class ServerCore {
             }
             terminalController.append("id: " + games.get(i).getId() + " between: " + bob);
         }
-        terminalController.append("end of games");
+        terminalController.append("---------");
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.List;
 import com.client.ClientCore;
 import com.client.game.Replay;
 import com.client.helpers.Routes;
-import com.messages.gameHistory;
+import com.messages.History;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -34,56 +34,14 @@ public class gamesHistory {
     @FXML
     VBox GamesCardsPane;
 
-    public LinkedList<gameHistory> historyLinkedList = new LinkedList<>();
     private Integer paginationIndex = 0;
     private static Stage stage;
     private static Parent root;
 
     @FXML
     public void initialize() throws IOException {
-        gamesHistoryList();
-        List<String> logins = new ArrayList<>();
-        logins.add("Zawoj");
-        logins.add("Vipo");
-        List<Integer> moveX = new ArrayList<>();
-        moveX.add(10);
-        moveX.add(10);
-        moveX.add(11);
-        moveX.add(11);
-        moveX.add(12);
-        moveX.add(12);
-        moveX.add(13);
-
-        List<Integer> moveY = new ArrayList<>();
-        moveY.add(12);
-        moveY.add(4);
-        moveY.add(11);
-        moveY.add(5);
-        moveY.add(10);
-        moveY.add(6);
-        moveY.add(9);
-
-        List<Integer> pawnX = new ArrayList<>();
-        pawnX.add(9);
-        pawnX.add(9);
-        pawnX.add(10);
-        pawnX.add(10);
-        pawnX.add(11);
-        pawnX.add(11);
-        pawnX.add(12);
-
-        List<Integer> pawnY = new ArrayList<>();
-        pawnY.add(13);
-        pawnY.add(3);
-        pawnY.add(12);
-        pawnY.add(4);
-        pawnY.add(11);
-        pawnY.add(5);
-        pawnY.add(10);
-
-        long id = 2;
-        historyLinkedList.add(new gameHistory(logins, moveX, moveY, pawnX, pawnY, id));
-
+       ClientCore.getInstance().gamesHistoryController = this;
+       ClientCore.getInstance().getHistory();
     }
 
     @FXML
@@ -113,13 +71,14 @@ public class gamesHistory {
     }
 
     public void gamesHistoryList() {
+        System.out.println("gameHistoryList");
         // Send link list off lobbys init dasboard
         initGamesHistory();
         // Control when pagination button schuld be active
-        if (historyLinkedList.size() < 5) {
+        if (ClientCore.getInstance().gameHistory.size() < 5) {
             paginationButtonNext.setDisable(true);
             paginationButtonPrev.setDisable(true);
-        } else if (paginationIndex == ((int) Math.ceil(historyLinkedList.size() / 5))) {
+        } else if (paginationIndex == ((int) Math.ceil(ClientCore.getInstance().gameHistory.size() / 5))) {
             paginationButtonNext.setDisable(true);
             paginationButtonPrev.setDisable(false);
         } else if (paginationIndex == 0) {
@@ -137,13 +96,13 @@ public class gamesHistory {
             public void run() {
                 GamesCardsPane.getChildren().clear();
                 for (int i = 0; i < 5; i++) {
-                    if (i + (paginationIndex * 5) < historyLinkedList.size()) {
+                    if (i + (paginationIndex * 5) < ClientCore.getInstance().gameHistory.size()) {
                         GamesCardsPane.getChildren().add(i,
-                                gameHistoryCardCreator(historyLinkedList.get(i + (paginationIndex * 5)).getLogins(),
-                                        historyLinkedList.get(i + (paginationIndex * 5)).getMoveX(),
-                                        historyLinkedList.get(i + (paginationIndex * 5)).getMoveY(),
-                                        historyLinkedList.get(i + (paginationIndex * 5)).getPawnX(),
-                                        historyLinkedList.get(i + (paginationIndex * 5)).getpawnY()));
+                                gameHistoryCardCreator(ClientCore.getInstance().gameHistory.get(i + (paginationIndex * 5)).getLogins(),
+                                        ClientCore.getInstance().gameHistory.get(i + (paginationIndex * 5)).getMoveX(),
+                                        ClientCore.getInstance().gameHistory.get(i + (paginationIndex * 5)).getMoveY(),
+                                        ClientCore.getInstance().gameHistory.get(i + (paginationIndex * 5)).getPawnX(),
+                                        ClientCore.getInstance().gameHistory.get(i + (paginationIndex * 5)).getpawnY()));
                     }
                 }
             }

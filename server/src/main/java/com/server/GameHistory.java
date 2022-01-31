@@ -1,17 +1,12 @@
 package com.server;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.messages.History;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class GameHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,6 +48,11 @@ public class GameHistory {
 
     public List<Integer> getPawnY() {
         return this.pawnY;
+    }
+
+    public History pack(){
+        return new History(new ArrayList<>(logins), new ArrayList<>(moveX), new ArrayList<>(moveY),
+                new ArrayList<>(pawnX), new ArrayList<>(pawnY), id);
     }
 
 }

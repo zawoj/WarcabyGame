@@ -5,6 +5,8 @@ import com.messages.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for connection with one client
@@ -100,6 +102,7 @@ public class UserCommunicationThread extends Thread {
             case "skip turn" -> skipTurn();
             case "change name" -> changeLobbyName(message);
             case "ready" -> ready();
+            case "get game history" -> getGameHistory();
         }
     }
 
@@ -190,5 +193,20 @@ public class UserCommunicationThread extends Thread {
     private void ready() {
         if (myLobby != null)
             myLobby.game.ready();
+    }
+    private void getGameHistory() {
+        List<GameHistory> primarylist = ServerCore.getInstance().gameHistoryRepository.findAll();
+        List<History> sendablelist = new ArrayList<>();
+        primarylist.forEach(e -> sendablelist.add(e.pack()));
+        GameHistoryMessage ghm = new GameHistoryMessage();
+        ghm.setMessageType("game history");
+        ghm.setList(sendablelist);
+        System.out.println("gameHistory");
+        try {
+            out.writeObject(ghm);
+            System.out.println("sent");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -45,6 +45,7 @@ public class ConnectionListener extends Thread {
         while (true) {
             try {
                 currentMessage = (MessageHolder) in.readObject();
+                System.out.println(currentMessage.getMessageType());
                 messageHandler(currentMessage);
             } catch (Exception exception) {
                 break;
@@ -130,6 +131,12 @@ public class ConnectionListener extends Thread {
                 MoveMessage mm = (MoveMessage) message;
                 ClientCore.getInstance().getGameController().getMouseMoveHandler().executeMove(mm.getPawnX(),
                         mm.getPawnY(), mm.getMoveX(), mm.getMoveY());
+            }
+            case "game history" -> {
+                System.out.println("game history");
+                GameHistoryMessage ghm = (GameHistoryMessage) message;
+                ClientCore.getInstance().gameHistory = ghm.getList();
+                ClientCore.getInstance().gamesHistoryController.gamesHistoryList();
             }
         }
     }
