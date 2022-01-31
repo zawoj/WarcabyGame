@@ -1,6 +1,5 @@
 package com.server;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +27,32 @@ public class GameHistory {
     @ElementCollection
     private List<Integer> pawnY = new ArrayList<>();
 
+    public void setLogins(ArrayList<String> logins) {
+        this.logins = logins;
+    }
+
+    public List<String> getLogins() {
+        return this.logins;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public List<Integer> getMoveX() {
+        return this.moveX;
+    }
+
+    public List<Integer> getMoveY() {
+        return this.moveY;
+    }
+
+    public List<Integer> getPawnX() {
+        return this.pawnX;
+    }
+
+    public List<Integer> getPawnY() {
+        return this.pawnY;
+    }
 
 }
