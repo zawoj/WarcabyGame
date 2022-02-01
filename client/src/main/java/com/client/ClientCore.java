@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * class being the core of the client.
@@ -26,6 +27,8 @@ public class ClientCore {
     public String currentPlayer;
     public Stage programStage;
     public boolean myTurn = false;
+    public List<History> gameHistory;
+    public gamesHistory gamesHistoryController;
 
     /**
      * Singletion
@@ -299,6 +302,7 @@ public class ClientCore {
         mh.setMessageType("exit lobby");
         mh.setHostName(lobbyInfo.getPlayernames().get(0));
         conlis.getOut().writeObject(mh);
+        myTurn = false;
     }
 
     /**
@@ -387,5 +391,13 @@ public class ClientCore {
             conlis.getOut().writeObject(mh);
         } catch (IOException ignored) {
         }
+    }
+
+    public void getHistory(){
+        try{
+            MessageHolder mh = new MessageHolder();
+            mh.setMessageType("get game history");
+            conlis.out.writeObject(mh);
+        }catch(Exception ignored){}
     }
 }

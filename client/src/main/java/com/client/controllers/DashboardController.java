@@ -34,7 +34,7 @@ public class DashboardController {
     @FXML
     private ImageView avatarImage;
     @FXML
-    Button createGameButton, logoutButtin, paginationButtonNext, paginationButtonPrev;
+    Button createGameButton, logoutButtin, paginationButtonNext, paginationButtonPrev, gameHistory;
     @FXML
     VBox GamesCardsPane;
     @FXML
@@ -104,6 +104,20 @@ public class DashboardController {
         stage = (Stage) logoutButtin.getScene().getWindow();
         root = FXMLLoader.load(Routes.viewsRoute("loginIntoLauncher.fxml"));
         Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(Routes.styleRoute("app.css"));
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void gameHistoryAction() throws IOException {
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) logoutButtin.getScene().getWindow();
+        root = FXMLLoader.load(Routes.viewsRoute("GamesHistory.fxml"));
+        Scene scene = new Scene(root, 1200, 800);
         scene.getStylesheets().add(Routes.styleRoute("app.css"));
 
         stage.setScene(scene);
@@ -217,7 +231,6 @@ public class DashboardController {
      * @return gameCardHBox new game cards list
      */
     // Create new card gamer
-    // TODO better styles
     public Pane gameCardCreator(String gameName, Integer playersInLobby, String hostName) {
 
         HBox gameCardHBox = new HBox();

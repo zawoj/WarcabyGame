@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import com.server.ServerCore;
@@ -22,6 +23,9 @@ public class TerminalController implements Initializable {
     @FXML
     public TextField TerminalField;
 
+    LinkedList<String> history = new LinkedList<>();
+    int historyindex = -1;
+
     /**
      * function that checks if the typed key is ENTER, if it is it passes the typed
      * function to ServerCore
@@ -32,7 +36,24 @@ public class TerminalController implements Initializable {
         if (e.getCode() == KeyCode.ENTER) {
             TerminalText.setText(TerminalText.getText() + "\n>" + TerminalField.getText());
             ServerCore.getInstance().command(TerminalField.getText());
+            history.addFirst(TerminalField.getText());
+            historyindex = -1;
             TerminalField.setText("");
+        }else if(e.getCode()==KeyCode.UP){
+            if(historyindex<history.size()-1){
+                historyindex++;
+                TerminalField.setText(history.get(historyindex));
+            }
+
+        }else if(e.getCode()==KeyCode.DOWN){
+            if(historyindex>-1){
+                historyindex--;
+                if(historyindex==-1){
+                    TerminalField.setText("");
+                }else {
+                    TerminalField.setText(history.get(historyindex));
+                }
+            }
         }
     }
 

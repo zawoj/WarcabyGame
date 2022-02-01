@@ -56,6 +56,10 @@ public class Lobby {
                 host = players.get(0).userData.getLogin();
             }
         }
+        if(game!=null){
+            game.endGame();
+            game = null;
+        }
 
         sendLobbyInfo();
     }

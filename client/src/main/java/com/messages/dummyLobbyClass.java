@@ -24,4 +24,3 @@ public class dummyLobbyClass implements Serializable {
         return this.playersInLobby;
     }
 }
-

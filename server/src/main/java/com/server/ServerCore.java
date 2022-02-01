@@ -3,10 +3,15 @@ package com.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.controllers.TerminalController;
 import com.messages.dummyLobbyClass;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.transaction.Transactional;
 
 /**
  * class being the core of the server.
@@ -20,6 +25,7 @@ public class ServerCore {
     private final LinkedList<Lobby> serverLobbys;
     public boolean isRunning;
     private DataBaseManager dataBaseManager;
+    public GameHistoryRepository gameHistoryRepository;
 
     /**
      * creates new server core
@@ -85,6 +91,7 @@ public class ServerCore {
      * 
      * @param command typed command
      */
+
     public void command(String command) {
         String[] splitCommand = command.split(" ");
         if (splitCommand.length == 0)
@@ -103,8 +110,54 @@ public class ServerCore {
                 }
             }
             case "close" -> close(true);
+            case "gamecount" -> terminalController.append("number: " + gameHistoryRepository.count());
+            case "listgames" -> listGames();
+            case "showgame" -> {
+                if (splitCommand.length < 2) {
+                    terminalController.append("please pass game id");
+                } else {
+                    showGame(splitCommand[1]);
+                }
+            }
             default -> terminalController.append("unknown command: " + splitCommand[0]);
         }
+    }
+
+    private void showGame(String arg) {
+        try {
+            long id = Long.parseLong(arg);
+            Optional<GameHistory> game = gameHistoryRepository.findById(id);
+            if (game.isEmpty()) {
+                terminalController.append("could not find a game with given id");
+                return;
+            }
+            new Replay(game.get().getLogins(), game.get().getMoveX(), game.get().getMoveY(), game.get().getPawnX(),
+                    game.get().getPawnY());
+            // StringBuilder bob = new StringBuilder();
+            // for(String s: game.get().getLogins()){
+            // bob.append(s).append(" | ");
+            // }
+            // terminalController.append("game between:"+bob);
+            // for(int i = 0; i<game.get().getMoveX().size(); i++){
+            // terminalController.append(game.get().getPawnX().get(i) + ","
+            // +game.get().getPawnY().get(i) + " -> " + game.get().getMoveX().get(i) + ","
+            // +game.get().getMoveY().get(i));
+            // }
+        } catch (NumberFormatException ex) {
+            terminalController.append("wrong id");
+        }
+    }
+
+    private void listGames() {
+        List<GameHistory> games = gameHistoryRepository.findAll();
+        for (int i = 0; i < gameHistoryRepository.count(); i++) {
+            StringBuilder bob = new StringBuilder();
+            for (String s : games.get(i).getLogins()) {
+                bob.append(s).append(" | ");
+            }
+            terminalController.append("id: " + games.get(i).getId() + " between: " + bob);
+        }
+        terminalController.append("---------");
     }
 
     /**
@@ -133,7 +186,7 @@ public class ServerCore {
     public void close(boolean write) {
         try {
             dataBaseManager.saveDB();
-            if(serverSocket == null){
+            if (serverSocket == null) {
                 isRunning = false;
                 return;
             }
@@ -191,5 +244,11 @@ public class ServerCore {
             info.add(i, new dummyLobbyClass(lobby.getName(), lobby.getNumberOfPlayers(), lobby.getHost()));
         }
         return info;
+    }
+
+    @Transactional
+    public void saveGame(GameHistory gameHistory) {
+        System.out.println("Saving Game...");
+        gameHistoryRepository.save(gameHistory);
     }
 }

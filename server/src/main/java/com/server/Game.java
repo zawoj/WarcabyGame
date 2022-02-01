@@ -5,6 +5,7 @@ import com.board.ChineseCheckersBoardBuilder;
 import com.messages.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public class Game {
     int[] playerNumbers;
     int currentPlayer;
     boolean[] won;
+    GameHistory history;
 
     /**
      * creates the game
@@ -28,6 +30,10 @@ public class Game {
     public Game(Lobby lobby, int playerCount) throws Exception {
         this.lobby = lobby;
         this.playerCount = playerCount;
+        history = new GameHistory();
+        ArrayList<String> logins = new ArrayList<>();
+        lobby.getPlayers().forEach((e)->logins.add(e.userData.getLogin()));
+        history.setLogins(logins);
         readyPlayers = 0;
         won = new boolean[playerCount];
         Arrays.fill(won, false);
@@ -86,6 +92,10 @@ public class Game {
     public void move(int pawnX, int pawnY, int moveX, int moveY) {
         try {
             board.move(pawnX, pawnY, moveX, moveY);
+            history.getMoveX().add(moveX);
+            history.getMoveY().add(moveY);
+            history.getPawnX().add(pawnX);
+            history.getPawnY().add(pawnY);
             deliverMove(pawnX, pawnY, moveX, moveY);
             boolean[] end = board.checkIfGameEnded(); // sprawdzałem działa
             boolean gameEnd = true;
@@ -110,6 +120,7 @@ public class Game {
      * ends game
      */
     public void endGame() {
+        ServerCore.getInstance().saveGame(history);
         lobby.sendLobbyInfo();
     }
 
